@@ -10,7 +10,7 @@
   <a href="https://github.com/Scottywonderful/SWL-Callouts">
     <img src="Logos/SWLCO.png" alt="Logo" width="128" height="128">
   </a>
-<h3 align="center">SWL-Callouts (Build A0.1.1)</h3>
+<h3 align="center">SWL-Callouts (Build A0.1.2)</h3>
   <p align="center">SWL-Callouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
     <br />
     <br />
@@ -203,6 +203,6 @@ I would like to thank the following people for their help, ideas and contributio
 * ![natey1.](https://dcbadge.vercel.app/api/shield/651319300166254592?style=flat-square&?compact=true&?logoColor=blue) (Alpha and Beta testing for me :neutral_face:)<br> -->
 <br>
 
-* Last but not least, @Scottywonderful (Yes, myself, because I made this mostly from scratch and did my own ideas in it as well :cowboy_hat_face:)<br>
-![Scottywonderful](https://dcbadge.vercel.app/api/shield/291193188956241921?style=flat-square&?compact=true&?logoColor=purple)
-![Discord Banner 4](https://discordapp.com/api/guilds/291193721196904448/widget.png?style=banner4)
+* Last but not least, <b><a href="https://discord.com/users/291193188956241921">Scottywonderful</a></b> (Yes, myself, because I made this mostly from scratch and did my own ideas in it as well :cowboy_hat_face:)<br>
+<!--![Scottywonderful](https://dcbadge.vercel.app/api/shield/291193188956241921?style=flat-square&?compact=true&?logoColor=purple)<br>-->
+Need any support then please join [![](https://img.shields.io/discord/291193721196904448?color=purple&logo=Discord&style=flat-square)](https://discord.gg/invite/XbjWkt7)<br>
