@@ -10,7 +10,7 @@
   <a href="https://github.com/Scottywonderful/SWL-Callouts">
     <img src="Logos/SWLCO.png" alt="Logo" width="128" height="128">
   </a>
-<h3 align="center">SWL-Callouts (Build A0.1.0)</h3>
+<h3 align="center">SWL-Callouts (Build A0.1.1)</h3>
   <p align="center">SWL-Callouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
     <br />
     <br />
@@ -193,10 +193,14 @@ If you know coding and would like to contribute to this project then please give
 ## Credits
 
 I would like to thank the following people for their help, ideas and contribution;
-* @sEbi3 (<a href="https://github.com/sEbi3/UnitedCallouts">UnitedCallouts</a> layout, ideas and some code from the callouts :grin:)
-* ![forevernameless](https://dcbadge.vercel.app/api/shield/874175887296323624?style=flat-square&?compact=true&?logoColor=pink) (Alpha and Beta testing for me :upside_down_face:)
+* </b><a href="https://github.com/sEbi3">UnitedCallouts</a>sEbi3</a></b> (<i><a href="https://github.com/sEbi3/UnitedCallouts">UnitedCallouts</a> layout, ideas and some code from the callouts</i> :grin:)
+* <b><a href="https://discord.com/users/874175887296323624">forevernameless</a></b> (<i>Alpha and Beta testing for me</i> :upside_down_face:)
+* <b><a href="https://discord.com/users/510589560502091787">legendaryhobo1</a></b> (<i>Ideas + Alpha and Beta testing for me</i> :sunglasses:)
+* <b><a href="https://discord.com/users/651319300166254592">natey1.</a></b> (<i>Alpha and Beta testing for me</i> :neutral_face:)<br>
+
+<!-- * ![forevernameless](https://dcbadge.vercel.app/api/shield/874175887296323624?style=flat-square&?compact=true&?logoColor=pink) (Alpha and Beta testing for me :upside_down_face:)
 * ![legendaryhobo1](https://dcbadge.vercel.app/api/shield/510589560502091787?style=flat-square&?compact=true&?logoColor=orange) (Ideas + Alpha and Beta testing for me :sunglasses:)
-* ![natey1.](https://dcbadge.vercel.app/api/shield/651319300166254592?style=flat-square&?compact=true&?logoColor=blue) (Alpha and Beta testing for me :neutral_face:)<br>
+* ![natey1.](https://dcbadge.vercel.app/api/shield/651319300166254592?style=flat-square&?compact=true&?logoColor=blue) (Alpha and Beta testing for me :neutral_face:)<br> -->
 <br>
 
 * Last but not least, @Scottywonderful (Yes, myself, because I made this mostly from scratch and did my own ideas in it as well :cowboy_hat_face:)<br>
