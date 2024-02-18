@@ -10,7 +10,7 @@
   <a href="https://github.com/Scottywonderful/SWL-Callouts">
     <img src="Logos/SWLCO.png" alt="Logo" width="128" height="128">
   </a>
-<h3 align="center">SWL-Callouts (Build A0.1.2)</h3>
+<h3 align="center">SWL-Callouts (Build A0.1.8)</h3>
   <p align="center">SWL-Callouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
     <br />
     <br />
@@ -60,7 +60,7 @@ Scottywonderful<br><br>
 * This plugin brings a wide range of callouts with similar real life situations.<br>
 * A large majority of calls have a witness or suspect, which you need to speak with (dialogue included).<br>
 * Every callout has different endings and possibilities for more variety realism.<br>
-* Within this pack we have a whopping <b>45 varied and realistic callouts</b> for LSPDFR. (Have a look below for a full list of all available callouts.)<br>
+* Within this pack we have a whopping <b><u>45 varied and realistic callouts</u></b> for LSPDFR. (Have a look below for a full list of all available callouts.)<br>
 * A lot of callouts have different vehicles and weapons to have more realism.<br>
 * All callouts have several locations in order to spread the love and add realism to the pack.<br>
   * Be aware that some callouts use specific locations in order to have more realistic locations.<br>
@@ -69,10 +69,10 @@ Scottywonderful<br><br>
   
 ### Callouts
 Here you can find the list of callouts which are either <code>available</code>, <code>coming soon</code>(next update) or <code>in progress</code>(a future update).<br>
-* Police Callouts<br>
-  <b>Callouts listed below are coming soon.</b><br>
+* Available Police Callouts<br>
+  <!--<b>Callouts listed below are coming soon.</b><br>-->
   <b>Callouts listed below are currently in progress.</b><br>
-<!--  * Active pursuit
+  * Active pursuit
   * Active shooter
   * Apartment burglary
   * Armed clown
@@ -116,12 +116,12 @@ Here you can find the list of callouts which are either <code>available</code>, 
   * Traffic stop backup
   * Welfare check
   * Wanted person alert
-  * Workplace dispute -->
-<!-- <br>
+  * Workplace dispute
+ <br>
 <b>Please be aware that the below callouts are also available as police.</b><br>
 <br>
-* Ambulance/Fire Callouts (WIP -- Focused on police callouts)<br> -->
-<!--  * Car into an electricity pole
+* Ambulance/Fire Callouts (WIP -- Focused on police callouts)<br>
+  * Car into an electricity pole
   * Commercial building Fire
   * Emergency landing
   * Garbage fire
@@ -130,7 +130,8 @@ Here you can find the list of callouts which are either <code>available</code>, 
   * Multi-vehicle collision
   * Request for assistance
   * Road traffic collision
-  * Tree blocking the road<br><br> -->
+  * Tree blocking the road<br>
+  <br>
 
 ### Customization
 * This plugin adds a hotkey for dialogs and for forcing your current callout to end.<br>
@@ -193,16 +194,15 @@ If you know coding and would like to contribute to this project then please give
 ## Credits
 
 I would like to thank the following people for their help, ideas and contribution;
-* </b><a href="https://github.com/sEbi3">UnitedCallouts</a>sEbi3</a></b> (<i><a href="https://github.com/sEbi3/UnitedCallouts">UnitedCallouts</a> layout, ideas and some code from the callouts</i> :grin:)
+* </b><a href="https://github.com/sEbi3">sEbi3</a></b> (<i><a href="https://github.com/sEbi3/UnitedCallouts">UnitedCallouts</a> layout, ideas and some code from the callouts</i> :grin:)
 * <b><a href="https://discord.com/users/874175887296323624">forevernameless</a></b> (<i>Alpha and Beta testing for me</i> :upside_down_face:)
 * <b><a href="https://discord.com/users/510589560502091787">legendaryhobo1</a></b> (<i>Ideas + Alpha and Beta testing for me</i> :sunglasses:)
-* <b><a href="https://discord.com/users/651319300166254592">natey1.</a></b> (<i>Alpha and Beta testing for me</i> :neutral_face:)<br>
+* <b><a href="https://discord.com/users/651319300166254592">natey1.</a></b> (<i>Alpha and Beta testing for me</i> :neutral_face:)
 
 <!-- * ![forevernameless](https://dcbadge.vercel.app/api/shield/874175887296323624?style=flat-square&?compact=true&?logoColor=pink) (Alpha and Beta testing for me :upside_down_face:)
 * ![legendaryhobo1](https://dcbadge.vercel.app/api/shield/510589560502091787?style=flat-square&?compact=true&?logoColor=orange) (Ideas + Alpha and Beta testing for me :sunglasses:)
 * ![natey1.](https://dcbadge.vercel.app/api/shield/651319300166254592?style=flat-square&?compact=true&?logoColor=blue) (Alpha and Beta testing for me :neutral_face:)<br> -->
-<br>
 
 * Last but not least, <b><a href="https://discord.com/users/291193188956241921">Scottywonderful</a></b> (Yes, myself, because I made this mostly from scratch and did my own ideas in it as well :cowboy_hat_face:)<br>
 <!--![Scottywonderful](https://dcbadge.vercel.app/api/shield/291193188956241921?style=flat-square&?compact=true&?logoColor=purple)<br>-->
-Need any support then please join [![](https://img.shields.io/discord/291193721196904448?color=purple&logo=Discord&style=flat-square)](https://discord.gg/invite/XbjWkt7)<br>
+Need any support then please join [![our discord](https://img.shields.io/discord/291193721196904448?color=purple&logo=Discord&style=flat-square&?compact=true)](https://discord.gg/invite/XbjWkt7)<br>
