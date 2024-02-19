@@ -8,9 +8,9 @@
 <br />
 <p align="center">
   <a href="https://github.com/Scottywonderful/SWL-Callouts">
-    <img src="Logos/SWLCO.png" alt="Logo" width="128" height="128">
+    <img src="Images/SWLCO.png" alt="SWL-Callouts Logo" width="128" height="128">
   </a>
-<h3 align="center">SWL-Callouts (Build A0.1.8)</h3>
+<h3 align="center">SWL-Callouts (Build A0.2.0)</h3>
   <p align="center">SWL-Callouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
     <br />
     <br />
@@ -28,6 +28,7 @@
   * [Want to stay up to date?](#want-to-stay-up-to-date)
 * [Getting Started](#getting-started)
   * [Requirements](#requirements)
+    * [Recommended Plugins](#recommended-plugins)
   * [Installation](#installation)
 * [Usage](#usage)
 * [Contributing](#contributing)
@@ -60,7 +61,7 @@ Scottywonderful<br><br>
 * This plugin brings a wide range of callouts with similar real life situations.<br>
 * A large majority of calls have a witness or suspect, which you need to speak with (dialogue included).<br>
 * Every callout has different endings and possibilities for more variety realism.<br>
-* Within this pack we have a whopping <b><u>45 varied and realistic callouts</u></b> for LSPDFR. (Have a look below for a full list of all available callouts.)<br>
+* Within this pack we have a whopping <b><u>56 varied and realistic police callouts</u></b> for LSPDFR. (Have a look below for a full list of all available callouts.)<br>
 * A lot of callouts have different vehicles and weapons to have more realism.<br>
 * All callouts have several locations in order to spread the love and add realism to the pack.<br>
   * Be aware that some callouts use specific locations in order to have more realistic locations.<br>
@@ -68,14 +69,23 @@ Scottywonderful<br><br>
   * For ease and to ensure you constantly have a mixture of callouts, all callouts have a location choosing system in order to get the locations near the Player(you).<br><br>
   
 ### Callouts
-Here you can find the list of callouts which are either <code>available</code>, <code>coming soon</code>(next update) or <code>in progress</code>(a future update).<br>
+Here you can find the list of callouts which are either <div style="color:green"><i>available</i></div>, <div style="color:yellow"><i>coming soon</i></div> (next update) or <div style="color:orange"><i>in progress</i><div> (a future update).
 * Available Police Callouts<br>
-  <!--<b>Callouts listed below are coming soon.</b><br>-->
+  * High Speed Chase (Pursuit)
+  * Welfare check
+
+  <b>Callouts listed below are coming soon.</b><br>
+  * Person with a knife<br>
+
   <b>Callouts listed below are currently in progress.</b><br>
+  * Shots fired<br>
+
+  <b>Callouts listed below are planned sometime in the future.</b><br>
   * Active pursuit
   * Active shooter
   * Apartment burglary
   * Armed clown
+  * Armed terrorist attack
   * Arrest warrant
   * ATM robbery
   * Attempted mass incident
@@ -84,43 +94,49 @@ Here you can find the list of callouts which are either <code>available</code>, 
   * Break and enter
   * Commercial disturbance
   * Cyclist on the motorway
+  * Drug Deal
   * Emergency landing
   * Escaped prisoner
   * Felony stop warrant
   * Felon on the run
   * Gang shootout
-  * Garbage rire (Suspicious)
+  * Garbage fire (Suspicious)
   * Hit and run
+  * Humane Labs Robbery <!--(RobberyHL)-->
+  * Hostage Situation
   * House fire
+  * Illegal emergency vehicle trade
   * Jewelry store robbery
   * K9 backup request
   * Mentally unstable individual
   * Missing person
   * Money truck theft (stolen money truck)
-  * Person with a knife
+  * Murder Investigation
   * Police impersonation
   * Police raid
   * Prison bus Incident
   * Public disturbance
   * Request for assistance
   * Road traffic collision
-  * Shots fired
   * Silent alarm activated
+  * Stolen bus incident
   * Stolen emergency service vehicle (police, fire or ambulance)
+  * Stolen commerical vehicle
   * Stolen vehicle
   * Store robbery
   * Suspect on the run
   * Suspicious activity
+  * Suspicious ATM activity
   * Suspicious fire
-  * Terrorist attack
+  * Terrorist attack (bomb)
   * Traffic stop backup
-  * Welfare check
+  * Person being a troublemaker
   * Wanted person alert
   * Workplace dispute
- <br>
-<b>Please be aware that the below callouts are also available as police.</b><br>
-<br>
-* Ambulance/Fire Callouts (WIP -- Focused on police callouts)<br>
+<!--<br>
+<b>Please be aware that the below callouts are also available as police.</b><br><br>-->
+
+<!--* Ambulance/Fire Callouts (WIP -- Focused on police callouts)<br>
   * Car into an electricity pole
   * Commercial building Fire
   * Emergency landing
@@ -129,8 +145,8 @@ Here you can find the list of callouts which are either <code>available</code>, 
   * Monoxide poisoning incident
   * Multi-vehicle collision
   * Request for assistance
-  * Road traffic collision
-  * Tree blocking the road<br>
+  * Road traffic collision-->
+<!--  * Tree blocking the road<br>-->
   <br>
 
 ### Customization
@@ -160,7 +176,15 @@ Here you can find the list of callouts which are either <code>available</code>, 
 * LSPD First Response 0.4.9 <i>(or higher)</i> <a href="https://www.lcpdfr.com/files/file/7792-lspd-first-response">Download here</a>
 * RAGE Plugin Hook 1.95 <i>(or higher)</i> <a href="https://ragepluginhook.net/Downloads.aspx">Download here</a>
 * Open All Interiors <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/open-all-interiors">Download here</a>
+<!--*Enable All Interiors (WIP) <u>(23.1 or higher)</u> <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/enable-all-interiors-wip">Download here</a>--> <!-- This is a replacement of the Open All Interiors mod -->
 * A legal copy of GTA5 <i>(Retail, Epic Games or Steam)</i><br>
+
+#### Recommended plugins
+  * Grammar Police 1.7.2 <i>(or higher)</i> by opus49 & BenH6021 <a href="https://www.lcpdfr.com/downloads/gta5mods/scripts/28003-grammarpolice/">Download here</a>
+  * CompuLite <i>(latest version)</i> by Bejoljo <a href="https://www.bejoijo.com/post/compulite">Download here</a>
+  * Stop The Ped <i>(latest version)</i> by Bejoljo <a href="https://www.bejoijo.com/post/stop-the-ped">Download here</a>
+  * Ultimate Backup <i>(lastest version)</i> by Bejoljo <a href="https://www.bejoijo.com/post/ultimate-backup">Download here</a>
+<br>
 
 ### Installation
 
@@ -194,7 +218,7 @@ If you know coding and would like to contribute to this project then please give
 ## Credits
 
 I would like to thank the following people for their help, ideas and contribution;
-* </b><a href="https://github.com/sEbi3">sEbi3</a></b> (<i><a href="https://github.com/sEbi3/UnitedCallouts">UnitedCallouts</a> layout, ideas and some code from the callouts</i> :grin:)
+* <b><a href="https://github.com/sEbi3">sEbi3</a></b> (<i><a href="https://github.com/sEbi3/UnitedCallouts">UnitedCallouts</a> layout, ideas and some code from the callouts</i> :grin:)
 * <b><a href="https://discord.com/users/874175887296323624">forevernameless</a></b> (<i>Alpha and Beta testing for me</i> :upside_down_face:)
 * <b><a href="https://discord.com/users/510589560502091787">legendaryhobo1</a></b> (<i>Ideas + Alpha and Beta testing for me</i> :sunglasses:)
 * <b><a href="https://discord.com/users/651319300166254592">natey1.</a></b> (<i>Alpha and Beta testing for me</i> :neutral_face:)

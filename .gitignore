@@ -30,11 +30,10 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
-*.cs
 *.csproj
 
 # Ignore specific folders
-SWL-Callouts/**
+.git/**
 .vs/**
 bin/**
 obj/**
