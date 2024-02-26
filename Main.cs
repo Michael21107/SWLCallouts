@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.0-Alpha
+// Version: 0.4.0.2-Alpha
 
 using Rage;
 using LSPD_First_Response.Mod.API;
@@ -111,33 +111,33 @@ namespace SWLCallouts
             Game.Console.Print();
             Game.Console.Print("================================================== SWLCallouts ===================================================");
             Game.Console.Print();
-            //if (Settings.ApartmentBurglary) { Functions.RegisterCallout(typeof(ApartmentBurglary)); }
-            //if (Settings.ArmedClown) { Functions.RegisterCallout(typeof(ArmedClown)); }
-            //if (Settings.ArmedTerroristAttack) { Functions.RegisterCallout(typeof(ArmedTerroristAttack)); }
-            //if (Settings.BicycleOnTheFreeway) { Functions.RegisterCallout(typeof(BicycleOnTheFreeway)); }
-            //if (Settings.DrugDeal) { Functions.RegisterCallout(typeof(DrugDeal)); }
-            //if (Settings.GangShootout) { Functions.RegisterCallout(typeof(GangShootout)); }
-            if (Settings.HighSpeedChase) { Functions.RegisterCallout(typeof(HighSpeedChase)); }
-            //if (Settings.HostageSituationReported) { Functions.RegisterCallout(typeof(HostageSituationReported)); }
-            //if (Settings.IllegalPoliceCarTrade) { Functions.RegisterCallout(typeof(IllegalPoliceCarTrade)); }
-            //if (Settings.JewelleryRobbery) { Functions.RegisterCallout(typeof(JewelleryRobbery)); }
-            //if (Settings.K9BackupRequired) { Functions.RegisterCallout(typeof(K9BackupRequired)); }
-            //if (Settings.MoneyTruckTheft) { Functions.RegisterCallout(typeof(MoneyTruckTheft)); }
-            //if (Settings.MurderInvestigation) { Functions.RegisterCallout(typeof(MurderInvestigation)); }
-            //if (Settings.PersonWithKnife) { Functions.RegisterCallout(typeof(PersonWithKnife)); }
-            //if (Settings.PublicPeaceDisturbance) { Functions.RegisterCallout(typeof(PublicPeaceDisturbance)); }
-            //if (Settings.RobberyHL) { Functions.RegisterCallout(typeof(RobberyHL)); }
-            //if (Settings.ShotsFired) { Functions.RegisterCallout(typeof(ShotsFired)); }
-            //if (Settings.StolenBusIncident) { Functions.RegisterCallout(typeof(StolenBusIncident)); }
-            //if (Settings.StolenEmergencyVehicle) { Functions.RegisterCallout(typeof(StolenEmergencyVehicle)); }
-            //if (Settings.StolenEmergencyVehicle2) { Functions.RegisterCallout(typeof(StolenEmergencyVehicle2)); }
-            //if (Settings.StolenTruckPursuit) { Functions.RegisterCallout(typeof(StolenTruckPursuit)); }
-            //if (Settings.StoreRobberyInProgress) { Functions.RegisterCallout(typeof(StoreRobberyInProgress)); }
-            //if (Settings.SuspiciousATMActivity) { Functions.RegisterCallout(typeof(SuspiciousATMActivity)); }
-            //if (Settings.TrafficStopBackupRequired) { Functions.RegisterCallout(typeof(TrafficStopBackupRequired)); }
-            //if (Settings.Troublemaker) { Functions.RegisterCallout(typeof(Troublemaker)); }
-            //if (Settings.WarrantForArrest) { Functions.RegisterCallout(typeof(WarrantForArrest)); }
-            if (Settings.WelfareCheck) { Functions.RegisterCallout(typeof(WelfareCheck)); }
+            //if (Settings.ApartmentBurglary) { Functions.RegisterCallout(typeof(SWLApartmentBurglary)); }
+            //if (Settings.ArmedClown) { Functions.RegisterCallout(typeof(SWLArmedClown)); }
+            //if (Settings.ArmedTerroristAttack) { Functions.RegisterCallout(typeof(SWLArmedTerroristAttack)); }
+            //if (Settings.BicycleOnTheFreeway) { Functions.RegisterCallout(typeof(SWLBicycleOnTheFreeway)); }
+            //if (Settings.DrugDeal) { Functions.RegisterCallout(typeof(SWLDrugDeal)); }
+            //if (Settings.GangShootout) { Functions.RegisterCallout(typeof(SWLGangShootout)); }
+            if (Settings.HighSpeedChase) { Functions.RegisterCallout(typeof(SWLHighSpeedChase)); }
+            //if (Settings.HostageSituationReported) { Functions.RegisterCallout(typeof(SWLHostageSituationReported)); }
+            //if (Settings.IllegalPoliceCarTrade) { Functions.RegisterCallout(typeof(SWLIllegalPoliceCarTrade)); }
+            //if (Settings.JewelleryRobbery) { Functions.RegisterCallout(typeof(SWLJewelleryRobbery)); }
+            //if (Settings.K9BackupRequired) { Functions.RegisterCallout(typeof(SWLK9BackupRequired)); }
+            //if (Settings.MoneyTruckTheft) { Functions.RegisterCallout(typeof(SWLMoneyTruckTheft)); }
+            //if (Settings.MurderInvestigation) { Functions.RegisterCallout(typeof(SWLMurderInvestigation)); }
+            //if (Settings.PersonWithKnife) { Functions.RegisterCallout(typeof(SWLPersonWithKnife)); }
+            //if (Settings.PublicPeaceDisturbance) { Functions.RegisterCallout(typeof(SWLPublicPeaceDisturbance)); }
+            //if (Settings.RobberyHL) { Functions.RegisterCallout(typeof(SWLRobberyHL)); }
+            //if (Settings.ShotsFired) { Functions.RegisterCallout(typeof(SWLShotsFired)); }
+            //if (Settings.StolenBusIncident) { Functions.RegisterCallout(typeof(SWLStolenBusIncident)); }
+            //if (Settings.StolenEmergencyVehicle) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle)); }
+            //if (Settings.StolenEmergencyVehicle2) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle2)); }
+            //if (Settings.StolenTruckPursuit) { Functions.RegisterCallout(typeof(SWLStolenTruckPursuit)); }
+            //if (Settings.StoreRobberyInProgress) { Functions.RegisterCallout(typeof(SWLStoreRobberyInProgress)); }
+            //if (Settings.SuspiciousATMActivity) { Functions.RegisterCallout(typeof(SWLSuspiciousATMActivity)); }
+            //if (Settings.TrafficStopBackupRequired) { Functions.RegisterCallout(typeof(SWLTrafficStopBackupRequired)); }
+            //if (Settings.Troublemaker) { Functions.RegisterCallout(typeof(SWLTroublemaker)); }
+            //if (Settings.WarrantForArrest) { Functions.RegisterCallout(typeof(SWLWarrantForArrest)); }
+            if (Settings.WelfareCheck) { Functions.RegisterCallout(typeof(SWLWelfareCheck)); }
             Game.Console.Print("[LOG]: All callouts of the SWLCallouts.ini were loaded successfully.");
             Game.Console.Print();
             Game.Console.Print("================================================== SWLCallouts ===================================================");

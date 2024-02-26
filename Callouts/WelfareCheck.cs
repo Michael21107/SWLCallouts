@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.0-Alpha
+// Version: 0.4.0.2-Alpha
 
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
@@ -13,8 +13,8 @@ using SWLCallouts.Stuff;
 
 namespace SWLCallouts.Callouts
 {
-    [CalloutInfo("Welfare Check", CalloutProbability.Medium)]
-    public class WelfareCheck : Callout
+    [CalloutInfo("[SWL] Welfare Check", CalloutProbability.Medium)]
+    public class SWLWelfareCheck : Callout
     {
         private Ped subject;
         private string[] Suspects = new string[] { "ig_andreas", "g_m_m_armlieut_01", "a_m_m_bevhills_01", "a_m_y_business_02", "s_m_m_gaffer_01",
@@ -87,9 +87,9 @@ namespace SWLCallouts.Callouts
 
         public override bool OnCalloutAccepted()
         {
-            Game.LogTrivial("SWLCallouts Log: WelfareCheck callout accepted.");
+            Game.LogTrivial("SWLCallouts Log: Welfare Check callout accepted.");
             string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
-            Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "~y~Welfare Check", "~b~Dispatch:~w~ Someone called the police for a welfare check. Search the ~y~yellow area~w~ for the person. Respond ~y~Code 2");
+            Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~Dispatch:~w~ Someone called the police for a welfare check. Search the ~y~yellow area~w~ for the person. Respond ~y~Code 2");
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "", "Loading ~g~Information~w~ of the ~y~LSPD Database~w~...");
             Functions.DisplayPedId(subject, true);
 
@@ -201,7 +201,7 @@ namespace SWLCallouts.Callouts
             if (subject.Exists()) subject.Dismiss();
             if (Blip != null && Blip.Exists()) Blip.Delete();
             string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
-            Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "~y~Welfare Check", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
+            Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
             Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
             Game.LogTrivial("SWLCallouts - Welfare Check Cleanup.");

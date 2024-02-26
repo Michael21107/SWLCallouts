@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.0-Alpha
+// Version: 0.4.0.2-Alpha
 
 using Rage;
 using System;
@@ -11,8 +11,8 @@ using SWLCallouts.Stuff;
 
 namespace SWLCallouts.Callouts
 {
-    [CalloutInfo("HighSpeedChase", CalloutProbability.Medium)]
-    public class HighSpeedChase : Callout
+    [CalloutInfo("[SWL] HighSpeedChase", CalloutProbability.Medium)]
+    public class SWLHighSpeedChase : Callout
     {
         private Vehicle SuspectVehicle;
         private string[] VehicleList = new string[] { "ADDER", "AKUMA", "BANSHEE", "BATI", "BULLET", "CARBONRS", "CHEETAH", "COMET", "COQUETTE", "DOUBLE", "ENTITYXF", "HAKUCHOU", "INFERNUS", "JESTER", "MASSACRO", "NEMESIS", "NINEF", "OSIRIS", "PANTO", "PCJ", "SURANO", "T20", "VACCA", "VOLTIC", "ZENTORNO" };
@@ -85,7 +85,7 @@ namespace SWLCallouts.Callouts
             if (SuspectVehicle != null && SuspectVehicle.Exists()) SuspectVehicle.Dismiss();
             if (SuspectBlip != null && SuspectBlip.Exists()) SuspectBlip.Delete();
             string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
-            Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "~y~High Speed Chase", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
+            Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "[SWL] ~y~High Speed Chase", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
             Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
             Game.LogTrivial("SWLCallouts - High Speed Chase Cleanup.");
