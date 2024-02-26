@@ -1,35 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Author: Scottywonderful
+// Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
+// Version: 0.4.0-Alpha
+
 using Rage;
+using System;
+using System.Drawing;
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
-using System.Drawing;
+using SWLCallouts.Stuff;
 
 namespace SWLCallouts.Callouts
 {
-
     [CalloutInfo("HighSpeedChase", CalloutProbability.Medium)]
-
     public class HighSpeedChase : Callout
     {
-        private Ped Suspect;
         private Vehicle SuspectVehicle;
+        private string[] VehicleList = new string[] { "ADDER", "AKUMA", "BANSHEE", "BATI", "BULLET", "CARBONRS", "CHEETAH", "COMET", "COQUETTE", "DOUBLE", "ENTITYXF", "HAKUCHOU", "INFERNUS", "JESTER", "MASSACRO", "NEMESIS", "NINEF", "OSIRIS", "PANTO", "PCJ", "SURANO", "T20", "VACCA", "VOLTIC", "ZENTORNO" };
+        private Ped Suspect;
+        private Vector3 SpawnPoint;
         private Blip SuspectBlip;
         private LHandle Pursuit;
-        private Vector3 Spawnpoint;
-        private bool PursuitCreated;
+        private bool PursuitCreated = false;
+#pragma warning disable CS0414 // Ignores the warning on we get with the next line.
+        private bool notificationDisplayed = false;
+#pragma warning restore CS0414 // Looks for other CS0414 errors outide of here.
 
         public override bool OnBeforeCalloutDisplayed()
         {
-            Spawnpoint = World.GetRandomPositionOnStreet();
-            ShowCalloutAreaBlipBeforeAccepting(Spawnpoint, 30f);
-            AddMinimumDistanceCheck(30f, Spawnpoint);
-            CalloutMessage = "High Speed Chase";
-            CalloutPosition = Spawnpoint;
-            Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_RESISTING_ARREST_02 IN_OR_ON_POSITION", Spawnpoint);
+            SpawnPoint = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(1000f));
+            ShowCalloutAreaBlipBeforeAccepting(SpawnPoint, 50f);
+            CalloutMessage = "[SWL]~w~ High Speed Chase in progress";
+            CalloutPosition = SpawnPoint;
+            Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_GRAND_THEFT_AUTO IN_OR_ON_POSITION", SpawnPoint);
 
             Game.LogTrivial("SWLCallouts - High Speed Chase Offered.");
 
@@ -38,63 +40,56 @@ namespace SWLCallouts.Callouts
 
         public override bool OnCalloutAccepted()
         {
-            SuspectVehicle = new Vehicle("Dominator", Spawnpoint);
+            Game.LogTrivial("SWLCallouts - High Speed Chase Accepted.");
+            SuspectVehicle = new Vehicle(VehicleList[new Random().Next((int)VehicleList.Length)], SpawnPoint);
             SuspectVehicle.IsPersistent = true;
 
-            Suspect = new Ped(SuspectVehicle.GetOffsetPositionFront(5f));
+            Suspect = SuspectVehicle.CreateRandomDriver();
             Suspect.IsPersistent = true;
             Suspect.BlockPermanentEvents = true;
-            Suspect.WarpIntoVehicle(SuspectVehicle, -1);
+            Suspect.Tasks.CruiseWithVehicle(20f, VehicleDrivingFlags.Emergency);
 
             SuspectBlip = Suspect.AttachBlip();
-            SuspectBlip.Color = System.Drawing.Color.Red;
-            SuspectBlip.IsRouteEnabled = true;
-
-            PursuitCreated = false;
-
-            Game.LogTrivial("SWLCallouts - High Speed Chase Accepted.");
+            SuspectBlip.IsFriendly = false;
 
             return base.OnCalloutAccepted();
         }
 
         public override void Process()
         {
-            base.Process();
-
-            if (!PursuitCreated && Game.LocalPlayer.Character.DistanceTo(SuspectVehicle) <= 20f)
+            if (!PursuitCreated && Game.LocalPlayer.Character.DistanceTo(SuspectVehicle) <= 30f)
             {
                 Pursuit = Functions.CreatePursuit();
                 Functions.AddPedToPursuit(Pursuit, Suspect);
                 Functions.SetPursuitIsActiveForPlayer(Pursuit, true);
+
+                if (Settings.ActivateAIBackup)
+                {
+                    Functions.RequestBackup(SpawnPoint, LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.LocalUnit);
+                    Functions.RequestBackup(SpawnPoint, LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.LocalUnit);
+                    // Functions.RequestBackup(SpawnPoint, LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.AirUnit); // Unsure if I should have the air unit respond automatically or not //
+                }
+                else { Settings.ActivateAIBackup = false; }
                 PursuitCreated = true;
             }
-
-            if (PursuitCreated && !Functions.IsPursuitStillRunning(Pursuit))
-            {
-                End();
-            }
+            if (Game.LocalPlayer.Character.IsDead) End();
+            if (Game.IsKeyDown(Settings.EndCall)) End();
+            if (Suspect != null && Suspect.IsDead) End();
+            if (Suspect != null && Functions.IsPedArrested(Suspect)) End();
+            base.Process();
         }
 
         public override void End()
         {
-            base.End();
-
-            if (Suspect.Exists())
-            {
-                Suspect.Dismiss();
-            }
-            if (SuspectBlip.Exists())
-            {
-                SuspectBlip.Delete();
-            }
-            if (SuspectVehicle.Exists())
-            {
-                SuspectVehicle.Dismiss();
-            }
+            if (Suspect != null && Suspect.Exists()) Suspect.Dismiss();
+            if (SuspectVehicle != null && SuspectVehicle.Exists()) SuspectVehicle.Dismiss();
+            if (SuspectBlip != null && SuspectBlip.Exists()) SuspectBlip.Delete();
+            string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
+            Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "~y~High Speed Chase", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
+            Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
             Game.LogTrivial("SWLCallouts - High Speed Chase Cleanup.");
-
+            base.End();
         }
-    
     }
 }

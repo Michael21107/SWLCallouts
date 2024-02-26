@@ -1,4 +1,8 @@
-﻿using LSPD_First_Response.Mod.API;
+﻿// Author: Scottywonderful
+// Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
+// Version: 0.4.0-Alpha
+
+using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
 using Rage;
 using System;
@@ -17,13 +21,15 @@ namespace SWLCallouts.Callouts
                                                    "a_f_y_golfer_01", "a_f_y_bevhills_01", "a_f_y_bevhills_04", "a_f_y_fitness_02"};
         private Vector3 SpawnPoint;
         private Vector3 searcharea;
-        private Blip Blip;
+        private Blip Blip = null;
         private int storyLine = 1;
         private int callOutMessage = 0;
         private bool Scene1 = false;
         private bool Scene2 = false;
         private bool Scene3 = false;
+#pragma warning disable CS0414 // Ignores the warning on we get with the next line.
         private bool wasClose = false;
+#pragma warning restore CS0414 // Looks for other CS0414 errors outide of here.
         private bool alreadySubtitleIntrod = false;
         private bool notificationDisplayed = false;
         private bool getAmbulance = false;
@@ -59,15 +65,15 @@ namespace SWLCallouts.Callouts
             switch (new Random().Next(1, 3))
             {
                 case 1:
-                    CalloutMessage = "~w~ Welfare Check";
+                    CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 1;
                     break;
                 case 2:
-                    CalloutMessage = "~w~ Welfare Check";
+                    CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 2;
                     break;
                 case 3:
-                    CalloutMessage = "~w~ Welfare Check";
+                    CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 3;
                     break;
             }
@@ -81,6 +87,7 @@ namespace SWLCallouts.Callouts
 
         public override bool OnCalloutAccepted()
         {
+            Game.LogTrivial("SWLCallouts Log: WelfareCheck callout accepted.");
             string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "~y~Welfare Check", "~b~Dispatch:~w~ Someone called the police for a welfare check. Search the ~y~yellow area~w~ for the person. Respond ~y~Code 2");
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "", "Loading ~g~Information~w~ of the ~y~LSPD Database~w~...");
@@ -92,15 +99,13 @@ namespace SWLCallouts.Callouts
             Blip.Color = Color.Yellow;
             Blip.Alpha = 0.5f;
 
-            Game.LogTrivial("SWLCallouts Log: WelfareCheck callout accepted.");
-
             return base.OnCalloutAccepted();
         }
 
         public override void OnCalloutNotAccepted()
         {
-            if (subject) subject.Delete();
-            if (Blip) Blip.Delete();
+            if (subject != null) subject.Delete();
+            if (Blip != null) Blip.Delete();
             base.OnCalloutNotAccepted();
         }
 
@@ -194,13 +199,13 @@ namespace SWLCallouts.Callouts
         public override void End()
         {
             if (subject.Exists()) subject.Dismiss();
-            if (Blip.Exists()) Blip.Delete();
+            if (Blip != null && Blip.Exists()) Blip.Delete();
             string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "~y~Welfare Check", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
             Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
-            base.End();
 
             Game.LogTrivial("SWLCallouts - Welfare Check Cleanup.");
+            base.End();
         }
     }
 }
