@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.0.2-Alpha
+// Version: 0.4.1.0
 
 using Rage;
 using System;
@@ -81,8 +81,8 @@ namespace SWLCallouts.Callouts
 
         public override void End()
         {
-            if (Suspect != null && Suspect.Exists()) Suspect.Dismiss();
-            if (SuspectVehicle != null && SuspectVehicle.Exists()) SuspectVehicle.Dismiss();
+            //if (Suspect != null && Suspect.Exists()) Suspect.Dismiss();
+            //if (SuspectVehicle != null && SuspectVehicle.Exists()) SuspectVehicle.Dismiss();
             if (SuspectBlip != null && SuspectBlip.Exists()) SuspectBlip.Delete();
             string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "[SWL] ~y~High Speed Chase", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");

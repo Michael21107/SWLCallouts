@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.0.2-Alpha
+// Version: 0.4.1.0
 
 using System;
 using System.Collections.Generic;
@@ -56,7 +56,7 @@ namespace SWLCallouts
         {
             // Read settings from INI file
             Game.LogTrivial("[LOG]: Loading config file from SWLCallouts.");
-            var path = "Plugins/LSPDFR/SWLCallouts/SWLCallouts.ini";
+            var path = "Plugins/LSPDFR/SWLCallouts.ini";
             var ini = new InitializationFile(path);
             ini.Create();
             // Callouts below //
@@ -95,6 +95,7 @@ namespace SWLCallouts
             EndCall = ini.ReadEnum("Keys", "EndCall", Keys.End);
             Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
         }
-        public static readonly string PluginVersion = "0.4.0.2A";
+        public static readonly string PluginVersion = "0.4.1.0";
+        public static readonly string VersionType = "Alpha";
     }
 }

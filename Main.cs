@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.0.2-Alpha
+// Version: 0.4.1.0
 
 using Rage;
 using LSPD_First_Response.Mod.API;
@@ -8,6 +8,7 @@ using SWLCallouts.Callouts;
 using SWLCallouts.VersionChecker;
 using System;
 using System.Reflection;
+using System.Drawing;
 
 namespace SWLCallouts
 {
@@ -22,7 +23,40 @@ namespace SWLCallouts
         {
             Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
             Settings.LoadSettings();
+            // Subscribe to LSPDFR plugin crash event
+            //LSPD_First_Response.Mod.API.Events.OnLSPDFRCrash += HandleLSPDFRCrash; //TO BE ADDED
+            //Functions.OnLSPDFRCrash += OnLSPDFRCrash;
         }
+        // TO BE ADDED -- Crash detection //
+        /*internal void HandleLSPDFRCrash(object sender, EventArgs e)
+        {
+            // You can find all textures/images in OpenIV
+            string department = Settings.Department;
+            string icon = GetIconForDepartment(department);
+
+            // Array of random crash response messages
+            // string[] crashResponses = {
+            //    "Ahh, I see you have crashed.",
+            //    "Crash detected! Contacting Emergency Services... JOKES!",
+            //    "We have detected a crash, please report this so we can see."
+            //};
+
+            // Select a random response from the array
+            //string randomResponse = crashResponses[new Random().Next(crashResponses.Length)];
+
+            // Display the random crash response to the player
+            //Game.DisplayNotification(icon ?? "", icon ?? "", "SWLCallouts", "~r~Crash Detected!\n", +randomResponse);
+            //Game.DisplaySubtitle(randomResponse, 5000);
+
+            // Log the crash message
+            //Game.Console.Print("SWLCallouts -- LSPDFR plugin has crashed. Response: " + randomResponse);
+
+            // Display a message to the player when LSPDFR plugin crashes
+            Game.DisplayNotification(icon ?? "", icon ?? "", "SWLCallouts", "~r~Crash Detected", "I believe I detected a crash! Was this from me? If so, please report it so I can be fixed!"); 
+            Game.DisplaySubtitle("Ahh, I see you have crashed.", 5000);
+            Game.Console.Print("SWLCallouts -- LSPDFR plugin has crashed.");
+            DisplayRandomCrashMessage();
+        }*/
 
         static void Functions_OnOnDutyStateChanged(bool onDuty)
         {

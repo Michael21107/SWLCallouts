@@ -1,22 +1,14 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.0.2-Alpha
+// Version: 0.4.1.0
 
 using System;
 using System.Net.Http;
-using Newtonsoft.Json;
 using Rage;
-//using System.Net;//Not needed
 using SWLCallouts;
 
 namespace SWLCallouts.VersionChecker
 {
-    public class Release
-    {
-        [JsonProperty("tag_name")]
-        public string TagName { get; set; }
-    }
-
     public class PluginCheck
     {
         public static bool IsUpdateAvailable()
@@ -38,41 +30,51 @@ namespace SWLCallouts.VersionChecker
                     if (response.IsSuccessStatusCode)
                     {
                         string receivedData = response.Content.ReadAsStringAsync().Result;
-                        Release release = JsonConvert.DeserializeObject<Release>(receivedData);
 
-                        string latestVersion = release?.TagName;
-
-                        if (latestVersion != null && latestVersion != curVersion)
+                        // Manually parse JSON response to get the latest version
+                        string startTag = "\"tag_name\":\"";
+                        int startIndex = receivedData.IndexOf(startTag);
+                        if (startIndex != -1)
                         {
-                            string updateType = IsAlphaBeta(latestVersion) ? "Alpha/Beta" : "Stable";
-                            Game.DisplayNotification("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~y~A new Update is available!", $"Current Version: ~r~{curVersion}~w~<br>New Version: ~o~{latestVersion}~w~<br>Update Type: ~b~{updateType}~w~<br>~r~Please update to the latest build!");
-
-                            Game.Console.Print();
-                            Game.Console.Print("================================================== SWLCallouts ===================================================");
-                            Game.Console.Print();
-                            Game.Console.Print("[WARNING]: A new version of SWLCallouts is available! Update to the latest build or play on your own risk.");
-                            Game.Console.Print("[LOG]: Current Version:  " + curVersion);
-                            Game.Console.Print("[LOG]: New Version:  " + latestVersion);
-                            Game.Console.Print("[LOG]: Update Type: " + updateType);
-                            Game.Console.Print();
-                            Game.Console.Print("================================================== SWLCallouts ===================================================");
-                            Game.Console.Print();
-                            return true;
-                        }
-                        else if (latestVersion != null)
-                        {
-                            string updateType = IsAlphaBeta(curVersion) ? "Alpha/Beta" : "Stable";
-                            string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
-
-                            if (IsAlphaBeta(curVersion))
+                            startIndex += startTag.Length;
+                            int endIndex = receivedData.IndexOf('"', startIndex);
+                            if (endIndex != -1)
                             {
-                                Game.DisplayNotification(icon, icon, "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
+                                string latestVersion = receivedData.Substring(startIndex, endIndex - startIndex);
+
+                                if (latestVersion != null && latestVersion != curVersion)
+                                {
+                                    string updateType = IsAlphaBeta(latestVersion) ? "Alpha/Beta" : "Stable";
+                                    Game.DisplayNotification("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~y~A new Update is available!", $"Current Version: ~r~{curVersion}~w~<br>New Version: ~o~{latestVersion}~w~<br>Update Type: ~b~{updateType}~w~<br>~r~Please update to the latest build!");
+
+                                    Game.Console.Print();
+                                    Game.Console.Print("================================================== SWLCallouts ===================================================");
+                                    Game.Console.Print();
+                                    Game.Console.Print("[WARNING]: A new version of SWLCallouts is available! Update to the latest build or play on your own risk.");
+                                    Game.Console.Print("[LOG]: Current Version:  " + curVersion);
+                                    Game.Console.Print("[LOG]: New Version:  " + latestVersion);
+                                    Game.Console.Print("[LOG]: Update Type: " + updateType);
+                                    Game.Console.Print();
+                                    Game.Console.Print("================================================== SWLCallouts ===================================================");
+                                    Game.Console.Print();
+                                    return true;
+                                }
+                                else if (latestVersion != null)
+                                {
+                                    string updateType = IsAlphaBeta(curVersion) ? "Alpha/Beta" : "Stable";
+                                    string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
+
+                                    if (IsAlphaBeta(curVersion))
+                                    {
+                                        Game.DisplayNotification(icon, icon, "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
+                                    }
+                                    else
+                                    {
+                                        Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "", "Detected the ~g~latest~w~ build of ~y~SWLCallouts~w~!");
+                                    }
+                                    return false;
+                                }
                             }
-                            else
-                            {
-                                Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "", "Detected the ~g~latest~w~ build of ~y~SWLCallouts~w~!");
-                            }
-                            return false;
                         }
                     }
                     else
