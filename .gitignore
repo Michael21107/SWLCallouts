@@ -32,6 +32,7 @@ Thumbs.db
 *.sln
 *.sw?
 *.csproj
+*.csproj.user
 
 # Ignore specific folders
 .git/**
