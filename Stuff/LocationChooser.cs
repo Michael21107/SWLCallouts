@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.1.0
+// Version: 0.4.2.0
 
 using Rage;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.1.0
+// Version: 0.4.2.0
 
 using Rage;
 using LSPD_First_Response.Mod.API;
@@ -65,16 +65,12 @@ namespace SWLCallouts
                 GameFiber.StartNew(() =>
                 {
                     RegisterCallouts();
-                    Game.Console.Print();
                     Game.Console.Print("=============================================== SWLCallouts by Scottywonderful ================================================");
-                    Game.Console.Print();
                     Game.Console.Print("[LOG]: Callouts and settings were loaded successfully.");
                     Game.Console.Print("[LOG]: The config file was loaded successfully.");
                     Game.Console.Print("[VERSION]: Detected Version: " + Assembly.GetExecutingAssembly().GetName().Version?.ToString());
                     Game.Console.Print("[LOG]: Checking for a new SWLCallouts version...");
-                    Game.Console.Print();
                     Game.Console.Print("=============================================== SWLCallouts by Scottywonderful ================================================");
-                    Game.Console.Print();
 
                     // Check for updates and display version information
                     if (PluginCheck.IsUpdateAvailable())
@@ -84,9 +80,12 @@ namespace SWLCallouts
                     string department = Settings.Department;
                     string icon = GetIconForDepartment(department);
 
-                    // Display the notification for the unstable build
-                    if (PluginCheck.IsAlphaBeta(Assembly.GetExecutingAssembly().GetName().Version?.ToString()))
+                    // Check version type
+                    string versionType = Settings.VersionType;
+                    string updateType = (versionType == "Alpha" || versionType == "Beta" || versionType == "alpha" || versionType == "beta") ? "Unstable" : "Stable";
 
+                    // Display the notification for the currently installed build type
+                    if (updateType == "Unstable")
                     {
                         Game.DisplayNotification(icon ?? "", icon ?? "", "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
                     }
@@ -142,40 +141,11 @@ namespace SWLCallouts
 
         private static void RegisterCallouts() //Register all your callouts here
         {
-            Game.Console.Print();
-            Game.Console.Print("================================================== SWLCallouts ===================================================");
-            Game.Console.Print();
-            //if (Settings.ApartmentBurglary) { Functions.RegisterCallout(typeof(SWLApartmentBurglary)); }
-            //if (Settings.ArmedClown) { Functions.RegisterCallout(typeof(SWLArmedClown)); }
-            //if (Settings.ArmedTerroristAttack) { Functions.RegisterCallout(typeof(SWLArmedTerroristAttack)); }
-            //if (Settings.BicycleOnTheFreeway) { Functions.RegisterCallout(typeof(SWLBicycleOnTheFreeway)); }
-            //if (Settings.DrugDeal) { Functions.RegisterCallout(typeof(SWLDrugDeal)); }
-            //if (Settings.GangShootout) { Functions.RegisterCallout(typeof(SWLGangShootout)); }
+            Game.Console.Print("========================================== Start of callout loading for SWLCallouts ==========================================");
             if (Settings.HighSpeedChase) { Functions.RegisterCallout(typeof(SWLHighSpeedChase)); }
-            //if (Settings.HostageSituationReported) { Functions.RegisterCallout(typeof(SWLHostageSituationReported)); }
-            //if (Settings.IllegalPoliceCarTrade) { Functions.RegisterCallout(typeof(SWLIllegalPoliceCarTrade)); }
-            //if (Settings.JewelleryRobbery) { Functions.RegisterCallout(typeof(SWLJewelleryRobbery)); }
-            //if (Settings.K9BackupRequired) { Functions.RegisterCallout(typeof(SWLK9BackupRequired)); }
-            //if (Settings.MoneyTruckTheft) { Functions.RegisterCallout(typeof(SWLMoneyTruckTheft)); }
-            //if (Settings.MurderInvestigation) { Functions.RegisterCallout(typeof(SWLMurderInvestigation)); }
-            //if (Settings.PersonWithKnife) { Functions.RegisterCallout(typeof(SWLPersonWithKnife)); }
-            //if (Settings.PublicPeaceDisturbance) { Functions.RegisterCallout(typeof(SWLPublicPeaceDisturbance)); }
-            //if (Settings.RobberyHL) { Functions.RegisterCallout(typeof(SWLRobberyHL)); }
-            //if (Settings.ShotsFired) { Functions.RegisterCallout(typeof(SWLShotsFired)); }
-            //if (Settings.StolenBusIncident) { Functions.RegisterCallout(typeof(SWLStolenBusIncident)); }
-            //if (Settings.StolenEmergencyVehicle) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle)); }
-            //if (Settings.StolenEmergencyVehicle2) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle2)); }
-            //if (Settings.StolenTruckPursuit) { Functions.RegisterCallout(typeof(SWLStolenTruckPursuit)); }
-            //if (Settings.StoreRobberyInProgress) { Functions.RegisterCallout(typeof(SWLStoreRobberyInProgress)); }
-            //if (Settings.SuspiciousATMActivity) { Functions.RegisterCallout(typeof(SWLSuspiciousATMActivity)); }
-            //if (Settings.TrafficStopBackupRequired) { Functions.RegisterCallout(typeof(SWLTrafficStopBackupRequired)); }
-            //if (Settings.Troublemaker) { Functions.RegisterCallout(typeof(SWLTroublemaker)); }
-            //if (Settings.WarrantForArrest) { Functions.RegisterCallout(typeof(SWLWarrantForArrest)); }
             if (Settings.WelfareCheck) { Functions.RegisterCallout(typeof(SWLWelfareCheck)); }
             Game.Console.Print("[LOG]: All callouts of the SWLCallouts.ini were loaded successfully.");
-            Game.Console.Print();
-            Game.Console.Print("================================================== SWLCallouts ===================================================");
-            Game.Console.Print();
+            Game.Console.Print("========================================== End of callout loading for SWLCallouts ==========================================");
         }
         public static Assembly LSPDFRResolveEventHandler(object sender, ResolveEventArgs args)
         {

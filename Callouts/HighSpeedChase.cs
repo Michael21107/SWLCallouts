@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.1.0
+// Version: 0.4.2.0
 
 using Rage;
 using System;
@@ -67,15 +67,15 @@ namespace SWLCallouts.Callouts
                 {
                     Functions.RequestBackup(SpawnPoint, LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.LocalUnit);
                     Functions.RequestBackup(SpawnPoint, LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.LocalUnit);
-                    // Functions.RequestBackup(SpawnPoint, LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.AirUnit); // Unsure if I should have the air unit respond automatically or not //
+                    Functions.RequestBackup(SpawnPoint, LSPD_First_Response.EBackupResponseType.Pursuit, LSPD_First_Response.EBackupUnitType.AirUnit); // Unsure if I should have the air unit respond automatically or not //
                 }
                 else { Settings.ActivateAIBackup = false; }
                 PursuitCreated = true;
             }
             if (Game.LocalPlayer.Character.IsDead) End();
             if (Game.IsKeyDown(Settings.EndCall)) End();
-            if (Suspect != null && Suspect.IsDead) End();
-            if (Suspect != null && Functions.IsPedArrested(Suspect)) End();
+            //if (Suspect != null && Suspect.IsDead) End();
+            //if (Suspect != null && Functions.IsPedArrested(Suspect)) End();
             base.Process();
         }
 

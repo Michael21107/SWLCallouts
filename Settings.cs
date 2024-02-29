@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.1.0
+// Version: 0.4.2.0
 
 using System;
 using System.Collections.Generic;
@@ -60,32 +60,7 @@ namespace SWLCallouts
             var ini = new InitializationFile(path);
             ini.Create();
             // Callouts below //
-            ApartmentBurglary = ini.ReadBoolean("Callouts", "SWLApartmentBurglary", true);
-            ArmedClown = ini.ReadBoolean("Callouts", "SWLArmedClown", true);
-            ArmedTerroristAttack = ini.ReadBoolean("Callouts", "SWLArmedTerroristAttack", true);
-            BicycleOnTheFreeway = ini.ReadBoolean("Callouts", "SWLBicycleOnTheFreeway", true);
-            DrugDeal = ini.ReadBoolean("Callouts", "SWLDrugDeal", true);
-            GangShootout = ini.ReadBoolean("Callouts", "SWLGangShootout", true);
             HighSpeedChase = ini.ReadBoolean("Callouts", "SWLHighSpeedChase", true);
-            HostageSituationReported = ini.ReadBoolean("Callouts", "SWLHostageSituationReported", true);
-            IllegalPoliceCarTrade = ini.ReadBoolean("Callouts", "SWLIllegalPoliceCarTrade", true);
-            JewelleryRobbery = ini.ReadBoolean("Callouts", "SWLJewelleryRobbery", true);
-            K9BackupRequired = ini.ReadBoolean("Callouts", "SWLK9BackupRequired", true);
-            MoneyTruckTheft = ini.ReadBoolean("Callouts", "SWLMoneyTruckTheft", true);
-            MurderInvestigation = ini.ReadBoolean("Callouts", "SWLMurderInvestigation", true);
-            PersonWithKnife = ini.ReadBoolean("Callouts", "SWLPersonWithKnife", true);
-            PublicPeaceDisturbance = ini.ReadBoolean("Callouts", "SWLPublicPeaceDisturbance", true);
-            RobberyHL = ini.ReadBoolean("Callouts", "SWLRobberyHL", true);
-            ShotsFired = ini.ReadBoolean("Callouts", "SWLShotsFired", true);
-            StolenBusIncident = ini.ReadBoolean("Callouts", "SWLStolenBusIncident", true);
-            StolenEmergencyVehicle = ini.ReadBoolean("Callouts", "SWLStolenEmergencyVehicle", true);
-            StolenEmergencyVehicle2 = ini.ReadBoolean("Callouts", "SWLStolenEmergencyVehicle2", true);
-            StolenTruckPursuit = ini.ReadBoolean("Callouts", "SWLStolenTruckPursuit", true);
-            StoreRobberyInProgress = ini.ReadBoolean("Callouts", "SWLStoreRobberyInProgress", true);
-            SuspiciousATMActivity = ini.ReadBoolean("Callouts", "SWLSuspiciousATMActivity", true);
-            TrafficStopBackupRequired = ini.ReadBoolean("Callouts", "SWLTrafficStopBackupRequired", true);
-            Troublemaker = ini.ReadBoolean("Callouts", "SWLTroublemaker", true);
-            WarrantForArrest = ini.ReadBoolean("Callouts", "SWLWarrantForArrest", true);
             WelfareCheck = ini.ReadBoolean("Callouts", "SWLWelfareCheck", true);
             // Settings Below //
             Department = ini.ReadString("Settings", "Department", "police"); // Default to police department if not specified //
@@ -95,7 +70,7 @@ namespace SWLCallouts
             EndCall = ini.ReadEnum("Keys", "EndCall", Keys.End);
             Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
         }
-        public static readonly string PluginVersion = "0.4.1.0";
+        public static readonly string PluginVersion = "0.4.2.0";
         public static readonly string VersionType = "Alpha";
     }
 }

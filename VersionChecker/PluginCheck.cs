@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Date: 16th Feb 2024  ||  Last Modified: 21st Feb 2024
-// Version: 0.4.1.0
+// Version: 0.4.2.0
 
 using System;
 using System.Net.Http;
@@ -31,7 +31,6 @@ namespace SWLCallouts.VersionChecker
                     {
                         string receivedData = response.Content.ReadAsStringAsync().Result;
 
-                        // Manually parse JSON response to get the latest version
                         string startTag = "\"tag_name\":\"";
                         int startIndex = receivedData.IndexOf(startTag);
                         if (startIndex != -1)
@@ -42,29 +41,13 @@ namespace SWLCallouts.VersionChecker
                             {
                                 string latestVersion = receivedData.Substring(startIndex, endIndex - startIndex);
 
-                                if (latestVersion != null && latestVersion != curVersion)
+                                if (latestVersion == curVersion)
                                 {
-                                    string updateType = IsAlphaBeta(latestVersion) ? "Alpha/Beta" : "Stable";
-                                    Game.DisplayNotification("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~y~A new Update is available!", $"Current Version: ~r~{curVersion}~w~<br>New Version: ~o~{latestVersion}~w~<br>Update Type: ~b~{updateType}~w~<br>~r~Please update to the latest build!");
-
-                                    Game.Console.Print();
-                                    Game.Console.Print("================================================== SWLCallouts ===================================================");
-                                    Game.Console.Print();
-                                    Game.Console.Print("[WARNING]: A new version of SWLCallouts is available! Update to the latest build or play on your own risk.");
-                                    Game.Console.Print("[LOG]: Current Version:  " + curVersion);
-                                    Game.Console.Print("[LOG]: New Version:  " + latestVersion);
-                                    Game.Console.Print("[LOG]: Update Type: " + updateType);
-                                    Game.Console.Print();
-                                    Game.Console.Print("================================================== SWLCallouts ===================================================");
-                                    Game.Console.Print();
-                                    return true;
-                                }
-                                else if (latestVersion != null)
-                                {
-                                    string updateType = IsAlphaBeta(curVersion) ? "Alpha/Beta" : "Stable";
+                                    string versionType = Settings.VersionType;
+                                    string updateType = (versionType == "Alpha" || versionType == "Beta" || versionType == "alpha" || versionType == "beta") ? "Unstable" : "Stable";
                                     string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
 
-                                    if (IsAlphaBeta(curVersion))
+                                    if (updateType == "Unstable")
                                     {
                                         Game.DisplayNotification(icon, icon, "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
                                     }
@@ -73,6 +56,20 @@ namespace SWLCallouts.VersionChecker
                                         Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "", "Detected the ~g~latest~w~ build of ~y~SWLCallouts~w~!");
                                     }
                                     return false;
+                                }
+                                else
+                                {
+                                    string updateType = "Stable";
+                                    Game.DisplayNotification("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~y~A new Update is available!", $"Current Version: ~r~{curVersion}~w~<br>New Version: ~o~{latestVersion}~w~<br>Update Type: ~b~{updateType}~w~<br>~r~Please update to the latest build!");
+
+                                    Game.Console.Print();
+                                    Game.Console.Print("================================================== SWLCallouts ===================================================");
+                                    Game.Console.Print("[WARNING]: A new version of SWLCallouts is available! Update to the latest build or play on your own risk.");
+                                    Game.Console.Print("[LOG]: Current Version:  " + curVersion);
+                                    Game.Console.Print("[LOG]: New Version:  " + latestVersion);
+                                    Game.Console.Print("================================================== SWLCallouts ===================================================");
+                                    Game.Console.Print();
+                                    return true;
                                 }
                             }
                         }
@@ -83,10 +80,8 @@ namespace SWLCallouts.VersionChecker
 
                         Game.Console.Print();
                         Game.Console.Print("================================================== SWLCallouts ===================================================");
-                        Game.Console.Print();
                         Game.Console.Print("[WARNING]: Failed to check for an update.");
                         Game.Console.Print("[LOG]: Please make sure you are connected to the internet or try to reload the plugin.");
-                        Game.Console.Print();
                         Game.Console.Print("================================================== SWLCallouts ===================================================");
                         Game.Console.Print();
 
@@ -99,10 +94,8 @@ namespace SWLCallouts.VersionChecker
 
                     Game.Console.Print();
                     Game.Console.Print("================================================== SWLCallouts ===================================================");
-                    Game.Console.Print();
                     Game.Console.Print("[WARNING]: Failed to check for an update.");
                     Game.Console.Print("[LOG]: Please make sure you are connected to the internet or try to reload the plugin.");
-                    Game.Console.Print();
                     Game.Console.Print("================================================== SWLCallouts ===================================================");
                     Game.Console.Print();
 
@@ -110,11 +103,6 @@ namespace SWLCallouts.VersionChecker
                 }
                 return false;
             }
-        }
-
-        internal static bool IsAlphaBeta(string version)
-        {
-            return version.StartsWith("A") || version.StartsWith("B") || version.EndsWith("A") || version.EndsWith("B");
         }
     }
 }
