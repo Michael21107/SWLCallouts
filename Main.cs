@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
-// Date: 16th Feb 2024  ||  Last Modified: 29th Feb 2024
-// Version: 0.4.2.0
+// Created: 16th Feb 2024
+// Version: 0.4.3.5
 
 using Rage;
 using LSPD_First_Response.Mod.API;
@@ -23,40 +23,7 @@ namespace SWLCallouts
         {
             Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
             Settings.LoadSettings();
-            // Subscribe to LSPDFR plugin crash event
-            //LSPD_First_Response.Mod.API.Events.OnLSPDFRCrash += HandleLSPDFRCrash; //TO BE ADDED
-            //Functions.OnLSPDFRCrash += OnLSPDFRCrash;
         }
-        // TO BE ADDED -- Crash detection //
-        /*internal void HandleLSPDFRCrash(object sender, EventArgs e)
-        {
-            // You can find all textures/images in OpenIV
-            string department = Settings.Department;
-            string icon = GetIconForDepartment(department);
-
-            // Array of random crash response messages
-            // string[] crashResponses = {
-            //    "Ahh, I see you have crashed.",
-            //    "Crash detected! Contacting Emergency Services... JOKES!",
-            //    "We have detected a crash, please report this so we can see."
-            //};
-
-            // Select a random response from the array
-            //string randomResponse = crashResponses[new Random().Next(crashResponses.Length)];
-
-            // Display the random crash response to the player
-            //Game.DisplayNotification(icon ?? "", icon ?? "", "SWLCallouts", "~r~Crash Detected!\n", +randomResponse);
-            //Game.DisplaySubtitle(randomResponse, 5000);
-
-            // Log the crash message
-            //Game.Console.Print("SWLCallouts -- LSPDFR plugin has crashed. Response: " + randomResponse);
-
-            // Display a message to the player when LSPDFR plugin crashes
-            Game.DisplayNotification(icon ?? "", icon ?? "", "SWLCallouts", "~r~Crash Detected", "I believe I detected a crash! Was this from me? If so, please report it so I can be fixed!"); 
-            Game.DisplaySubtitle("Ahh, I see you have crashed.", 5000);
-            Game.Console.Print("SWLCallouts -- LSPDFR plugin has crashed.");
-            DisplayRandomCrashMessage();
-        }*/
 
         static void Functions_OnOnDutyStateChanged(bool onDuty)
         {
@@ -142,7 +109,32 @@ namespace SWLCallouts
         private static void RegisterCallouts() //Register all your callouts here
         {
             Game.Console.Print("========================================== Start of callout loading for SWLCallouts ==========================================");
+            //if (Settings.ApartmentBurglary) { Functions.RegisterCallout(typeof(SWLApartmentBurglary)); }
+            //if (Settings.ArmedClown) { Functions.RegisterCallout(typeof(SWLArmedClown)); }
+            //if (Settings.ArmedTerroristAttack) { Functions.RegisterCallout(typeof(SWLArmedTerroristAttack)); }
+            //if (Settings.BicycleOnTheFreeway) { Functions.RegisterCallout(typeof(SWLBicycleOnTheFreeway)); }
+            //if (Settings.DrugDeal) { Functions.RegisterCallout(typeof(SWLDrugDeal)); }
+            //if (Settings.GangShootout) { Functions.RegisterCallout(typeof(SWLGangShootout)); }
             if (Settings.HighSpeedChase) { Functions.RegisterCallout(typeof(SWLHighSpeedChase)); }
+            //if (Settings.HostageSituationReported) { Functions.RegisterCallout(typeof(SWLHostageSituationReported)); }
+            //if (Settings.IllegalPoliceCarTrade) { Functions.RegisterCallout(typeof(SWLIllegalPoliceCarTrade)); }
+            //if (Settings.JewelleryRobbery) { Functions.RegisterCallout(typeof(SWLJewelleryRobbery)); }
+            //if (Settings.K9BackupRequired) { Functions.RegisterCallout(typeof(SWLK9BackupRequired)); }
+            //if (Settings.MoneyTruckTheft) { Functions.RegisterCallout(typeof(SWLMoneyTruckTheft)); }
+            //if (Settings.MurderInvestigation) { Functions.RegisterCallout(typeof(SWLMurderInvestigation)); }
+            //if (Settings.PersonWithKnife) { Functions.RegisterCallout(typeof(SWLPersonWithKnife)); }
+            //if (Settings.PublicPeaceDisturbance) { Functions.RegisterCallout(typeof(SWLPublicPeaceDisturbance)); }
+            //if (Settings.RobberyHL) { Functions.RegisterCallout(typeof(SWLRobberyHL)); }
+            //if (Settings.ShotsFired) { Functions.RegisterCallout(typeof(SWLShotsFired)); }
+            //if (Settings.StolenBusIncident) { Functions.RegisterCallout(typeof(SWLStolenBusIncident)); }
+            //if (Settings.StolenEmergencyVehicle) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle)); }
+            //if (Settings.StolenEmergencyVehicle2) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle2)); }
+            //if (Settings.StolenTruckPursuit) { Functions.RegisterCallout(typeof(SWLStolenTruckPursuit)); }
+            //if (Settings.StoreRobberyInProgress) { Functions.RegisterCallout(typeof(SWLStoreRobberyInProgress)); }
+            //if (Settings.SuspiciousATMActivity) { Functions.RegisterCallout(typeof(SWLSuspiciousATMActivity)); }
+            //if (Settings.TrafficStopBackupRequired) { Functions.RegisterCallout(typeof(SWLTrafficStopBackupRequired)); }
+            //if (Settings.Troublemaker) { Functions.RegisterCallout(typeof(SWLTroublemaker)); }
+            //if (Settings.WarrantForArrest) { Functions.RegisterCallout(typeof(SWLWarrantForArrest)); }
             if (Settings.WelfareCheck) { Functions.RegisterCallout(typeof(SWLWelfareCheck)); }
             Game.Console.Print("[LOG]: All callouts of the SWLCallouts.ini were loaded successfully.");
             Game.Console.Print("========================================== End of callout loading for SWLCallouts ==========================================");

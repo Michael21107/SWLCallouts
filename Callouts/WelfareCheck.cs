@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
-// Date: 16th Feb 2024  ||  Last Modified: 29th Feb 2024
-// Version: 0.4.2.0
+// Created: 16th Feb 2024
+// Version: 0.4.3.5
 
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
@@ -17,8 +17,8 @@ namespace SWLCallouts.Callouts
     public class SWLWelfareCheck : Callout
     {
         private Ped subject;
-        private string[] Suspects = new string[] { "ig_andreas", "g_m_m_armlieut_01", "a_m_m_bevhills_01", "a_m_y_business_02", "s_m_m_gaffer_01",
-                                                   "a_f_y_golfer_01", "a_f_y_bevhills_01", "a_f_y_bevhills_04", "a_f_y_fitness_02"};
+        private string[] Suspects = new string[] { "ig_andreas", "g_m_m_armlieut_01", "a_m_m_bevhills_01", "a_m_y_business_02", "s_m_m_gaffer_01", "a_f_y_golfer_01",
+                                                   "a_f_y_bevhills_01", "a_f_y_bevhills_04", "a_f_y_fitness_02"};
         private Vector3 SpawnPoint;
         private Vector3 searcharea;
         private Blip Blip = null;
@@ -27,6 +27,10 @@ namespace SWLCallouts.Callouts
         private bool Scene1 = false;
         private bool Scene2 = false;
         private bool Scene3 = false;
+#pragma warning disable CS0414
+        private bool hasBegunAttacking = false;
+        private bool isArmed = false;
+#pragma warning restore CS0414
         private bool alreadySubtitleIntrod = false;
         private bool notificationDisplayed = false;
         private bool getAmbulance = false;
@@ -64,7 +68,7 @@ namespace SWLCallouts.Callouts
             // Find the nearest location that is not within the distance threshold
             foreach (Vector3 location in list.ToList())
             {
-                if (Game.LocalPlayer.Character.Position.DistanceTo(location) < 5f)
+                if (Game.LocalPlayer.Character.Position.DistanceTo(location) < 80f)
                 {
                     list.Remove(location); // Remove locations within the distance threshold
                 }
@@ -72,9 +76,9 @@ namespace SWLCallouts.Callouts
 
             // Choose the nearest location from the updated list
             SpawnPoint = LocationChooser.chooseNearestLocation(list);
-            subject = new Ped(Suspects[random.Next((int)Suspects.Length)], SpawnPoint, 0f);
+            subject = new Ped(Suspects[random.Next((int)Suspects.Length - 1)], SpawnPoint, 0f);
             LSPD_First_Response.Mod.API.Functions.GetPersonaForPed(subject);
-            switch (random.Next(1, 4))
+            switch (random.Next(1, 3))
             {
                 case 1:
                     subject.Kill();
@@ -89,7 +93,7 @@ namespace SWLCallouts.Callouts
                     break;
             }
             ShowCalloutAreaBlipBeforeAccepting(SpawnPoint, 100f);
-            switch (random.Next(1, 4))
+            switch (random.Next(1, 5))
             {
                 case 1:
                     CalloutMessage = "[SWL]~w~ Welfare Check";
@@ -103,10 +107,17 @@ namespace SWLCallouts.Callouts
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 3;
                     break;
+                case 4:
+                    CalloutMessage = "[SWL]~w~ Welfare Check";
+                    callOutMessage = 4;
+                    break;
+                case 5:
+                    CalloutMessage = "[SWL]~w~ Welfare Check";
+                    callOutMessage = 5;
+                    break;
             }
             CalloutPosition = SpawnPoint;
             Functions.PlayScannerAudioUsingPosition("UNITS WE_HAVE CRIME_CIVILIAN_NEEDING_ASSISTANCE_02", SpawnPoint);
-
             Game.LogTrivial("SWLCallouts - Welfare Check Offered.");
 
             return base.OnBeforeCalloutDisplayed();
@@ -117,10 +128,10 @@ namespace SWLCallouts.Callouts
             Game.LogTrivial("SWLCallouts Log: Welfare Check callout accepted.");
             string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~Dispatch:~w~ Someone called the police for a welfare check. Search the ~y~yellow area~w~ for the person. Respond ~y~Code 2");
-            Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH WE_HAVE_01 CITIZENS_REPORT_01 A_01 CRIME_CIVILIAN_NEEDING_ASSISTANCE_02 UNITS_RESPOND_CODE_02_02");
+            Functions.PlayScannerAudio("UNITS_RESPOND_CODE_02_02");
+            //Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH WE_HAVE_01 CITIZENS_REPORT_01 A_01 CRIME_CIVILIAN_NEEDING_ASSISTANCE_02 UNITS_RESPOND_CODE_02_02");
             GameFiber.Wait(2000);
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "", "Loading ~g~Information~w~ off the ~y~LSPD Database~w~...");
-            GameFiber.Wait(4000);
             Functions.DisplayPedId(subject, true);
 
             searcharea = SpawnPoint.Around2D(1f, 2f);
@@ -163,47 +174,101 @@ namespace SWLCallouts.Callouts
                     {
                         Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "~y~Dispatch", "Investigate the area. If you don't find anyone here, then ~g~End~w~ the callout.");
                         notificationDisplayed = true;
+                        Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICERS_ARRIVED_ON_SCENE");
                     }
                     if (Scene3 == true && subject && subject.DistanceTo(Game.LocalPlayer.Character) < 25f && Game.LocalPlayer.Character.IsOnFoot && alreadySubtitleIntrod == false)
                     {
-                        Game.DisplaySubtitle("Press ~y~Y ~w~to speak with the suspect.", 5000);
+                        Game.DisplaySubtitle("Press ~y~Y ~w~to speak with the civilian.", 5000);
                         Game.DisplayHelp("Press the ~y~END~w~ key to end the ~o~welfare check~w~ callout.", 5000);
                         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICERS_ARRIVED_ON_SCENE");
                         alreadySubtitleIntrod = true;
                     }
-                    if (Scene3 == true && Scene1 == false && Scene2 == false && subject.DistanceTo(Game.LocalPlayer.Character) < 2f && Game.IsKeyDown(Settings.Dialog))
+                    if (Scene3 == true && Scene1 == false && Scene2 == false && subject.DistanceTo(Game.LocalPlayer.Character) < 5f && Game.IsKeyDown(Settings.Dialog))
                     {
                         subject.Face(Game.LocalPlayer.Character);
                         switch (storyLine)
                         {
                             case 1:
-                                Game.DisplaySubtitle("~y~Suspect: ~w~Hello Officer, how can I help you? Is everything alright? (1/5)", 10000);
+                                if (callOutMessage == 1)
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Hello Officer, how can I help you? Is everything alright?", 10000);
+                                if (callOutMessage == 2)
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Hey Officer, can I help you?", 10000);
+                                if (callOutMessage == 3)
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Oh Officer, how can I help you today?", 10000);
+                                if (callOutMessage == 4)
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Yo Officer! Can I help you?!", 10000);
+                                    subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
+                                    isArmed = true;
+                                    subject.IsPersistent = true;
+                                    subject.Tasks.Wander();
+                                if (callOutMessage == 5)
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Can I help you Officer?", 10000);
+                                    subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
+                                    isArmed = true;
+                                    subject.IsPersistent = true;
                                 storyLine++;
                                 break;
                             case 2:
-                                Game.DisplaySubtitle("~b~You: ~w~Hi. I'm just checking in on this address as we've had a request for a welfare check come through. Apparently you weren't answering your phone and someone is concerned. Is everything okay here? (2/5)", 10000);
+                                if (callOutMessage == 1)
+                                    Game.DisplaySubtitle("~b~You: ~w~Hi. I'm just checking in on this address as we've had a request for a welfare check come through. Apparently you weren't answering your phone and someone is concerned. Is everything okay here?", 10000);
+                                if (callOutMessage == 2)
+                                    Game.DisplaySubtitle("~b~You: ~w~Hi. I'm just checking in on this address as we've had a request for a welfare check come through. Apparently you were on the phone with someone and they heard a noise before the line dropped. Is everything all good here?", 10000);
+                                if (callOutMessage == 3)
+                                    Game.DisplaySubtitle("~b~You: ~w~Hi. I'm just checking in on this address as we had a welfare check request come through. Apparently no one has heard from you for a while and someone is worried. Is everything fine here?", 10000);
+                                if (callOutMessage == 4)
+                                    Game.DisplaySubtitle("~b~You: ~w~Hey there, can we put the knife down please. I'm just here to do a welfare check.", 10000);
+                                if (callOutMessage == 5)
+                                    Game.DisplaySubtitle("~b~You: ~w~Hey there, could you please do me a favour and put the knife down, I'm just here to do a welfare check.", 10000);
                                 storyLine++;
                                 break;
                             case 3:
-                                Game.DisplaySubtitle("~y~Suspect: ~w~Oh dear! I didn't want to worry anyone. (3/5)", 10000);
+                                if (callOutMessage == 1)
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Oh dear! I didn't want to worry anyone.", 10000);
+                                if (callOutMessage == 2)
+                                    Game.DisplaySubtitle("~b~Civilian: ~w~Oh, Yes everything is all good.", 10000);
+                                if (callOutMessage == 3)
+                                    Game.DisplaySubtitle("~b~Civilian: ~w~Uhh.. Everything is fine officer. I don't understand why they wouldn't call me.", 10000);
+                                if (callOutMessage == 4)
+                                    Game.DisplaySubtitle("~b~Civilian: ~w~Yeah sure, we were just getting food prepared when I thought I heard a noise so I was just checking that out.", 10000);
+                                    GameFiber.Wait(4000);
+                                    isArmed = false;
+                                if (callOutMessage == 5)
+                                    if (Settings.ActivateAIBackup)
+                                    {
+                                        Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICER_REQUESTING_BACKUP CODE3"); 
+                                        Functions.RequestBackup(Game.LocalPlayer.Character.Position, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
+                                    }
+                                    else { Settings.ActivateAIBackup = false; }
+                                    Game.DisplaySubtitle("~b~Civilian: ~w~What did you say? You a little scared are ya?!", 10000);
                                 storyLine++;
                                 break;
                             case 4:
                                 if (callOutMessage == 1)
-                                    Game.DisplaySubtitle("~y~Suspect: ~w~I lost my phone on the bus today, I was actually just about to head to a payphone to ring the bus depot. (4/5)", 10000);
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~I lost my phone on the bus today, I was actually just about to head to a payphone to ring the bus depot.", 10000);
                                 if (callOutMessage == 2)
-                                    Game.DisplaySubtitle("~y~Suspect: ~w~My phone battery died because I forgot to charge it earlier! I did see a missed call but didn't think anything of it. (4/5)", 10000);
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~My phone battery died because I forgot to charge it earlier! I put it on charge and then got distracted and forgot to tell them my phone died.", 10000);
                                 if (callOutMessage == 3)
-                                    Game.DisplaySubtitle("~y~Suspect: ~w~Let me check... Oops, I had my phone on silent! I'll call them back now. Sorry to cause such trouble! (4/5)", 10000);
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Let me check my phone... Oops, I had my phone on silent! I'll call them back now. Sorry to cause such trouble!", 10000);
+                                if (callOutMessage == 4)
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~So, Why are you here? I don't understand?", 10000);
+                                if (callOutMessage == 5)
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Fuck off ya pig!", 10000);
+                                    GameFiber.Wait(2000);
+                                    isArmed = true;
+                                    subject.KeepTasks = true; 
+                                    subject.Tasks.FightAgainst(Game.LocalPlayer.Character);
+                                    hasBegunAttacking = true;
                                 storyLine++;
                                 break;
                             case 5:
                                 if (callOutMessage == 1)
-                                    Game.DisplaySubtitle("~b~You: ~w~Ouch. I'll let dispatch know everything is okay. Good luck finding your phone! (5/5)", 10000);
+                                    Game.DisplaySubtitle("~b~You: ~w~That's no good. I'll let dispatch know everything is okay. Good luck finding your phone!", 10000);
                                 if (callOutMessage == 2)
-                                    Game.DisplaySubtitle("~b~You: ~w~Alright, well as long as everything here is okay, I can leave. You should return that phone call though, the caller was really worried. (5/5)", 10000);
+                                    Game.DisplaySubtitle("~b~You: ~w~Alright, well as long as everything here is okay, I can leave. You should return that phone call though, the caller was really worried.", 10000);
                                 if (callOutMessage == 3)
-                                    Game.DisplaySubtitle("~b~You: ~w~No problem, I'm just glad you're okay. I'll let dispatch know everything is fine here. (5/5)", 10000);
+                                    Game.DisplaySubtitle("~b~You: ~w~No problem, I'm just glad you're okay. I'll let dispatch know everything is fine here.", 10000);
+                                if (callOutMessage == 4)
+                                    Game.DisplaySubtitle("~b~You: ~w~We got a call saying you weren't able to be contacted and someone was worried about you. Upon seeing you here, we can tell you have been busy. So we will leave you to it, have a great day!", 20000);
                                 storyLine++;
                                 break;
                             case 6:
@@ -212,6 +277,10 @@ namespace SWLCallouts.Callouts
                                 if (callOutMessage == 2)
                                     End();
                                 if (callOutMessage == 3)
+                                    End();
+                                if (callOutMessage == 4)
+                                    Game.DisplaySubtitle("~b~Civilian: ~w~Yes, I have been busy and didn't take note of the time. We are fine, thanks for the concern.", 10000);
+                                    GameFiber.Wait(5000);
                                     End();
                                 storyLine++;
                                 break;

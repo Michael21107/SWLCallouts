@@ -1,7 +1,7 @@
 <!--
 // Author: Scottywonderful
-// Date: 16th Feb 2024  ||  Last Modified: 29th Feb 2024
-// Version: 0.4.2.0
+// Created: 16th Feb 2024
+// Version: 0.4.3.5
 -->
 
 <!-- PROJECT SHIELDS -->
@@ -16,7 +16,8 @@
   <a href="https://github.com/Scottywonderful/SWL-Callouts">
     <img src="Images/SWLCO.png" alt="SWL-Callouts Logo" width="128" height="128">
   </a>
-<h3 align="center">SWL-Callouts (Build 0.4.2.0) <i>Alpha Version Detected</i></h3>
+<h3 align="center">SWL-Callouts (Build 0.4.3.5)</h3>
+<h5><i>Alpha Version Detected</i></h5>
   <p align="center">SWL-Callouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
     <br />
     <br />
@@ -75,18 +76,19 @@ Scottywonderful<br><br>
   * For ease and to ensure you constantly have a mixture of callouts, all callouts have a location choosing system in order to get the locations near the Player(you).<br><br>
   
 ### Callouts
-Here you can find the list of callouts which are either <div style="color:green"><i>available</i></div>, <div style="color:yellow"><i>coming soon</i></div> (next update) or <div style="color:orange"><i>in progress</i><div> (a future update).
-* Available Police Callouts<br>
-  * High Speed Chase (Pursuit)
-  * Welfare check
+Here you can find the list of callouts which are either <i>available</i>, <i>coming soon</i> (next update) or <i>in progress</i> (a future update).
+<b>Available Police Callouts</b><br>
+ * High Speed Chase (Pursuit)
+ * **[NEW]** Person with a knife<br>
+ * Welfare check
 
-  <b>Callouts listed below are coming soon.</b><br>
-  * Person with a knife<br>
-
-  <b>Callouts listed below are currently in progress.</b><br>
+ * <b>Callouts listed below are coming soon.</b><br>
   * Shots fired<br>
 
-  <b>Callouts listed below are planned sometime in the future.</b><br>
+<b>Callouts listed below are currently in progress.</b><br>
+  * Stolen emergency service vehicle (police, fire or ambulance)
+
+<b>Callouts listed below are planned sometime in the future.</b><br>
   * Active pursuit
   * Active shooter
   * Apartment burglary
@@ -126,7 +128,6 @@ Here you can find the list of callouts which are either <div style="color:green"
   * Road traffic collision
   * Silent alarm activated
   * Stolen bus incident
-  * Stolen emergency service vehicle (police, fire or ambulance)
   * Stolen commerical vehicle
   * Stolen vehicle
   * Store robbery
