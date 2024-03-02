@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.4.2
+// Version: 0.4.4.5
 
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
@@ -18,8 +18,8 @@ namespace SWLCallouts.Callouts
     public class SWLWelfareCheck : Callout
     {
         private Ped subject;
-        private string[] Suspects = new string[] { "ig_andreas", "g_m_m_armlieut_01", "a_m_m_bevhills_01", "a_m_y_business_02", "s_m_m_gaffer_01",
-                                                   "a_f_y_golfer_01", "a_f_y_bevhills_01", "a_f_y_bevhills_04", "a_f_y_fitness_02"};
+        private string[] Suspects = new string[] { "ig_andreas", "g_m_m_armlieut_01", "a_m_m_bevhills_01", "a_m_y_business_02", "s_m_m_gaffer_01", "a_f_y_golfer_01",
+                                                   "a_f_y_bevhills_01", "a_f_y_bevhills_04", "a_f_y_fitness_02"};
         private Vector3 SpawnPoint;
         private Vector3 searcharea;
         private Blip Blip = null;
@@ -94,25 +94,25 @@ namespace SWLCallouts.Callouts
                     break;
             }
             ShowCalloutAreaBlipBeforeAccepting(SpawnPoint, 100f);
-            switch (random.Next(1, 101))
+            switch (random.Next(1, 6))
             {
-                case int n when (n <= 16):
+                case 1:
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 1;
                     break;
-                case int n when (n <= 32):
+                case 2:
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 2;
                     break;
-                case int n when (n <= 48):
+                case 3:
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 3;
                     break;
-                case int n when (n <= 74):
+                case 4:
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 4;
                     break;
-                case int n when (n <= 100):
+                case 5:
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 5;
                     break;
@@ -135,9 +135,18 @@ namespace SWLCallouts.Callouts
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~Dispatch:~w~ Someone called the police for a welfare check. Search the ~y~yellow area~w~ for the person. Respond ~y~Code 2");
             Functions.PlayScannerAudio("UNITS_RESPOND_CODE_02_02");
             //Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH WE_HAVE_01 CITIZENS_REPORT_01 A_01 CRIME_CIVILIAN_NEEDING_ASSISTANCE_02 UNITS_RESPOND_CODE_02_02");
-            GameFiber.Wait(2000);
-            Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "", "Loading ~g~Information~w~ off the ~y~LSPD Database~w~...");
-            Functions.DisplayPedId(subject, true);
+            GameFiber.StartNew(() =>
+            {
+                // This code will run asynchronously in a separate fiber
+                for (int i = 0; i < 10; i++)
+                {
+                    Game.Console.Print("Running asynchronously...");
+                    GameFiber.Sleep(2000); // Pause execution for 2 seconds
+                    Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "", "Loading ~g~Information~w~ off the ~y~LSPD Database~w~...");
+                    Functions.DisplayPedId(subject, true);
+                }
+            });
+            
 
             searcharea = SpawnPoint.Around2D(1f, 2f);
             Blip = new Blip(searcharea, 40f);
@@ -202,7 +211,6 @@ namespace SWLCallouts.Callouts
                             subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
                             isArmed = true;
                             subject.IsPersistent = true;
-                            subject.Tasks.Wander();
                         }
                         switch (storyLine)
                         {
@@ -242,7 +250,7 @@ namespace SWLCallouts.Callouts
                                 if (callOutMessage == 4)
                                 {
                                     Game.DisplaySubtitle("~y~Civilian: ~w~Yeah sure, we were just getting food prepared when I thought I heard a noise so I was just checking that out.", 10000);
-                                    GameFiber.Wait(4000);
+                                    GameFiber.Sleep(2000);
                                     subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, false);
                                     isArmed = false;
                                 }
@@ -255,6 +263,7 @@ namespace SWLCallouts.Callouts
                                     }
                                     else { Settings.ActivateAIBackup = false; }
                                     Game.DisplaySubtitle("~b~Civilian: ~w~What did you say? You a little scared are ya?!", 10000);
+                                    subject.Tasks.Wander();
                                 }
                                 storyLine++;
                                 break;
@@ -270,7 +279,7 @@ namespace SWLCallouts.Callouts
                                 if (callOutMessage == 5)
                                 {
                                     Game.DisplaySubtitle("~y~Civilian: ~w~Fuck off ya pig!", 10000);
-                                    GameFiber.Wait(2000);
+                                    GameFiber.Sleep(2000);
                                     isArmed = true;
                                     subject.KeepTasks = true;
                                     subject.Tasks.FightAgainst(Game.LocalPlayer.Character);
@@ -298,7 +307,7 @@ namespace SWLCallouts.Callouts
                                     End();
                                 if (callOutMessage == 4)
                                     Game.DisplaySubtitle("~y~Civilian: ~w~Yes, I have been busy and didn't take note of the time. We are fine, thanks for the concern.", 10000);
-                                    GameFiber.Wait(5000);
+                                    GameFiber.Sleep(2000);
                                     End();
                                 storyLine++;
                                 break;
