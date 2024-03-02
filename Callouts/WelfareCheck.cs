@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.3.5
+// Version: 0.4.4.2
 
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using SWLCallouts.Stuff;
 using System.Linq;
+using System.IO;
 
 namespace SWLCallouts.Callouts
 {
@@ -17,8 +18,8 @@ namespace SWLCallouts.Callouts
     public class SWLWelfareCheck : Callout
     {
         private Ped subject;
-        private string[] Suspects = new string[] { "ig_andreas", "g_m_m_armlieut_01", "a_m_m_bevhills_01", "a_m_y_business_02", "s_m_m_gaffer_01", "a_f_y_golfer_01",
-                                                   "a_f_y_bevhills_01", "a_f_y_bevhills_04", "a_f_y_fitness_02"};
+        private string[] Suspects = new string[] { "ig_andreas", "g_m_m_armlieut_01", "a_m_m_bevhills_01", "a_m_y_business_02", "s_m_m_gaffer_01",
+                                                   "a_f_y_golfer_01", "a_f_y_bevhills_01", "a_f_y_bevhills_04", "a_f_y_fitness_02"};
         private Vector3 SpawnPoint;
         private Vector3 searcharea;
         private Blip Blip = null;
@@ -78,7 +79,7 @@ namespace SWLCallouts.Callouts
             SpawnPoint = LocationChooser.chooseNearestLocation(list);
             subject = new Ped(Suspects[random.Next((int)Suspects.Length - 1)], SpawnPoint, 0f);
             LSPD_First_Response.Mod.API.Functions.GetPersonaForPed(subject);
-            switch (random.Next(1, 3))
+            switch (random.Next(1, 4))
             {
                 case 1:
                     subject.Kill();
@@ -93,27 +94,31 @@ namespace SWLCallouts.Callouts
                     break;
             }
             ShowCalloutAreaBlipBeforeAccepting(SpawnPoint, 100f);
-            switch (random.Next(1, 5))
+            switch (random.Next(1, 101))
             {
-                case 1:
+                case int n when (n <= 16):
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 1;
                     break;
-                case 2:
+                case int n when (n <= 32):
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 2;
                     break;
-                case 3:
+                case int n when (n <= 48):
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 3;
                     break;
-                case 4:
+                case int n when (n <= 74):
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 4;
                     break;
-                case 5:
+                case int n when (n <= 100):
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 5;
+                    break;
+                default:
+                    CalloutMessage = "[SWL]~w~ Welfare Check";
+                    callOutMessage = random.Next(1,6);
                     break;
             }
             CalloutPosition = SpawnPoint;
@@ -186,6 +191,19 @@ namespace SWLCallouts.Callouts
                     if (Scene3 == true && Scene1 == false && Scene2 == false && subject.DistanceTo(Game.LocalPlayer.Character) < 5f && Game.IsKeyDown(Settings.Dialog))
                     {
                         subject.Face(Game.LocalPlayer.Character);
+                        if (callOutMessage == 4)
+                        {
+                            subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
+                            isArmed = true;
+                            subject.IsPersistent = true;
+                        }
+                        if (callOutMessage == 5)
+                        {
+                            subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
+                            isArmed = true;
+                            subject.IsPersistent = true;
+                            subject.Tasks.Wander();
+                        }
                         switch (storyLine)
                         {
                             case 1:
@@ -197,15 +215,8 @@ namespace SWLCallouts.Callouts
                                     Game.DisplaySubtitle("~y~Civilian: ~w~Oh Officer, how can I help you today?", 10000);
                                 if (callOutMessage == 4)
                                     Game.DisplaySubtitle("~y~Civilian: ~w~Yo Officer! Can I help you?!", 10000);
-                                    subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
-                                    isArmed = true;
-                                    subject.IsPersistent = true;
-                                    subject.Tasks.Wander();
                                 if (callOutMessage == 5)
                                     Game.DisplaySubtitle("~y~Civilian: ~w~Can I help you Officer?", 10000);
-                                    subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
-                                    isArmed = true;
-                                    subject.IsPersistent = true;
                                 storyLine++;
                                 break;
                             case 2:
@@ -225,21 +236,26 @@ namespace SWLCallouts.Callouts
                                 if (callOutMessage == 1)
                                     Game.DisplaySubtitle("~y~Civilian: ~w~Oh dear! I didn't want to worry anyone.", 10000);
                                 if (callOutMessage == 2)
-                                    Game.DisplaySubtitle("~b~Civilian: ~w~Oh, Yes everything is all good.", 10000);
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Oh, Yes everything is all good.", 10000);
                                 if (callOutMessage == 3)
-                                    Game.DisplaySubtitle("~b~Civilian: ~w~Uhh.. Everything is fine officer. I don't understand why they wouldn't call me.", 10000);
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Uhh.. Everything is fine officer. I don't understand why they wouldn't call me.", 10000);
                                 if (callOutMessage == 4)
-                                    Game.DisplaySubtitle("~b~Civilian: ~w~Yeah sure, we were just getting food prepared when I thought I heard a noise so I was just checking that out.", 10000);
+                                {
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Yeah sure, we were just getting food prepared when I thought I heard a noise so I was just checking that out.", 10000);
                                     GameFiber.Wait(4000);
+                                    subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, false);
                                     isArmed = false;
+                                }
                                 if (callOutMessage == 5)
+                                {
                                     if (Settings.ActivateAIBackup)
                                     {
-                                        Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICER_REQUESTING_BACKUP CODE3"); 
+                                        Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICER_REQUESTING_BACKUP CODE3");
                                         Functions.RequestBackup(Game.LocalPlayer.Character.Position, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
                                     }
                                     else { Settings.ActivateAIBackup = false; }
                                     Game.DisplaySubtitle("~b~Civilian: ~w~What did you say? You a little scared are ya?!", 10000);
+                                }
                                 storyLine++;
                                 break;
                             case 4:
@@ -252,12 +268,14 @@ namespace SWLCallouts.Callouts
                                 if (callOutMessage == 4)
                                     Game.DisplaySubtitle("~y~Civilian: ~w~So, Why are you here? I don't understand?", 10000);
                                 if (callOutMessage == 5)
+                                {
                                     Game.DisplaySubtitle("~y~Civilian: ~w~Fuck off ya pig!", 10000);
                                     GameFiber.Wait(2000);
                                     isArmed = true;
-                                    subject.KeepTasks = true; 
+                                    subject.KeepTasks = true;
                                     subject.Tasks.FightAgainst(Game.LocalPlayer.Character);
                                     hasBegunAttacking = true;
+                                }
                                 storyLine++;
                                 break;
                             case 5:
@@ -279,7 +297,7 @@ namespace SWLCallouts.Callouts
                                 if (callOutMessage == 3)
                                     End();
                                 if (callOutMessage == 4)
-                                    Game.DisplaySubtitle("~b~Civilian: ~w~Yes, I have been busy and didn't take note of the time. We are fine, thanks for the concern.", 10000);
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Yes, I have been busy and didn't take note of the time. We are fine, thanks for the concern.", 10000);
                                     GameFiber.Wait(5000);
                                     End();
                                 storyLine++;

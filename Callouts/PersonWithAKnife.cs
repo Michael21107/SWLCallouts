@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.3.5
+// Version: 0.4.4.2
 
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
@@ -12,8 +12,8 @@ using System.Linq;
 
 namespace SWLCallouts.Callouts
 {
-    [CalloutInfo("[SWL] Reports of a Person With a Knife", CalloutProbability.Medium)]
-    public class PersonWithKnife : Callout
+    [CalloutInfo("[SWL] Person With a Knife", CalloutProbability.Medium)]
+    public class SWLPersonWithAKnife : Callout
     {
         private string[] pedList = new string[] { "A_F_M_SouCent_01", "A_F_M_SouCent_02", "A_M_Y_Skater_01", "A_M_M_FatLatin_01", "A_M_M_EastSA_01", "A_M_Y_Latino_01", "G_M_Y_FamDNF_01",
                                                   "G_M_Y_FamCA_01", "G_M_Y_BallaSout_01", "G_M_Y_BallaOrig_01", "G_M_Y_BallaEast_01", "G_M_Y_StrPunk_02", "S_M_Y_Dealer_01", "A_M_M_RurMeth_01",

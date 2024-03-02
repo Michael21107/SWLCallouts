@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.3.5
+// Version: 0.4.4.2
 
 using Rage;
 using LSPD_First_Response.Mod.API;
@@ -122,7 +122,7 @@ namespace SWLCallouts
             //if (Settings.K9BackupRequired) { Functions.RegisterCallout(typeof(SWLK9BackupRequired)); }
             //if (Settings.MoneyTruckTheft) { Functions.RegisterCallout(typeof(SWLMoneyTruckTheft)); }
             //if (Settings.MurderInvestigation) { Functions.RegisterCallout(typeof(SWLMurderInvestigation)); }
-            //if (Settings.PersonWithKnife) { Functions.RegisterCallout(typeof(SWLPersonWithKnife)); }
+            if (Settings.PersonWithAKnife) { Functions.RegisterCallout(typeof(SWLPersonWithAKnife)); }
             //if (Settings.PublicPeaceDisturbance) { Functions.RegisterCallout(typeof(SWLPublicPeaceDisturbance)); }
             //if (Settings.RobberyHL) { Functions.RegisterCallout(typeof(SWLRobberyHL)); }
             //if (Settings.ShotsFired) { Functions.RegisterCallout(typeof(SWLShotsFired)); }

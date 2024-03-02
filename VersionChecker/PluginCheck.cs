@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.3.5
+// Version: 0.4.4.2
 
 using System;
 using System.Net.Http;
@@ -51,7 +51,7 @@ namespace SWLCallouts.VersionChecker
                                     {
                                         Game.DisplayNotification(icon, icon, "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
                                     }
-                                    else
+                                    else if (updateType == "Stable")
                                     {
                                         Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "", "Detected the ~g~latest~w~ build of ~y~SWLCallouts~w~!");
                                     }
@@ -61,8 +61,9 @@ namespace SWLCallouts.VersionChecker
                                 {
                                     // Display a message thanking the user for helping with testing
                                     string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
-                                    Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "Oh, I see you!", "~g~Thank you ~b~for helping ~p~me out ~o~by testing ~w~this wonderful script!");
-                                    Game.DisplayNotification(icon, icon, "SWLCallouts", "~y~Unstable Build", "This must be a ~p~wonder released ~r~unstable build~w~ of SWLCallouts. You may notice ~o~bugs ~w~while playing this unstable build.");
+                                    Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "~p~Oh, I see you!", "~g~Thank you ~b~for helping ~p~me out ~o~by testing ~w~this wonderful script!");
+                                    Game.DisplayNotification(icon, icon, "SWLCallouts", "~o~Unstable Test Build", "This must be a ~r~unstable ~p~wonder build ~w~of SWLCallouts. You may notice ~o~bugs ~w~while playing this unstable build.");
+                                    return false;
                                 }
                                 else
                                 {

@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.3.5
+// Version: 0.4.4.2
 
 using Rage;
 using System;
@@ -11,7 +11,7 @@ using SWLCallouts.Stuff;
 
 namespace SWLCallouts.Callouts
 {
-    [CalloutInfo("[SWL] HighSpeedChase", CalloutProbability.Medium)]
+    [CalloutInfo("[SWL] High Speed Chase", CalloutProbability.Medium)]
     public class SWLHighSpeedChase : Callout
     {
         private Vehicle SuspectVehicle;

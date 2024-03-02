@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.3.5
+// Version: 0.4.4.2
 
 using System;
 using System.Collections.Generic;
@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Rage;
+using SWLCallouts.Callouts;
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace SWLCallouts
@@ -31,7 +32,7 @@ namespace SWLCallouts
         internal static bool K9BackupRequired = true;
         internal static bool MoneyTruckTheft = true;
         internal static bool MurderInvestigation = true;
-        internal static bool PersonWithKnife = true;
+        internal static bool PersonWithAKnife = true;
         internal static bool PublicPeaceDisturbance = true;
         internal static bool RobberyHL = true;
         internal static bool ShotsFired = true;
@@ -73,7 +74,7 @@ namespace SWLCallouts
             K9BackupRequired = ini.ReadBoolean("Callouts", "SWLK9BackupRequired", true);
             MoneyTruckTheft = ini.ReadBoolean("Callouts", "SWLMoneyTruckTheft", true);
             MurderInvestigation = ini.ReadBoolean("Callouts", "SWLMurderInvestigation", true);
-            PersonWithKnife = ini.ReadBoolean("Callouts", "SWLPersonWithKnife", true);
+            PersonWithAKnife = ini.ReadBoolean("Callouts", "SWLPersonWithAKnife", true);
             PublicPeaceDisturbance = ini.ReadBoolean("Callouts", "SWLPublicPeaceDisturbance", true);
             RobberyHL = ini.ReadBoolean("Callouts", "SWLRobberyHL", true);
             ShotsFired = ini.ReadBoolean("Callouts", "SWLShotsFired", true);
@@ -95,7 +96,7 @@ namespace SWLCallouts
             EndCall = ini.ReadEnum("Keys", "EndCall", Keys.End);
             Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
         }
-        public static readonly string PluginVersion = "0.4.3.5";
+        public static readonly string PluginVersion = "0.4.4.2";
         public static readonly string VersionType = "Alpha";
     }
 }
