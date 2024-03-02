@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.4.5
+// Version: 0.4.5.0
 
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
@@ -17,9 +17,7 @@ namespace SWLCallouts.Callouts
     [CalloutInfo("[SWL] Welfare Check", CalloutProbability.Medium)]
     public class SWLWelfareCheck : Callout
     {
-        private Ped subject;
-        private string[] Suspects = new string[] { "ig_andreas", "g_m_m_armlieut_01", "a_m_m_bevhills_01", "a_m_y_business_02", "s_m_m_gaffer_01", "a_f_y_golfer_01",
-                                                   "a_f_y_bevhills_01", "a_f_y_bevhills_04", "a_f_y_fitness_02"};
+        private Ped Suspect;
         private Vector3 SpawnPoint;
         private Vector3 searcharea;
         private Blip Blip = null;
@@ -35,6 +33,7 @@ namespace SWLCallouts.Callouts
         private bool alreadySubtitleIntrod = false;
         private bool notificationDisplayed = false;
         private bool getAmbulance = false;
+        string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
 
         public override bool OnBeforeCalloutDisplayed()
         {
@@ -77,19 +76,19 @@ namespace SWLCallouts.Callouts
 
             // Choose the nearest location from the updated list
             SpawnPoint = LocationChooser.chooseNearestLocation(list);
-            subject = new Ped(Suspects[random.Next((int)Suspects.Length - 1)], SpawnPoint, 0f);
-            LSPD_First_Response.Mod.API.Functions.GetPersonaForPed(subject);
+            Suspect = new Ped(SpawnPoint, 0f);
+            LSPD_First_Response.Mod.API.Functions.GetPersonaForPed(Suspect);
             switch (random.Next(1, 4))
             {
                 case 1:
-                    subject.Kill();
+                    Suspect.Kill();
                     Scene1 = true;
                     break;
                 case 2:
                     Scene3 = true;
                     break;
                 case 3:
-                    subject.Dismiss();
+                    Suspect.Dismiss();
                     Scene2 = true;
                     break;
             }
@@ -116,10 +115,6 @@ namespace SWLCallouts.Callouts
                     CalloutMessage = "[SWL]~w~ Welfare Check";
                     callOutMessage = 5;
                     break;
-                default:
-                    CalloutMessage = "[SWL]~w~ Welfare Check";
-                    callOutMessage = random.Next(1,6);
-                    break;
             }
             CalloutPosition = SpawnPoint;
             Functions.PlayScannerAudioUsingPosition("UNITS WE_HAVE CRIME_CIVILIAN_NEEDING_ASSISTANCE_02", SpawnPoint);
@@ -131,22 +126,11 @@ namespace SWLCallouts.Callouts
         public override bool OnCalloutAccepted()
         {
             Game.LogTrivial("SWLCallouts Log: Welfare Check callout accepted.");
-            string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~Dispatch:~w~ Someone called the police for a welfare check. Search the ~y~yellow area~w~ for the person. Respond ~y~Code 2");
             Functions.PlayScannerAudio("UNITS_RESPOND_CODE_02_02");
             //Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH WE_HAVE_01 CITIZENS_REPORT_01 A_01 CRIME_CIVILIAN_NEEDING_ASSISTANCE_02 UNITS_RESPOND_CODE_02_02");
-            GameFiber.StartNew(() =>
-            {
-                // This code will run asynchronously in a separate fiber
-                for (int i = 0; i < 10; i++)
-                {
-                    Game.Console.Print("Running asynchronously...");
-                    GameFiber.Sleep(2000); // Pause execution for 2 seconds
-                    Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "", "Loading ~g~Information~w~ off the ~y~LSPD Database~w~...");
-                    Functions.DisplayPedId(subject, true);
-                }
-            });
-            
+            Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "", "Loading ~g~Information~w~ off the ~y~LSPD Database~w~...");
+            Functions.DisplayPedId(Suspect, true);            
 
             searcharea = SpawnPoint.Around2D(1f, 2f);
             Blip = new Blip(searcharea, 40f);
@@ -159,19 +143,18 @@ namespace SWLCallouts.Callouts
 
         public override void OnCalloutNotAccepted()
         {
-            if (subject != null) subject.Delete();
+            if (Suspect != null) Suspect.Delete();
             if (Blip != null) Blip.Delete();
             base.OnCalloutNotAccepted();
         }
 
         public override void Process()
         {
-            string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
             GameFiber.StartNew(delegate
             {
                 if (SpawnPoint.DistanceTo(Game.LocalPlayer.Character) < 50f)
                 {
-                    if (Scene1 == true && subject && subject.DistanceTo(Game.LocalPlayer.Character) < 20f && Game.LocalPlayer.Character.IsOnFoot && !notificationDisplayed && !getAmbulance)
+                    if (Scene1 == true && Suspect && Suspect.DistanceTo(Game.LocalPlayer.Character) < 20f && Game.LocalPlayer.Character.IsOnFoot && !notificationDisplayed && !getAmbulance)
                     {
                         Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "~y~Dispatch", "We are going to call an ~y~ambulance~w~ to your current location, officer. Press the ~y~END~w~ key to end the welfare check callout.");
                         notificationDisplayed = true;
@@ -190,27 +173,27 @@ namespace SWLCallouts.Callouts
                         notificationDisplayed = true;
                         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICERS_ARRIVED_ON_SCENE");
                     }
-                    if (Scene3 == true && subject && subject.DistanceTo(Game.LocalPlayer.Character) < 25f && Game.LocalPlayer.Character.IsOnFoot && alreadySubtitleIntrod == false)
+                    if (Scene3 == true && Suspect && Suspect.DistanceTo(Game.LocalPlayer.Character) < 25f && Game.LocalPlayer.Character.IsOnFoot && alreadySubtitleIntrod == false)
                     {
                         Game.DisplaySubtitle("Press ~y~Y ~w~to speak with the civilian.", 5000);
                         Game.DisplayHelp("Press the ~y~END~w~ key to end the ~o~welfare check~w~ callout.", 5000);
                         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICERS_ARRIVED_ON_SCENE");
                         alreadySubtitleIntrod = true;
                     }
-                    if (Scene3 == true && Scene1 == false && Scene2 == false && subject.DistanceTo(Game.LocalPlayer.Character) < 5f && Game.IsKeyDown(Settings.Dialog))
+                    if (Scene3 == true && Scene1 == false && Scene2 == false && Suspect.DistanceTo(Game.LocalPlayer.Character) < 5f && Game.IsKeyDown(Settings.Dialog))
                     {
-                        subject.Face(Game.LocalPlayer.Character);
+                        Suspect.Face(Game.LocalPlayer.Character);
                         if (callOutMessage == 4)
                         {
-                            subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
+                            Suspect.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
                             isArmed = true;
-                            subject.IsPersistent = true;
+                            Suspect.IsPersistent = true;
                         }
                         if (callOutMessage == 5)
                         {
-                            subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
+                            Suspect.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
                             isArmed = true;
-                            subject.IsPersistent = true;
+                            Suspect.IsPersistent = true;
                         }
                         switch (storyLine)
                         {
@@ -250,8 +233,7 @@ namespace SWLCallouts.Callouts
                                 if (callOutMessage == 4)
                                 {
                                     Game.DisplaySubtitle("~y~Civilian: ~w~Yeah sure, we were just getting food prepared when I thought I heard a noise so I was just checking that out.", 10000);
-                                    GameFiber.Sleep(2000);
-                                    subject.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, false);
+                                    Suspect.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, false);
                                     isArmed = false;
                                 }
                                 if (callOutMessage == 5)
@@ -263,7 +245,7 @@ namespace SWLCallouts.Callouts
                                     }
                                     else { Settings.ActivateAIBackup = false; }
                                     Game.DisplaySubtitle("~b~Civilian: ~w~What did you say? You a little scared are ya?!", 10000);
-                                    subject.Tasks.Wander();
+                                    Suspect.Tasks.Wander();
                                 }
                                 storyLine++;
                                 break;
@@ -278,11 +260,10 @@ namespace SWLCallouts.Callouts
                                     Game.DisplaySubtitle("~y~Civilian: ~w~So, Why are you here? I don't understand?", 10000);
                                 if (callOutMessage == 5)
                                 {
-                                    Game.DisplaySubtitle("~y~Civilian: ~w~Fuck off ya pig!", 10000);
-                                    GameFiber.Sleep(2000);
+                                    Game.DisplaySubtitle("~y~Civilian: ~w~Fuck off ya pig!", 5000);
                                     isArmed = true;
-                                    subject.KeepTasks = true;
-                                    subject.Tasks.FightAgainst(Game.LocalPlayer.Character);
+                                    Suspect.KeepTasks = true;
+                                    Suspect.Tasks.FightAgainst(Game.LocalPlayer.Character);
                                     hasBegunAttacking = true;
                                 }
                                 storyLine++;
@@ -307,7 +288,6 @@ namespace SWLCallouts.Callouts
                                     End();
                                 if (callOutMessage == 4)
                                     Game.DisplaySubtitle("~y~Civilian: ~w~Yes, I have been busy and didn't take note of the time. We are fine, thanks for the concern.", 10000);
-                                    GameFiber.Sleep(2000);
                                     End();
                                 storyLine++;
                                 break;
@@ -324,9 +304,8 @@ namespace SWLCallouts.Callouts
 
         public override void End()
         {
-            if (subject.Exists()) subject.Dismiss();
+            if (Suspect.Exists()) Suspect.Dismiss();
             if (Blip != null && Blip.Exists()) Blip.Delete();
-            string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
             Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 

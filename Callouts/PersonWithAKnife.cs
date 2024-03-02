@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
-// Created: 16th Feb 2024
-// Version: 0.4.4.5
+// Created: 28th Feb 2024
+// Version: 0.4.5.0
 
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
@@ -32,6 +32,7 @@ namespace SWLCallouts.Callouts
         private bool hasSpoke = false;
         private bool pursuitCreated = false;
 #pragma warning restore CS0414
+        string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
 
         public override bool OnBeforeCalloutDisplayed()
         {
@@ -46,7 +47,6 @@ namespace SWLCallouts.Callouts
 
         public override bool OnCalloutAccepted()
         {
-            string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "~y~Person With a Knife", "~b~Dispatch: ~w~Try to arrest the suspect. Respond with ~r~Code 3");
             Functions.PlayScannerAudio("UNITS_RESPOND_CODE_03_01");
 
@@ -127,7 +127,6 @@ namespace SWLCallouts.Callouts
         {
             if (subject) subject.Dismiss();
             if (Blip) Blip.Delete();
-            string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
             Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
             base.End();
