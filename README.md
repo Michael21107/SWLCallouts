@@ -1,7 +1,7 @@
 <!--
 // Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.5.1
+// Version: 0.4.5.4
 -->
 
 <!-- PROJECT SHIELDS -->
@@ -16,7 +16,7 @@
   <a href="https://github.com/Scottywonderful/SWL-Callouts">
     <img src="Images/SWLCO.png" alt="SWL-Callouts Logo" width="128" height="128">
   </a>
-<h3 align="center">SWL-Callouts (Build 0.4.5.1)</h3>
+<h3 align="center">SWL-Callouts (Build 0.4.5.4)</h3>
 <h5 align="center"><i>Alpha Version Detected</i></h5>
   <p align="center">SWL-Callouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
     <br />

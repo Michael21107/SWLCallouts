@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.5.1
+// Version: 0.4.5.4
 
 using System;
 using System.Collections.Generic;
@@ -96,7 +96,7 @@ namespace SWLCallouts
             EndCall = ini.ReadEnum("Keys", "EndCall", Keys.End);
             Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
         }
-        public static readonly string PluginVersion = "0.4.5.1";
+        public static readonly string PluginVersion = "0.4.5.4";
         public static readonly string VersionType = "Alpha";
     }
 }

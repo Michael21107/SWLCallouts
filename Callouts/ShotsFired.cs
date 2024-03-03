@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 2nd Mar 2024
-// Version: 0.4.5.1
+// Version: 0.4.5.4
 
 using System;
 using Rage;
