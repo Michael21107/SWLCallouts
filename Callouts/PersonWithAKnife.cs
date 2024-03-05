@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 28th Feb 2024
-// Version: 0.4.5.4
+// Version: 0.4.5.6
 
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
@@ -15,7 +15,7 @@ namespace SWLCallouts.Callouts
     [CalloutInfo("[SWL] Reports of a Person With A Knife", CalloutProbability.Medium)]
     public class SWLPersonWithAKnife : Callout
     {
-        private string[] pedList = new string[] { "A_F_M_SouCent_01", "A_F_M_SouCent_02", "A_M_Y_Skater_01", "A_M_M_FatLatin_01", "A_M_M_EastSA_01", "A_M_Y_Latino_01", "G_M_Y_FamDNF_01",
+        private readonly string[] pedList = new string[] { "A_F_M_SouCent_01", "A_F_M_SouCent_02", "A_M_Y_Skater_01", "A_M_M_FatLatin_01", "A_M_M_EastSA_01", "A_M_Y_Latino_01", "G_M_Y_FamDNF_01",
                                                   "G_M_Y_FamCA_01", "G_M_Y_BallaSout_01", "G_M_Y_BallaOrig_01", "G_M_Y_BallaEast_01", "G_M_Y_StrPunk_02", "S_M_Y_Dealer_01", "A_M_M_RurMeth_01",
                                                   "A_M_M_Skidrow_01", "A_M_Y_MexThug_01", "G_M_Y_MexGoon_03", "G_M_Y_MexGoon_02", "G_M_Y_MexGoon_01", "G_M_Y_SalvaGoon_01", "G_M_Y_SalvaGoon_02",
                                                   "G_M_Y_SalvaGoon_03", "G_M_Y_Korean_01", "G_M_Y_Korean_02", "G_M_Y_StrPunk_01" };
@@ -28,11 +28,11 @@ namespace SWLCallouts.Callouts
         private bool hasBegunAttacking = false;
         private bool isArmed = false;
         private bool hasPursuitBegun = false;
-#pragma warning disable CS0414
-        private bool hasSpoke = false;
-        private bool pursuitCreated = false;
-#pragma warning restore CS0414
-        string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
+        //#pragma warning disable CS0414 // Ignores the warning on we get with the next line.
+        //private bool hasSpoke = false;
+        //private readonly bool pursuitCreated = false;
+        //#pragma warning restore CS0414 // Looks for other CS0414 errors outide of here.
+        readonly string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
 
         public override bool OnBeforeCalloutDisplayed()
         {
@@ -42,24 +42,31 @@ namespace SWLCallouts.Callouts
             CalloutMessage = "[SWL]~w~ Reports of a Person With a Knife.";
             CalloutPosition = SpawnPoint;
             Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS ASSAULT_WITH_AN_DEADLY_WEAPON CIV_ASSISTANCE IN_OR_ON_POSITION", SpawnPoint);
+            Game.LogTrivial("SWLCallouts - Person With A Knife callout offered.");
+
             return base.OnBeforeCalloutDisplayed();
         }
 
         public override bool OnCalloutAccepted()
         {
+            Game.LogTrivial("SWLCallouts - Person With A Knife callout accepted.");
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "~y~Person With a Knife", "~b~Dispatch: ~w~Try to arrest the suspect. Respond with ~r~Code 3");
             Functions.PlayScannerAudio("UNITS_RESPOND_CODE_03_01");
 
-            Suspect = new Ped(pedList[new Random().Next((int)pedList.Length)], SpawnPoint, 0f);
-            Suspect.BlockPermanentEvents = true;
-            Suspect.IsPersistent = true;
+            Suspect = new Ped(pedList[new Random().Next((int)pedList.Length)], SpawnPoint, 0f)
+            {
+                BlockPermanentEvents = true,
+                IsPersistent = true
+            };
             Suspect.Tasks.Wander();
 
             searcharea = SpawnPoint.Around2D(1f, 2f);
-            Blip = new Blip(searcharea, 80f);
-            Blip.Color = Color.Orange;
+            Blip = new Blip(searcharea, 80f)
+            {
+                Color = Color.Orange,
+                Alpha = 0.5f
+            };
             Blip.EnableRoute(Color.Orange);
-            Blip.Alpha = 0.5f;
             return base.OnCalloutAccepted();
         }
 
@@ -90,15 +97,15 @@ namespace SWLCallouts.Callouts
                         {
                             case 1:
                                 Game.DisplaySubtitle("~r~Suspect: ~w~I do not want to live anymore!", 4000);
-                                hasSpoke = true;
+                                //hasSpoke = true;
                                 break;
                             case 2:
                                 Game.DisplaySubtitle("~r~Suspect: ~w~Go away! - I'm not going back to the psychiatric hospital!", 4000);
-                                hasSpoke = true;
+                                //hasSpoke = true;
                                 break;
                             case 3:
                                 Game.DisplaySubtitle("~r~Suspect: ~w~I'm not going back to the psychiatric hospital!", 4000);
-                                hasSpoke = true;
+                                //hasSpoke = true;
                                 break;
                             default: break;
                         }
@@ -129,6 +136,8 @@ namespace SWLCallouts.Callouts
             if (Blip) Blip.Delete();
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
             Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
+
+            Game.LogTrivial("SWLCallouts - Person With A Knife cleanup.");
             base.End();
         }
     }

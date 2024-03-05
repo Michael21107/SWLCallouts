@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.5.4
+// Version: 0.4.5.6
 
 using Rage;
 using System;
@@ -11,20 +11,20 @@ using SWLCallouts.Stuff;
 
 namespace SWLCallouts.Callouts
 {
-    [CalloutInfo("[SWL] High Speed Chase", CalloutProbability.Medium)]
+    [CalloutInfo("[SWL] Officers Report of a High Speed Chase", CalloutProbability.Medium)]
     public class SWLHighSpeedChase : Callout
     {
         private Vehicle SuspectVehicle;
-        private string[] VehicleList = new string[] { "ADDER", "AKUMA", "BANSHEE", "BATI", "BULLET", "CARBONRS", "CHEETAH", "COMET", "COQUETTE", "DOUBLE", "ENTITYXF", "HAKUCHOU", "INFERNUS", "JESTER", "MASSACRO", "NEMESIS", "NINEF", "OSIRIS", "PANTO", "PCJ", "SURANO", "T20", "VACCA", "VOLTIC", "ZENTORNO" };
+        private readonly string[] VehicleList = new string[] { "ADDER", "AKUMA", "BANSHEE", "BATI", "BULLET", "CARBONRS", "CHEETAH", "COMET", "COQUETTE", "DOUBLE", "ENTITYXF", "HAKUCHOU", "INFERNUS", "JESTER", "MASSACRO", "NEMESIS", "NINEF", "OSIRIS", "PANTO", "PCJ", "SURANO", "T20", "VACCA", "VOLTIC", "ZENTORNO" };
         private Ped Suspect;
         private Vector3 SpawnPoint;
         private Blip SuspectBlip;
         private LHandle Pursuit;
         private bool PursuitCreated = false;
-#pragma warning disable CS0414 // Ignores the warning on we get with the next line.
-        private bool notificationDisplayed = false;
-#pragma warning restore CS0414 // Looks for other CS0414 errors outide of here.
-        string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
+        //#pragma warning disable CS0414 // Ignores the warning on we get with the next line.
+        //private readonly bool notificationDisplayed = false;
+        //#pragma warning restore CS0414 // Looks for other CS0414 errors outide of here.
+        readonly string icon = Main.GetIconForDepartment(Settings.Department); // Get icons from Main.cs and Settings.cs
 
         public override bool OnBeforeCalloutDisplayed()
         {
@@ -33,17 +33,18 @@ namespace SWLCallouts.Callouts
             CalloutMessage = "[SWL]~w~ High Speed Chase in progress";
             CalloutPosition = SpawnPoint;
             Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_GRAND_THEFT_AUTO IN_OR_ON_POSITION", SpawnPoint);
-
-            Game.LogTrivial("SWLCallouts - High Speed Chase Offered.");
+            Game.LogTrivial("SWLCallouts - High Speed Chase callout offered.");
 
             return base.OnBeforeCalloutDisplayed();
         }
 
         public override bool OnCalloutAccepted()
         {
-            Game.LogTrivial("SWLCallouts - High Speed Chase Accepted.");
-            SuspectVehicle = new Vehicle(VehicleList[new Random().Next((int)VehicleList.Length)], SpawnPoint);
-            SuspectVehicle.IsPersistent = true;
+            Game.LogTrivial("SWLCallouts - High Speed Chase callout accepted.");
+            SuspectVehicle = new Vehicle(VehicleList[new Random().Next((int)VehicleList.Length)], SpawnPoint)
+            {
+                IsPersistent = true
+            };
 
             Suspect = SuspectVehicle.CreateRandomDriver();
             Suspect.IsPersistent = true;
@@ -88,7 +89,7 @@ namespace SWLCallouts.Callouts
             Game.DisplayNotification(icon, icon, "~w~SWLCallouts", "[SWL] ~y~High Speed Chase", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
             Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
-            Game.LogTrivial("SWLCallouts - High Speed Chase Cleanup.");
+            Game.LogTrivial("SWLCallouts - High Speed Chase cleanup.");
             base.End();
         }
     }

@@ -1,7 +1,7 @@
 <!--
 // Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.5.4
+// Version: 0.4.5.6
 -->
 
 <!-- PROJECT SHIELDS -->
@@ -16,8 +16,7 @@
   <a href="https://github.com/Scottywonderful/SWL-Callouts">
     <img src="Images/SWLCO.png" alt="SWL-Callouts Logo" width="128" height="128">
   </a>
-<h3 align="center">SWL-Callouts (Build 0.4.5.4)</h3>
-<h5 align="center"><i>Alpha Version Detected</i></h5>
+<h3 align="center">SWL-Callouts (Build 0.4.5.6)</br><h5 align="center"><i>Alpha Version Detected</i></h5></h3>
   <p align="center">SWL-Callouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
     <br />
     <br />
@@ -79,15 +78,16 @@ Scottywonderful<br><br>
 Here you can find the list of callouts which are either <i>available</i>, <i>coming soon</i> (next update) or <i>in progress</i> (a future update).
 <b>Available Police Callouts</b><br>
  * High speed chase
- * **[NEW]** Person with a knife<br>
- * **[NEW]** Shots fired<br>
+ * **[NEW]** Person with a knife
+ * **[NEW]** Shots fired
+ * **[NEW]** Stolen emergency service vehicle
  * Welfare check
-
+<br>
  * <b>Callouts listed below are coming soon.</b><br>
-  * Stolen emergency service vehicle
+  * Cyclist on the motorway<br>
 
 <b>Callouts listed below are currently in progress.</b><br>
-  * Cyclist on the motorway
+  * Murder Investigation<br>
 
 <b>Callouts listed below are planned sometime in the future.</b><br>
   * Active pursuit
@@ -118,8 +118,7 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
   * K9 backup request
   * Mentally unstable individual
   * Missing person
-  * Money truck theft (stolen money truck)
-  * Murder Investigation
+  * Money truck theft
   * Police impersonation
   * Police raid
   * Prison bus Incident
