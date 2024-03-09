@@ -16,7 +16,7 @@
   <a href="https://github.com/Scottywonderful/SWL-Callouts">
     <img src="Images/SWLCO.png" alt="SWL-Callouts Logo" width="128" height="128">
   </a>
-<h3 align="center">SWL-Callouts (Build 0.4.5.6)</br><h5 align="center"><i>Alpha Version Detected</i></h5></h3>
+<h3 align="center">SWL-Callouts (Build 0.4.5.6)</h3>
   <p align="center">SWL-Callouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
     <br />
     <br />
@@ -182,15 +182,15 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
 * LSPD First Response 0.4.9 <i>(or higher)</i> <a href="https://www.lcpdfr.com/files/file/7792-lspd-first-response">Download here</a>
 * RAGE Plugin Hook 1.95 <i>(or higher)</i> <a href="https://ragepluginhook.net/Downloads.aspx">Download here</a>
 * Open All Interiors <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/open-all-interiors">Download here</a>
-<!--*Enable All Interiors (WIP) <u>(23.1 or higher)</u> <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/enable-all-interiors-wip">Download here</a>--> <!-- This is a replacement of the Open All Interiors mod -->
 * A legal copy of GTA5 <i>(Retail, Epic Games or Steam)</i><br>
+* <!--*Enable All Interiors (WIP) <u>(23.1 or higher)</u> <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/enable-all-interiors-wip">Download here</a>--> <!-- This is a replacement of the Open All Interiors mod -->
 
 #### Recommended plugins
   * Grammar Police 1.7.2 <i>(or higher)</i> by opus49 & BenH6021 <a href="https://www.lcpdfr.com/downloads/gta5mods/scripts/28003-grammarpolice/">Download here</a>
   * CompuLite <i>(latest version)</i> by Bejoljo <a href="https://www.bejoijo.com/post/compulite">Download here</a>
   * Stop The Ped <i>(latest version)</i> by Bejoljo <a href="https://www.bejoijo.com/post/stop-the-ped">Download here</a>
   * Ultimate Backup <i>(lastest version)</i> by Bejoljo <a href="https://www.bejoijo.com/post/ultimate-backup">Download here</a>
-<br>
+
 
 ### Installation
 
@@ -228,6 +228,7 @@ I would like to thank the following people for their help, ideas and contributio
 * <b><a href="https://discord.com/users/874175887296323624">forevernameless</a></b> (<i>Ideas, Alpha and Beta testing for me</i> :upside_down_face:)
 * <b><a href="https://discord.com/users/510589560502091787">legendaryhobo1</a></b> (<i>Ideas + Alpha and Beta testing for me</i> :sunglasses:)
 * <b><a href="https://discord.com/users/651319300166254592">natey1.</a></b> (<i>Alpha and Beta testing for me</i> :neutral_face:)
+* <b><a href="https://www.lcpdfr.com/profile/457341-charlie686/">Charlie686</a></b> (<i>Discord bot and layout</i>) :angel:
 
 <!-- * ![forevernameless](https://dcbadge.vercel.app/api/shield/874175887296323624?style=flat-square&?compact=true&?logoColor=pink) (Alpha and Beta testing for me :upside_down_face:)
 * ![legendaryhobo1](https://dcbadge.vercel.app/api/shield/510589560502091787?style=flat-square&?compact=true&?logoColor=orange) (Ideas + Alpha and Beta testing for me :sunglasses:)
@@ -235,4 +236,4 @@ I would like to thank the following people for their help, ideas and contributio
 
 * Last but not least, <b><a href="https://discord.com/users/291193188956241921">Scottywonderful</a></b> (Yes, myself, because I made this mostly from scratch and did my own ideas in it as well :cowboy_hat_face:)<br>
 <!--![Scottywonderful](https://dcbadge.vercel.app/api/shield/291193188956241921?style=flat-square&?compact=true&?logoColor=purple)<br>-->
-Need any support then please join [![our discord](https://img.shields.io/discord/291193721196904448?color=purple&logo=Discord&style=flat-square&?compact=true)](https://discord.gg/invite/XbjWkt7)<br>
+Need any support then please join our discord <a href="https://discord.gg/GKbEFJZvz4">https://discord.gg/GKbEFJZvz4</a><br>

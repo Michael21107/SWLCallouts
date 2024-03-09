@@ -251,12 +251,6 @@ namespace SWLCallouts.Callouts
                                     }
                                     if (callOutMessage == 5)
                                     {
-                                        if (Settings.ActivateAIBackup)
-                                        {
-                                            Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICER_REQUESTING_BACKUP CODE3");
-                                            Functions.RequestBackup(Game.LocalPlayer.Character.Position, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
-                                        }
-                                        else { Settings.ActivateAIBackup = false; }
                                         Game.DisplaySubtitle("~b~Civilian: ~w~What did you say? You a little scared are ya?!", 5000);
                                     }
                                     storyLine++;
@@ -273,6 +267,12 @@ namespace SWLCallouts.Callouts
                                     if (callOutMessage == 5)
                                     {
                                         Game.DisplaySubtitle("~y~Civilian: ~w~Fuck off ya pig!", 5000);
+                                        if (Settings.ActivateAIBackup)
+                                        {
+                                            Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICER_REQUESTING_BACKUP CODE3");
+                                            Functions.RequestBackup(Game.LocalPlayer.Character.Position, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
+                                        }
+                                        else { Settings.ActivateAIBackup = false; }
                                         GameFiber.Wait(2000);
                                         Suspect.KeepTasks = true;
                                         Suspect.Tasks.FightAgainst(Game.LocalPlayer.Character);

@@ -55,6 +55,6 @@ namespace SWLCallouts
             Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
         }
         public static readonly string PluginVersion = "0.4.5.6";
-        public static readonly string VersionType = "Alpha";
+        public static readonly string VersionType = "Full";
     }
 }

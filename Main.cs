@@ -90,13 +90,13 @@ namespace SWLCallouts
                 case "lssheriff":
                     return "web_lossantossheriffdept";
                 case "sheriff":
-                    return ""; // Insert appropriate icon
+                    return "web_sheriffdept"; // Insert appropriate icon
                 case "highway":
-                    return ""; // Insert appropriate icon
+                    return "web_hwp"; // Insert appropriate icon
                 case "FIB":
                     return "web_fib";
                 case "IAA":
-                    return ""; // Insert appropriate icon
+                    return "web_iaa"; // Insert appropriate icon
                 case "lsfire":
                     return "web_lossantosfiredept";
                 case "lsems":

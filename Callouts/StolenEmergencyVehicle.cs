@@ -13,7 +13,6 @@ namespace SWLCallouts.Callouts
     [CalloutInfo("[SWL] Reports of a Stolen Emergency Vehicle (1)", CalloutProbability.Medium)]
     class SWLStolenEmergencyVehicle : Callout
     {
-
         private readonly string[] wepList = new string[] { "WEAPON_PISTOL", "WEAPON_PISTOL50", "WEAPON_SNSPISTOL", "WEAPON_HEAVYPISTOL", "WEAPON_REVOLVER", "WEAPON_DOUBLEACTION", "WEAPON_CERAMICPISTOL" };
         private readonly string[] copVehicles = new string[] { "POLICE", "POLICE2", "POLICE3", "POLICE4", "FBI", "FBI2", "POLICEB", "SHERIFF", "SHERIFF2", "pbus", "pranger", "policet" };
         private Vehicle EmergencyVehicle;
