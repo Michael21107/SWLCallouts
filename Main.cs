@@ -1,139 +1,144 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.6.0
+// Version: 0.4.6.4
 
-using SWLCallouts.Callouts;
-using SWLCallouts.VersionChecker;
-using System.IO;
+#region
+
+using System.Net.Http;
 using System.Reflection;
+using System.Text;
+using static SWLCallouts.ReqHelper;
+
+#endregion
 
 namespace SWLCallouts;
 
 public class Main : Plugin
 {
-    public override void Finally()
-    {
-        Game.LogTrivial("SWLCallouts has been cleaned up");
-    }
-
     public override void Initialize()
     {
+        Log("Plugin");
         Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
-        Settings.LoadSettings();
     }
 
-    static void Functions_OnOnDutyStateChanged(bool onDuty)
+    private static void Functions_OnOnDutyStateChanged(bool onDuty)
     {
-        if (onDuty)
+        bool isOnDuty = onDuty;
+        if (isOnDuty)
         {
             GameFiber.StartNew(() =>
             {
-                RegisterCallouts();
-                Game.Console.Print("=============================================== SWLCallouts by Scottywonderful ================================================");
-                Game.Console.Print("[LOG]: Callouts and settings were loaded successfully.");
-                Game.Console.Print("[LOG]: The config file was loaded successfully.");
-                Game.Console.Print("[VERSION]: Detected Version: " + Assembly.GetExecutingAssembly().GetName().Version?.ToString());
-                Game.Console.Print("[LOG]: Checking for a new SWLCallouts version...");
-                Game.Console.Print("=============================================== SWLCallouts by Scottywonderful ================================================");
+                // Loading INI and checking for updates //
+                Log("Loading INI file settings");
+                Settings.LoadSettings();
+                Log("Adding console commands");
+                Game.AddConsoleCommands();
+                Log("Registering callouts");
+                SWLCalloutHandler.RegisterCallouts();
+                Log("Checking loaded version");
+                Print("=============================================== SWLCallouts by Scottywonderful ================================================");
+                Print("[LOG]: Callouts and settings were loaded successfully.");
+                Print("[LOG]: The config file was loaded successfully.");
+                Print("[VERSION]: Detected Version: " + Assembly.GetExecutingAssembly().GetName().Version?.ToString());
+                Print("[LOG]: Checking for a new SWLCallouts version...");
+                Print("=============================================== SWLCallouts by Scottywonderful ================================================");
 
-                // Check for updates and display version information
-                if (PluginCheck.IsUpdateAvailable())
-                    return;
+                // Check for updates and display version information //
+                Log("Checking for updates and comparing..");
+                PluginCheck.IsUpdateAvailable();
 
-                // You can find all textures/images in OpenIV
-                string department = Settings.Department;
-                string icon = GetIconForDepartment(department);
-
-                // Check version type
+                // Check version type //
+                Log("Version checking, is it stable?");
                 string versionType = Settings.VersionType;
                 string updateType = (versionType == "Alpha" || versionType == "Beta" || versionType == "alpha" || versionType == "beta") ? "Unstable" : "Stable";
 
-                // Display the notification for the currently installed build type
+                // Display the notification for the currently installed build type //
                 if (updateType == "Unstable")
                 {
-                    Game.DisplayNotification(icon ?? "", icon ?? "", "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
+                    Log("Unstable Version Installed");
+                    NotifyP(SWLicon, SWLicon, "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
                 }
                 else
                 {
-                    Game.DisplayNotification(icon ?? "", icon ?? "", "~w~SWLCallouts", "", "Detected the ~g~latest~w~ build of ~y~SWLCallouts~w~!");
+                    Log("Stable Version Installed");
+                    NotifyP(SWLicon, SWLicon, "~w~SWLCallouts", "", "Detected the ~g~latest~w~ build of ~y~SWLCallouts~w~!");
                 }
 
-                // Display help messages or set HelpMessages to false
-                DisplayHelpOrSetHelpMessages();
+                // Display help messages or set HelpMessages to false //
+                SetHelpMessages();
             });
         }
     }
 
-    static void DisplayHelpOrSetHelpMessages()
+    static void SetHelpMessages()
     {
         GameFiber.Wait(300);
         if (Settings.HelpMessages)
         {
+            Log("Help messages enabled.");
             Game.DisplayHelp("You can change all ~y~keys~w~ in the ~g~SWLCallouts.ini~w~. Press ~b~" + Settings.EndCall + "~w~ to end a callout.", 5000);
         }
         else
         {
+            Log("Help messages disabled.");
             Settings.HelpMessages = false;
         }
     }
 
-    /* // Helper method to get the icon for the department
+    // Helper method to get the icon for the department //
     public static string GetIconForDepartment(string department)
     {
-        return department switch
+        string defaultImagePath = $"web_lossantospolicedept"; // Default image path if there's no internet connection or GitHub image isn't available //
+
+        try
         {
-            "police" => "web_lossantospolicedept",
-            "lssheriff" => "web_lossantossheriffdept",
-            "sheriff" => "web_sheriffdept",// Insert appropriate icon
-            "highway" => "web_hwp",// Insert appropriate icon
-            "FIB" => "web_fib",
-            "IAA" => "web_iaa",// Insert appropriate icon
-            "lsfire" => "web_lossantosfiredept",
-            "lsems" => "web_lossantosmedicalcenter",
-            _ => "web_lossantospolicedept",// Default icon
-        };
-    } */
-    public static string GetIconForDepartment(string department)
-    {
-        string pluginDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "LSPDFR", "SWLCallouts");
-        string imagePath = Path.Combine(pluginDirectory, department + ".png");
+            using var client = new HttpClient();
+            string user = "Scottywonderful";
+            string repo = "SWLCallouts";
+            string imagePath = $"https://raw.githubusercontent.com/{user}/{repo}/master/Images/{department}.png";
 
-        return File.Exists(imagePath) ? imagePath : "SWLCO"; // Default icon
+            // Attempt to make a request to check if internet connection is available //
+            HttpResponseMessage response = client.GetAsync("https://www.google.com/").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Internet connection is available, return GitHub image path //
+                return imagePath;
+            }
+            else
+            {
+                // Internet connection is not available, return default image path //
+                return defaultImagePath;
+            }
+        }
+        catch (HttpRequestException)
+        {
+            // Exception occurred, likely due to no internet connection, return default image path //
+            return defaultImagePath;
+        }
     }
 
-    private static void RegisterCallouts() //Register all your callouts here
+    private static void Cleanup(object sender, EventArgs e)
     {
-        Game.Console.Print("========================================== Start of callout loading for SWLCallouts ==========================================");
-        //if (Settings.ApartmentBurglary) { Functions.RegisterCallout(typeof(SWLApartmentBurglary)); }
-        //if (Settings.ArmedClown) { Functions.RegisterCallout(typeof(SWLArmedClown)); }
-        //if (Settings.ArmedTerroristAttack) { Functions.RegisterCallout(typeof(SWLArmedTerroristAttack)); }
-        //if (Settings.BicycleOnTheFreeway) { Functions.RegisterCallout(typeof(SWLBicycleOnTheFreeway)); }
-        //if (Settings.DrugDeal) { Functions.RegisterCallout(typeof(SWLDrugDeal)); }
-        //if (Settings.GangShootout) { Functions.RegisterCallout(typeof(SWLGangShootout)); }
-        if (Settings.HighSpeedChase) { Functions.RegisterCallout(typeof(SWLHighSpeedChase)); }
-        //if (Settings.HostageSituationReported) { Functions.RegisterCallout(typeof(SWLHostageSituationReported)); }
-        //if (Settings.IllegalPoliceCarTrade) { Functions.RegisterCallout(typeof(SWLIllegalPoliceCarTrade)); }
-        //if (Settings.JewelleryRobbery) { Functions.RegisterCallout(typeof(SWLJewelleryRobbery)); }
-        //if (Settings.K9BackupRequired) { Functions.RegisterCallout(typeof(SWLK9BackupRequired)); }
-        //if (Settings.MoneyTruckTheft) { Functions.RegisterCallout(typeof(SWLMoneyTruckTheft)); }
-        //if (Settings.MurderInvestigation) { Functions.RegisterCallout(typeof(SWLMurderInvestigation)); }
-        if (Settings.PersonWithAKnife) { Functions.RegisterCallout(typeof(SWLPersonWithAKnife)); }
-        //if (Settings.PublicPeaceDisturbance) { Functions.RegisterCallout(typeof(SWLPublicPeaceDisturbance)); }
-        //if (Settings.RobberyHL) { Functions.RegisterCallout(typeof(SWLRobberyHL)); }
-        if (Settings.ShotsFired) { Functions.RegisterCallout(typeof(SWLShotsFired)); }
-        //if (Settings.StolenBusIncident) { Functions.RegisterCallout(typeof(SWLStolenBusIncident)); }
-        if (Settings.StolenEmergencyVehicle) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle)); }
-        if (Settings.StolenEmergencyVehicle2) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle2)); }
-        //if (Settings.StolenTruckPursuit) { Functions.RegisterCallout(typeof(SWLStolenTruckPursuit)); }
-        //if (Settings.StoreRobberyInProgress) { Functions.RegisterCallout(typeof(SWLStoreRobberyInProgress)); }
-        //if (Settings.SuspiciousATMActivity) { Functions.RegisterCallout(typeof(SWLSuspiciousATMActivity)); }
-        //if (Settings.TrafficStopBackupRequired) { Functions.RegisterCallout(typeof(SWLTrafficStopBackupRequired)); }
-        //if (Settings.Troublemaker) { Functions.RegisterCallout(typeof(SWLTroublemaker)); }
-        //if (Settings.WarrantForArrest) { Functions.RegisterCallout(typeof(SWLWarrantForArrest)); }
-        if (Settings.WelfareCheck) { Functions.RegisterCallout(typeof(SWLWelfareCheck)); }
-        Game.Console.Print("[LOG]: All callouts of the SWLCallouts.ini were loaded successfully.");
-        Game.Console.Print("========================================== End of callout loading for SWLCallouts ==========================================");
+        try
+        {
+            NotifyP(SWLicon, SWLicon, "SWLCallouts", "~y~by SWL Creations", $"{PluginUnloadText.PickRandom()}"); 
+            //
+            SWLCalloutHandler.DeregisterCallouts();
+
+            Log("Unloaded SWLCallouts Successfully.");
+        }
+        catch (Exception ex)
+        {
+            Error(ex, nameof(Cleanup));
+        }
     }
+
+    public override void Finally()
+    {
+        Log("SWLCallouts has been cleaned up");
+    }
+
     public static Assembly LSPDFRResolveEventHandler(object sender, ResolveEventArgs args)
     {
         foreach (Assembly assembly in Functions.GetAllUserPlugins())
