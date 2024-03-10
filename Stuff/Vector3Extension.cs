@@ -1,12 +1,9 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.5.6
+// Version: 0.4.6.0
 
-using System;
-using Rage;
+namespace SWLCallouts.Stuff;
 
-namespace SWLCallouts.Stuff
-{
     public static class Vector3Extension
     {
         public static Vector3 ExtensionAround(this Vector3 start, float radius)
@@ -23,14 +20,12 @@ namespace SWLCallouts.Stuff
 
         public static Vector3 ExtensionRandomXY()
         {
-            Random random = new Random(Environment.TickCount);
 
             Vector3 vector3 = new Vector3();
-            vector3.X = (float)(random.NextDouble() - 0.5);
-            vector3.Y = (float)(random.NextDouble() - 0.5);
+            vector3.X = (float)(Rndm.NextDouble() - 0.5);
+            vector3.Y = (float)(Rndm.NextDouble() - 0.5);
             vector3.Z = 0.0f;
             vector3.Normalize();
             return vector3;
         }
     }
-}

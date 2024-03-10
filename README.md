@@ -1,7 +1,7 @@
 <!--
 // Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.5.6
+// Version: 0.4.6.0
 -->
 
 <!-- PROJECT SHIELDS -->
@@ -14,10 +14,10 @@
 <br />
 <p align="center">
   <a href="https://github.com/Scottywonderful/SWL-Callouts">
-    <img src="Images/SWLCO.png" alt="SWL-Callouts Logo" width="128" height="128">
+    <img src="Images/SWLCO.png" alt="SWLCallouts Logo" width="128" height="128">
   </a>
-<h3 align="center">SWL-Callouts (Build 0.4.5.6)</h3>
-  <p align="center">SWL-Callouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
+<h3 align="center">SWLCallouts (Build 0.4.6.0)</h3>
+  <p align="center">SWLCallouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
     <br />
     <br />
   </p>
@@ -27,7 +27,7 @@
 ## Table of Contents
 
 * [Message from the creator](#message-from-the-creator)
-* [Features of SWL-Callouts](#features-of-SWL-Callouts)
+* [Features of SWLCallouts](#features-of-SWLCallouts)
   * [Overview](#overview)
   * [Callouts](#callouts)
   * [Customization](#customization)
@@ -48,7 +48,7 @@
   * <a href="https://learn.microsoft.com/en-us/dotnet/api/system.drawing?view=netframework-4.8">System.Drawing</a><br>
   * <a href="https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms?view=netframework-4.8">System.Windows.Forms</a><br><br>
 
-<!-- FEATURES OF SWL-Callouts -->
+<!-- FEATURES OF SWLCallouts -->
 ## Message from the creator
 Hello there,<br>
 
@@ -60,8 +60,8 @@ That's all from me, have fun, remember to think safe, act safe, be safe!<br>
 Have a wonderful day,<br>
 Scottywonderful<br><br>
 
-<!-- FEATURES OF SWL-Callouts -->
-## Features of SWL-Callouts
+<!-- FEATURES OF SWLCallouts -->
+## Features of SWLCallouts
 
 ### Overview 
 * This plugin brings a wide range of callouts with similar real life situations.<br>
@@ -77,10 +77,11 @@ Scottywonderful<br><br>
 ### Callouts
 Here you can find the list of callouts which are either <i>available</i>, <i>coming soon</i> (next update) or <i>in progress</i> (a future update).
 <b>Available Police Callouts</b><br>
+ * <span style="color:red">**[NEW]**</span> Cyclist on the motorway
  * High speed chase
- * **[NEW]** Person with a knife
- * **[NEW]** Shots fired
- * **[NEW]** Stolen emergency service vehicle
+ * Person with a knife
+ * Shots fired
+ * Stolen emergency service vehicle
  * Welfare check
 <br>
  * <b>Callouts listed below are coming soon.</b><br>
@@ -159,20 +160,20 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
 * This plugin adds a hotkey for dialogs and for forcing your current callout to end.<br>
   * "Y" for speaking to a suspect. (You'll get a notification when you must talk to a suspect)<br>
   * "END" to force your current callout to end. (In some cases, you may want to end the callout by yourself)<br>
-  * You can change both hotkeys in the <code>SWL-Callouts.ini</code> file.<br>
+  * You can change both hotkeys in the <code>SWLCallouts.ini</code> file.<br>
 
-* Option to enable/disable the callouts you want in the <code>SWL-Callouts.ini</code> file (All callouts enabled by default).<br>
+* Option to enable/disable the callouts you want in the <code>SWLCallouts.ini</code> file (All callouts enabled by default).<br>
   * You may want to use this option to avoid some callouts you don't want to play.<br>
 
-* Option to enable/disable AI backup responding to a callout with the Player(you) in the <code>SWL-Callouts.ini</code> file.<br>
+* Option to enable/disable AI backup responding to a callout with the Player(you) in the <code>SWLCallouts.ini</code> file.<br>
   * This option allows realistic AI units to respond to certain callouts at the same time with the Player(you). This means a local unit won't respond to a gang fight.
     Note: <i>If the Player(you) is in a pursuit, you'll get help by local units and an air unit instead of a SWAT team.</i><br>
-  * RECOMMENDED: <u>If you don't have a powerful PC, set this option in the </u><code>SWL-Callouts.ini</code><u> to <code>false</code>.</u><br><br>
+  * RECOMMENDED: <u>If you don't have a powerful PC, set this option in the </u><code>SWLCallouts.ini</code><u> to <code>false</code>.</u><br><br>
   
 ### Want to stay up to date?
-* SWL-Callouts has a version control system to let you know when SWL-Callouts or LSPDFR has been updated.<br>
-  * NOTE: You can still play with SWL-Callouts on your own risk. It's always recommended to update to the latest build.<br>
-  * SWL-Callouts may have issues when LSPDFR gets an update that change parts of it's API. <u>-- Please notify us if this happens</u><br><br>
+* SWLCallouts has a version control system to let you know when SWLCallouts or LSPDFR has been updated.<br>
+  * NOTE: You can still play with SWLCallouts on your own risk. It's always recommended to update to the latest build.<br>
+  * SWLCallouts may have issues when LSPDFR gets an update that change parts of it's API. <u>-- Please notify us if this happens</u><br><br>
 
 
 <!-- GETTING STARTED -->
@@ -181,9 +182,9 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
 ### Requirements
 * LSPD First Response 0.4.9 <i>(or higher)</i> <a href="https://www.lcpdfr.com/files/file/7792-lspd-first-response">Download here</a>
 * RAGE Plugin Hook 1.95 <i>(or higher)</i> <a href="https://ragepluginhook.net/Downloads.aspx">Download here</a>
-* Open All Interiors <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/open-all-interiors">Download here</a>
+* Open All Interiors <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/open-all-interiors">Download here</a> ##COMING SOON##
 * A legal copy of GTA5 <i>(Retail, Epic Games or Steam)</i><br>
-* <!--*Enable All Interiors (WIP) <u>(23.1 or higher)</u> <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/enable-all-interiors-wip">Download here</a>--> <!-- This is a replacement of the Open All Interiors mod -->
+<!--* Enable All Interiors (WIP) <u>(23.1 or higher)</u> <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/enable-all-interiors-wip">Download here</a>--> <!-- This is a replacement of the Open All Interiors mod -->
 
 #### Recommended plugins
   * Grammar Police 1.7.2 <i>(or higher)</i> by opus49 & BenH6021 <a href="https://www.lcpdfr.com/downloads/gta5mods/scripts/28003-grammarpolice/">Download here</a>
@@ -194,16 +195,16 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
 
 ### Installation
 
-* Copy the files of <code>"plugins\LSPDFR"</code> in: <code>"GTA V directory\plugins\LSPDFR"</code>.<br>
-* Copy the folder of <code>"lspdfr\audio\scanner"</code> in: <code>"GTA V directory\lspdfr\audio\scanner"</code>.<br>
-* <i>Alternative: Drag and drop the folder </i><code>"lspdfr"</code><i> and </i><code>"plugins"</code><i> into your main directory of GTA5.</i><br><br>
+1. Copy the files from <code>"plugins\LSPDFR"</code> into: <code>"GTA V directory\plugins\LSPDFR"</code>.<br>
+2. Copy the folder from <code>"lspdfr\audio\scanner"</code> into: <code>"GTA V directory\lspdfr\audio\scanner"</code>.<br>
+* <i>Alternative: Drag and drop the folders </i><code>"lspdfr"</code><i> and </i><code>"plugins"</code><i> into your main game directory of GTAV.</i><br><br>
 
 ## Usage
 
 Once you're in game open the RPH console with F4 <i>(by default)</i> and load LSPDFR with <code>"LoadPlugin LSPD First Response.dll"</code>. 
 You can also load LSPDFR on start up <i>(Take a look at the RPH settings for that)</i>.
 
-After LSPDFR is loaded, go on duty and then SWL-Callouts will automatically get loaded and start giving you calls.
+After LSPDFR is loaded, go on duty and then SWLCallouts will automatically get loaded and start giving you calls.
 You'll now get callouts over time. You can also force callouts with the RPH console by using the command <code>StartCallout [CALLOUT-NAME]</code>.<br><br>
 
 
@@ -225,10 +226,10 @@ If you know coding and would like to contribute to this project then please give
 
 I would like to thank the following people for their help, ideas and contribution;
 * <b><a href="https://github.com/sEbi3">sEbi3</a></b> (<i><a href="https://github.com/sEbi3/UnitedCallouts">UnitedCallouts</a> layout, ideas and some code from the callouts</i> :grin:)
+* <b><a href="https://www.lcpdfr.com/profile/457341-charlie686/">Charlie686</a></b> (<i><a href="https://www.686utilities.com/">686 Utilities Discord bot</a> and layout ideas</i>) :angel:
 * <b><a href="https://discord.com/users/874175887296323624">forevernameless</a></b> (<i>Ideas, Alpha and Beta testing for me</i> :upside_down_face:)
 * <b><a href="https://discord.com/users/510589560502091787">legendaryhobo1</a></b> (<i>Ideas + Alpha and Beta testing for me</i> :sunglasses:)
 * <b><a href="https://discord.com/users/651319300166254592">natey1.</a></b> (<i>Alpha and Beta testing for me</i> :neutral_face:)
-* <b><a href="https://www.lcpdfr.com/profile/457341-charlie686/">Charlie686</a></b> (<i>Discord bot and layout</i>) :angel:
 
 <!-- * ![forevernameless](https://dcbadge.vercel.app/api/shield/874175887296323624?style=flat-square&?compact=true&?logoColor=pink) (Alpha and Beta testing for me :upside_down_face:)
 * ![legendaryhobo1](https://dcbadge.vercel.app/api/shield/510589560502091787?style=flat-square&?compact=true&?logoColor=orange) (Ideas + Alpha and Beta testing for me :sunglasses:)
