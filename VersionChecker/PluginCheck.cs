@@ -1,8 +1,12 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.6.4
+// Version: 0.4.7.2
+
+#region
 
 using System.Net.Http;
+
+#endregion
 
 namespace SWLCallouts.VersionChecker;
 
@@ -44,30 +48,31 @@ public class PluginCheck
 
                             if (updateType == "Unstable")
                             {
-                                Game.DisplayNotification(SWLicon, SWLicon, "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
+                                NotifyP("3dtextures", "mpgroundlogo_cops", "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
                             }
                             else if (updateType == "Stable")
                             {
-                                Game.DisplayNotification(SWLicon, SWLicon, "~w~SWLCallouts", "", "Detected the ~g~latest~w~ build of ~y~SWLCallouts~w~!");
+                                NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~g~Latest ~w~Build", $"{Arrays.PluginLoadText.PickRandom()}");
                             }
                             return false;
                         }
                         else if (String.Compare(curVersion, latestVersion) > 0)
                         {
                             // Display a message thanking the user for helping with testing
-                            Game.DisplayNotification(SWLicon, SWLicon, "~w~SWLCallouts", "~p~Oh, I see you!", "~g~Thank you ~b~for helping ~p~me out ~o~by testing ~w~this wonderful script!");
-                            Game.DisplayNotification(SWLicon, SWLicon, "SWLCallouts", "~o~Unstable Test Build", "This must be a ~r~unstable ~p~wonder build ~w~of SWLCallouts. You may notice ~o~bugs ~w~while playing this unstable build.");
+                            NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~p~Oh, I see you!", "~g~Thank you ~b~for helping ~p~me out ~o~by testing ~w~this wonderful script!");
+                            GameFiber.Wait(5000);
+                            NotifyP("3dtextures", "mpgroundlogo_cops", "SWLCallouts", "~o~Unstable Test Build", "This must be a ~r~unstable ~p~wonder build ~w~of SWLCallouts. You may notice ~o~bugs ~w~while playing this unstable build.");
                             return false;
                         }
                         else
                         {
-                            Game.DisplayNotification("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~y~A new Update is available!", $"Current Version: ~r~{curVersion}~w~<br>New Version: ~o~{latestVersion}~w~<br>Current Type: ~b~{updateType}~w~<br>~r~Please update to the latest build!");
+                            NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~y~A new Update is available!", $"Current Version: ~r~{curVersion}~w~<br>New Version: ~o~{latestVersion}~w~<br>Current Type: ~b~{updateType}~w~<br>~r~Please update to the latest build!");
 
-                            Game.Console.Print("================================================== SWLCallouts ===================================================");
-                            Game.Console.Print("[WARNING]: A new version of SWLCallouts is available! Update to the latest build or play on your own risk.");
-                            Game.Console.Print("[LOG]: Current Version:  " + curVersion);
-                            Game.Console.Print("[LOG]: New Version:  " + latestVersion);
-                            Game.Console.Print("================================================== SWLCallouts ===================================================");
+                            Print("================================================== SWLCallouts ===================================================");
+                            Print("[WARNING]: A new version of SWLCallouts is available! Update to the latest build or play on your own risk.");
+                            Print("[LOG]: Current Version:  " + curVersion);
+                            Print("[LOG]: New Version:  " + latestVersion);
+                            Print("================================================== SWLCallouts ===================================================");
                             return true;
                         }
                     }
@@ -75,24 +80,24 @@ public class PluginCheck
             }
             else
             {
-                Game.DisplayNotification("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~r~Failed to check for an update", "Please make sure you are ~y~connected~w~ to the internet or try to ~y~reload~w~ the plugin.");
+                NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~r~Failed to check for an update", "Please make sure you are ~y~connected~w~ to the internet or try to ~y~reload~w~ the plugin.");
 
-                Game.Console.Print("================================================== SWLCallouts ===================================================");
-                Game.Console.Print("[WARNING]: Failed to check for an update.");
-                Game.Console.Print("[LOG]: Please make sure you are connected to the internet or try to reload the plugin.");
-                Game.Console.Print("================================================== SWLCallouts ===================================================");
+                Print("================================================== SWLCallouts ===================================================");
+                Print("[WARNING]: Failed to check for an update.");
+                Print("[LOG]: Please make sure you are connected to the internet or try to reload the plugin.");
+                Print("================================================== SWLCallouts ===================================================");
 
                 return false;
             }
         }
         catch (HttpRequestException)
         {
-            Game.DisplayNotification("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~r~Failed to check for an update", "Please make sure you are ~y~connected~w~ to the internet or try to ~y~reload~w~ the plugin.");
+            NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~r~Failed to check for an update", "Please make sure you are ~y~connected~w~ to the internet or try to ~y~reload~w~ the plugin.");
 
-            Game.Console.Print("================================================== SWLCallouts ===================================================");
-            Game.Console.Print("[WARNING]: Failed to check for an update.");
-            Game.Console.Print("[LOG]: Please make sure you are connected to the internet or try to reload the plugin.");
-            Game.Console.Print("================================================== SWLCallouts ===================================================");
+            Print("================================================== SWLCallouts ===================================================");
+            Print("[WARNING]: Failed to check for an update.");
+            Print("[LOG]: Please make sure you are connected to the internet or try to reload the plugin.");
+            Print("================================================== SWLCallouts ===================================================");
 
             return false;
         }

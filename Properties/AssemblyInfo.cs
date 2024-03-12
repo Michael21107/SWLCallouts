@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SWLCallouts")]
-[assembly: AssemblyDescription("This is a LSPDFR Callout plugin allowing for more realistic unexpected calls.")]
+[assembly: AssemblyDescription("This is a LSPDFR Callout plugin allowing for more realistic unexpected calls. By Scottywonderful")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Scottywonderful")]
+[assembly: AssemblyCompany("SWL Creations")]
 [assembly: AssemblyProduct("SWLCallouts")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("Scottywonderful")]
@@ -33,6 +33,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.4.6.4")]
-[assembly: AssemblyFileVersion("0.4.6.4")]
+[assembly: AssemblyVersion("0.4.7.2")]
+[assembly: AssemblyFileVersion("0.4.7.2")]
 [assembly: NeutralResourcesLanguage("en-AU")]

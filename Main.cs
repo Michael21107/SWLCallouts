@@ -1,13 +1,12 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.6.4
+// Version: 0.4.7.2
 
 #region
 
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
-using static SWLCallouts.ReqHelper;
 
 #endregion
 
@@ -15,16 +14,21 @@ namespace SWLCallouts;
 
 public class Main : Plugin
 {
-    public override void Initialize()
+    public override void Finally()
     {
-        Log("Plugin");
-        Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
+        Log("SWLCallouts has been cleaned up.");
     }
 
-    private static void Functions_OnOnDutyStateChanged(bool onDuty)
+    public override void Initialize()
     {
-        bool isOnDuty = onDuty;
-        if (isOnDuty)
+        Log("SWLCallouts (Version:" + Assembly.GetExecutingAssembly().GetName().Version?.ToString() + ") initialised");
+        Functions.OnOnDutyStateChanged += OnDutyStateChangedHandler;
+        Log("Go on duty to load SWLCallouts. Thanks for download it!");
+    }
+
+    private static void OnDutyStateChangedHandler(bool onDuty)
+    {
+        if (onDuty)
         {
             GameFiber.StartNew(() =>
             {
@@ -35,6 +39,7 @@ public class Main : Plugin
                 Game.AddConsoleCommands();
                 Log("Registering callouts");
                 SWLCalloutHandler.RegisterCallouts();
+                AppDomain.CurrentDomain.DomainUnload += Cleanup;
                 Log("Checking loaded version");
                 Print("=============================================== SWLCallouts by Scottywonderful ================================================");
                 Print("[LOG]: Callouts and settings were loaded successfully.");
@@ -47,7 +52,7 @@ public class Main : Plugin
                 Log("Checking for updates and comparing..");
                 PluginCheck.IsUpdateAvailable();
 
-                // Check version type //
+                /*//Don't need multiple pop ups// // Check version type //
                 Log("Version checking, is it stable?");
                 string versionType = Settings.VersionType;
                 string updateType = (versionType == "Alpha" || versionType == "Beta" || versionType == "alpha" || versionType == "beta") ? "Unstable" : "Stable";
@@ -56,13 +61,13 @@ public class Main : Plugin
                 if (updateType == "Unstable")
                 {
                     Log("Unstable Version Installed");
-                    NotifyP(SWLicon, SWLicon, "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
+                    NotifyP("3dtextures", "mpgroundlogo_cops", "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
                 }
                 else
                 {
                     Log("Stable Version Installed");
-                    NotifyP(SWLicon, SWLicon, "~w~SWLCallouts", "", "Detected the ~g~latest~w~ build of ~y~SWLCallouts~w~!");
-                }
+                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~g~Latest ~w~Build", $"{Arrays.PluginLoadText.PickRandom()}");
+                }*/
 
                 // Display help messages or set HelpMessages to false //
                 SetHelpMessages();
@@ -85,11 +90,13 @@ public class Main : Plugin
         }
     }
 
-    // Helper method to get the icon for the department //
-    public static string GetIconForDepartment(string department)
+    // Helper method to get the icon for the department depending on internet connection //
+    /*public static string GetIconForDepartment(string department)
     {
-        string defaultImagePath = $"web_lossantospolicedept"; // Default image path if there's no internet connection or GitHub image isn't available //
-
+        string defaultImagePath = $"web_lossantospolicedept"; // Default image path/name if there's no internet connection or GitHub image isn't available //
+        //string defaultImagePath = $"3dtextures"; // Default image path if there's no internet connection or GitHub image isn't available //
+        //string defaultImageName = $"mpgroundlogo_cops"; // Default image Name if there's no internet connection or GitHub image isn't available //
+    
         try
         {
             using var client = new HttpClient();
@@ -116,14 +123,14 @@ public class Main : Plugin
             // Exception occurred, likely due to no internet connection, return default image path //
             return defaultImagePath;
         }
-    }
+    }*/
 
     private static void Cleanup(object sender, EventArgs e)
     {
         try
         {
-            NotifyP(SWLicon, SWLicon, "SWLCallouts", "~y~by SWL Creations", $"{PluginUnloadText.PickRandom()}"); 
-            //
+            NotifyP("3dtextures", "mpgroundlogo_cops", "SWLCallouts", "~y~by SWL Creations", $"{Arrays.PluginUnloadText.PickRandom()}"); 
+            // Unregistering Callouts and cleaning up //
             SWLCalloutHandler.DeregisterCallouts();
 
             Log("Unloaded SWLCallouts Successfully.");
@@ -132,11 +139,6 @@ public class Main : Plugin
         {
             Error(ex, nameof(Cleanup));
         }
-    }
-
-    public override void Finally()
-    {
-        Log("SWLCallouts has been cleaned up");
     }
 
     public static Assembly LSPDFRResolveEventHandler(object sender, ResolveEventArgs args)

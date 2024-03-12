@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.6.4
+// Version: 0.4.7.2
 
 // Thanks for Astro for this idea
 
@@ -19,6 +19,7 @@ global using SWLCallouts;
 global using SWLCallouts.Stuff;
 global using SWLCallouts.Callouts;
 global using SWLCallouts.VersionChecker;
+global using static SWLCallouts.Stuff.Arrays;
 global using static SWLCallouts.Stuff.Helper;
 
 #endregion

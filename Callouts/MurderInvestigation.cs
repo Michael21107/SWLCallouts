@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Author: Scottywonderful
+// Created: 11th Mar 2024
+// Version: 0.4.7.2
 
-namespace SWLCallouts.Callouts
+#region
+
+#endregion
+
+namespace SWLCallouts.Callouts;
+
+internal class SWLMurderInvestigation
 {
-    internal class MurderInvestigation
-    {
-    }
+
 }

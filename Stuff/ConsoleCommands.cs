@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.6.4
+// Version: 0.4.7.2
 
 #region
 
@@ -12,13 +12,10 @@ namespace SWLCallouts.Stuff;
 
 internal static class ConsoleCommands
 {
-    [ConsoleCommand]
-    public static void Command_SWLRefreshSettings()
-    {
-        Settings.LoadSettings();
-    }
+    [ConsoleCommand("Refresh loaded SWLCallouts settings")]
+    internal static void Command_SWLRefreshSettings() => Settings.LoadSettings();
 
-    [ConsoleCommand]
+    [ConsoleCommand("Change a SWLCallouts callout to be enabled/disabled (true/false)")]
     internal static void Command_SWLChangeCalloutSettings(string calloutName, bool isEnabled)
     {
         var path = "Plugins/LSPDFR/SWLCallouts.ini";

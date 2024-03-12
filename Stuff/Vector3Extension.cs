@@ -1,6 +1,10 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.6.4
+// Version: 0.4.7.2
+
+#region
+
+#endregion
 
 namespace SWLCallouts.Stuff;
 
@@ -20,11 +24,12 @@ namespace SWLCallouts.Stuff;
 
         public static Vector3 ExtensionRandomXY()
         {
-
-            Vector3 vector3 = new Vector3();
-            vector3.X = (float)(Rndm.NextDouble() - 0.5);
-            vector3.Y = (float)(Rndm.NextDouble() - 0.5);
-            vector3.Z = 0.0f;
+            Vector3 vector3 = new Vector3
+            {
+                X = (float)(Rndm.NextDouble() - 0.5),
+                Y = (float)(Rndm.NextDouble() - 0.5),
+                Z = 0.0f
+            };
             vector3.Normalize();
             return vector3;
         }

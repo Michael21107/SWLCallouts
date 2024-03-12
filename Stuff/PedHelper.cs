@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Author: Scottywonderful
+// Created: 10th Mar 2024
+// Version: 0.4.7.2
 
-namespace SWLCallouts.Stuff
+#region
+
+#endregion
+
+namespace SWLCallouts.Stuff;
+
+internal class PedHelper
 {
-    internal class PedHelper
-    {
-    }
+    // To be used soon.. //
 }
