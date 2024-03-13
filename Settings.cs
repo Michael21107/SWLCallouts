@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.0
+// Version: 0.4.8.1
 
 #region
 
@@ -53,6 +53,6 @@ internal static class Settings
         EndCall = ini.ReadEnum("Keys", "EndCall", Keys.End);
         Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
     }
-    public static readonly string PluginVersion = "0.4.8.0";
+    public static readonly string PluginVersion = "0.4.8.1";
     public static readonly string VersionType = "Alpha";
 }

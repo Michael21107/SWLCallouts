@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.0
+// Version: 0.4.8.1
 
 #region
 
@@ -14,11 +14,6 @@ namespace SWLCallouts;
 
 public class Main : Plugin
 {
-    public override void Finally()
-    {
-        Log("SWLCallouts has been cleaned up.");
-    }
-
     public override void Initialize()
     {
         Log("SWLCallouts (Version:" + Assembly.GetExecutingAssembly().GetName().Version?.ToString() + ") initialised");
@@ -51,23 +46,6 @@ public class Main : Plugin
                 // Check for updates and display version information //
                 Log("Checking for updates and comparing..");
                 PluginCheck.IsUpdateAvailable();
-
-                /*//Don't need multiple pop ups// // Check version type //
-                Log("Version checking, is it stable?");
-                string versionType = Settings.VersionType;
-                string updateType = (versionType == "Alpha" || versionType == "Beta" || versionType == "alpha" || versionType == "beta") ? "Unstable" : "Stable";
-
-                // Display the notification for the currently installed build type //
-                if (updateType == "Unstable")
-                {
-                    Log("Unstable Version Installed");
-                    NotifyP("3dtextures", "mpgroundlogo_cops", "SWLCallouts", "~y~Unstable Build", "This is the latest ~r~unstable build~w~ of SWLCallouts. You may notice bugs while playing this unstable build.");
-                }
-                else
-                {
-                    Log("Stable Version Installed");
-                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~g~Latest ~w~Build", $"{Arrays.PluginLoadText.PickRandom()}");
-                }*/
 
                 // Display help messages or set HelpMessages to false //
                 SetHelpMessages();
@@ -139,6 +117,10 @@ public class Main : Plugin
         {
             Error(ex, nameof(Cleanup));
         }
+    }
+    public override void Finally()
+    {
+        Log("SWLCallouts has been cleaned up.");
     }
 
     public static Assembly LSPDFRResolveEventHandler(object sender, ResolveEventArgs args)

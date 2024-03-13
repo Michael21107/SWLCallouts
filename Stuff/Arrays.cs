@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.8.0
+// Version: 0.4.8.1
 
 #region
 
@@ -35,7 +35,7 @@ internal class Arrays
         "~g~Thank you ~b~for helping ~p~me out ~o~by testing ~w~this wonderful script!",
         "~b~OMG! ~g~Thank you ~w~for helping me out with testing!",
         "~y~You know! ~w~you're an absolute legend for testing this for me.",
-        "~r~Red ~w~is for Rose, ~b~Blue ~w~is for you, ~p~Purple ~w~is for me. ~y~Look at you testing!",
+        "~r~Red ~w~is for a Rose, ~b~Blue ~w~is for you, ~p~Purple ~w~is for me. ~y~Look at you testing, oh my g!",
         "~w~Is this thing on? ~y~Hello?! ~r~HEELLLLOOOOO!!",
         "~w~Guess we coded this right for you to use."
     };

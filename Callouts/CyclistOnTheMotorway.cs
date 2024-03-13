@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.0
+// Version: 0.4.8.1
 
 #region
 
@@ -83,7 +83,8 @@ public class SWLCyclistOnTheMotorway : Callout
     public override bool OnCalloutAccepted()
     {
         Log("Cyclist On the Motorway callout accepted.");
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Bicycle on the Freeway", "~b~Dispatch:~w~ Someone called the police because there is someone with a ~g~bicycle~w~ on the ~o~freeway~w~. Respond with ~y~Code 2");
+        Functions.PlayScannerAudio("CODE2");
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Cyclist on the Motorway", "~b~Dispatch:~w~ Someone called the police because there is someone with a ~g~bicycle~w~ on the ~o~motorway~w~. Respond with ~y~Code 2");
 
         _subject = new Ped(_pedList[new Random().Next((int)_pedList.Length)], _spawnPoint, 0f);
         _bike = new Vehicle(_bikes[new Random().Next((int)_bikes.Length)], _spawnPoint, 0f);
