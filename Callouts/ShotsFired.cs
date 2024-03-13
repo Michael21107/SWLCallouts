@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 2nd Mar 2024
-// Version: 0.4.7.2
+// Version: 0.4.8.0
 
 #region
 
@@ -11,7 +11,6 @@ namespace SWLCallouts.Callouts;
 [CalloutInfo("[SWL] Reports of Shots Fired", CalloutProbability.Medium)]
 public class SWLShotsFired : Callout
 {
-    private readonly string[] _wepList = new string[] { "WEAPON_PISTOL", "WEAPON_PISTOL50", "WEAPON_SNSPISTOL", "WEAPON_HEAVYPISTOL", "WEAPON_REVOLVER", "WEAPON_DOUBLEACTION", "WEAPON_CERAMICPISTOL",/*/ <<Pistols || Rifles>> /*/ "WEAPON_MIRCOSMG", "WEAPON_SMG", "WEAPON_TECPISTOL", "WEAPON_ASSAULTRIFLE", "WEAPON_BULLPUPRIFLE", "WEAPON_COMPACTRIFLE", "WEAPON_SAWNOFFSHOTGUN"};
     private Ped _suspect1;
     private Ped _suspect2;
     private Ped _ped1;
@@ -92,14 +91,16 @@ public class SWLShotsFired : Callout
         switch (new Random().Next(1, 3))
         {
             case 1:
+                _callOutScene = 1;
                 _suspect1 = new Ped(_spawnPoint);
                 _suspect1.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
                 _suspect1.BlockPermanentEvents = true;
                 _suspect1.IsPersistent = true;
                 _suspect1.Tasks.Wander();
-                _callOutScene = 1;
                 break;
             case 2:
+
+                _callOutScene = 2;
                 _suspect1 = new Ped(_spawnPoint);
                 _suspect1.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
                 _suspect1.BlockPermanentEvents = true;
@@ -111,7 +112,6 @@ public class SWLShotsFired : Callout
                 _suspect2.BlockPermanentEvents = true;
                 _suspect2.IsPersistent = true;
                 _suspect2.Tasks.Wander();
-                _callOutScene = 2;
                 break;
         }
 
@@ -135,9 +135,17 @@ public class SWLShotsFired : Callout
 
         if (Settings.ActivateAIBackup)
         {
+            Log("Dispatch requesting for AI Cops to respond..");
+            Functions.PlayScannerAudio("ATTENTION_ALL_UNITS_05 WE_HAVE_02 CITIZENS_REPORT_04 CRIME_SHOTS_FIRED_AT_AN_OFFICER_03 CODE3");
+            GameFiber.Wait(2000);
+            Log("AI responding to dispatch and spawn enroute..");
+            Functions.PlayScannerAudio("UNIT_RESPONDING_DISPATCH_02");
+            Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
+            Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
+            GameFiber.Wait(2000);
+            Log("SWAT Team are now enroute..");
+            Functions.PlayScannerAudio("AI_BOBCAT4_RESPONDING");
             Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.SwatTeam);
-            Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
-            Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
         }
         else { Settings.ActivateAIBackup = false; }
         return base.OnCalloutAccepted();
@@ -151,6 +159,7 @@ public class SWLShotsFired : Callout
         if (_ped1) _ped1.Delete();
         if (_ped2) _ped2.Delete();
         if (_ped3) _ped3.Delete();
+        Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
         base.OnCalloutNotAccepted();
     }
 
@@ -162,18 +171,18 @@ public class SWLShotsFired : Callout
             {
                 if (_blip) _blip.Delete();
             }
-            if (_suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f)
+            if (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f)
             {
                 if (_blip) _blip.Delete();
             }
             if (_suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f && !_isArmed)
             {
-                _suspect1.Inventory.GiveNewWeapon(new WeaponAsset(_wepList[new Random().Next((int)_wepList.Length)]), 500, true);
+                _suspect1.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
                 _isArmed = true;
             }
-            if (_suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f && !_isArmed)
+            if (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f && !_isArmed)
             {
-                _suspect2.Inventory.GiveNewWeapon(new WeaponAsset(_wepList[new Random().Next((int)_wepList.Length)]), 500, true);
+                _suspect2.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
                 _isArmed = true;
             }
             if ((_suspect1 && _suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) || (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) && !_hasBegunAttacking)
@@ -249,8 +258,8 @@ public class SWLShotsFired : Callout
             if (Game.IsKeyDown(Settings.EndCall)) End();
             if (_suspect1 && _suspect1.IsDead) End();
             if (_suspect1 && Functions.IsPedArrested(_suspect1)) End();
-            if (_suspect2.Exists() && _suspect2.IsDead) End();
-            if (_suspect2.Exists() && Functions.IsPedArrested(_suspect2)) End();
+            if (_suspect2 && _suspect2.IsDead) End();
+            if (_suspect2 && Functions.IsPedArrested(_suspect2)) End();
         }, "Reports of Shots Fired [SWLCallouts]");
         base.Process();
     }
@@ -263,7 +272,7 @@ public class SWLShotsFired : Callout
         if (_ped2) _ped2.Dismiss();
         if (_ped3) _ped3.Dismiss();
         if (_blip) _blip.Delete();
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Reports of Shots Fired", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Reports of Shots Fired", SFDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
         Log("SWLCallouts - Shots Fired cleanup.");

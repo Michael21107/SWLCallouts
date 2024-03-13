@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.7.2
+// Version: 0.4.8.0
 
 #region
 
@@ -129,7 +129,7 @@ public class Main : Plugin
     {
         try
         {
-            NotifyP("3dtextures", "mpgroundlogo_cops", "SWLCallouts", "~y~by SWL Creations", $"{Arrays.PluginUnloadText.PickRandom()}"); 
+            NotifyP("3dtextures", "mpgroundlogo_cops", "SWLCallouts", "~w~by ~p~SWL Creations", $"{Arrays.PluginUnloadText.PickRandom()}"); 
             // Unregistering Callouts and cleaning up //
             SWLCalloutHandler.DeregisterCallouts();
 

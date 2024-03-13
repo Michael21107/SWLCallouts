@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.7.2
+// Version: 0.4.8.0
 
 #region
 
@@ -12,13 +12,67 @@ internal class Arrays
 {
     internal static readonly string[] PluginLoadText =
     {
-        "Hi",
-        "",
+        $"~w~Seems like you have the ~g~latest version ~b~{Settings.PluginVersion}~w~!<br>Thanks for downloading partner, stay safe onduty.",
+        $"~g~Latest version ~b~{Settings.PluginVersion}~w~, aye!<br>Stay safe out there officer.",
+        "~b~Are you sure you wanna go onduty?",
+        "~w~Damn I think a ~b~bluey ~w~is a thing, ~r~right?",
+        "~p~*In robot voice*<br>~w~Beep Boop, You are on duty!",
+        "~w~Dispatch, show this awesome officer on duty!<br>~g~Thank you ~w~and stay safe!"
     };
-    
+
+    internal static readonly string[] PluginLoadTestingSubtitle =
+{
+        "~p~by SWL Creations",
+        "~p~Ok, testing it aye!",
+        "~p~Testing mode activated!",
+        "~p~Bruh! What you doing?",
+        "~p~Hello tester!",
+        "~p~OH! I see how it is!"
+    };
+
+    internal static readonly string[] PluginLoadTestingText =
+    {
+        "~g~Thank you ~b~for helping ~p~me out ~o~by testing ~w~this wonderful script!",
+        "~b~OMG! ~g~Thank you ~w~for helping me out with testing!",
+        "~y~You know! ~w~you're an absolute legend for testing this for me.",
+        "~r~Red ~w~is for Rose, ~b~Blue ~w~is for you, ~p~Purple ~w~is for me. ~y~Look at you testing!",
+        "~w~Is this thing on? ~y~Hello?! ~r~HEELLLLOOOOO!!",
+        "~w~Guess we coded this right for you to use."
+    };
+
     internal static readonly string[] PluginUnloadText =
     {
-        "Bye",
+        "~r~Oh shit! ~y~Was that a bomb?",
+        "~r~WOOW! ~w~What happened?",
+        "~p~I guess you crashed..",
+        "~g~Green~w~, ~y~Yellow~w~, ~r~Red~w~. Did you know that red means stop?",
+        "~w~I think that was a ~r~red ~y~lig~g~ht ~w~back there.",
+        "~w~Welp, that didn't last long.. Not long enough."
+    };
+
+    internal static readonly string[] CalloutNoAnswer =
+    {
+        "AI_ADAM5_TAKING_CALL",
+        "AI_OCEAN1_TAKING_CALL_01",
+        "AI_OCEAN1_TAKING_CALL_02",
+        "AI_QUEEN2_TAKING_CALL",
+        "AI_UNIT_TAKING_CALL_01",
+        "AI_UNIT_TAKING_CALL_02",
+        "AI_UNIT_TAKING_CALL_03",
+        "UNIT_RESPONDING_DISPATCH_01",
+        "UNIT_RESPONDING_DISPATCH_02",
+        "UNIT_RESPONDING_DISPATCH_03",
+        "UNIT_RESPONDING_DISPATCH_04",
+    };
+
+    internal static readonly string[] CalloutAIBackup =
+    {
+        "REQUESTING_BACKUP_01",
+        "REQUESTING_BACKUP_02",
+        "REQUESTING_BACKUP_03",
+        "REQUESTING_BACKUP_01",
+        "REQUESTING_BACKUP_01",
+        "REQUESTING_BACKUP_01",
     };
 
     internal static readonly string[] SFDispatchArrive;
@@ -42,10 +96,18 @@ internal class Arrays
             new string[]
             {
                 "Copy. Requesting you investigate the area.",
+                "",
+                "",
+                "",
+                "",
                 ""
             } :
             new string[]
             {
+                "",
+                "",
+                "",
+                "",
                 "",
                 ""
             };
@@ -53,10 +115,18 @@ internal class Arrays
             new string[]
             {
                 "",
+                "",
+                "",
+                "",
+                "",
                 ""
             } :
             new string[]
             {
+                "",
+                "",
+                "",
+                "",
                 "",
                 ""
             };
@@ -66,10 +136,18 @@ internal class Arrays
             new string[]
             {
                 "",
+                "",
+                "",
+                "",
+                "",
                 ""
             } :
             new string[]
             {
+                "",
+                "",
+                "",
+                "",
                 "",
                 ""
             };
@@ -77,10 +155,18 @@ internal class Arrays
             new string[]
             {
                 "",
+                "",
+                "",
+                "",
+                "",
                 ""
             } :
             new string[]
             {
+                "",
+                "",
+                "",
+                "",
                 "",
                 ""
             };
@@ -90,10 +176,18 @@ internal class Arrays
             new string[]
             {
                 "",
+                "",
+                "",
+                "",
+                "",
                 ""
             } :
             new string[]
             {
+                "",
+                "",
+                "",
+                "",
                 "",
                 ""
             };
@@ -101,10 +195,18 @@ internal class Arrays
             new string[]
             {
                 "",
+                "",
+                "",
+                "",
+                "",
                 ""
             } :
             new string[]
             {
+                "",
+                "",
+                "",
+                "",
                 "",
                 ""
             };
@@ -125,7 +227,7 @@ internal class Arrays
                 "An ~y~ambulance~w~ is enroute to your current location, officer. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
                 "~y~Ambulance~w~ has been dispatched to you officer. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
                 "~y~Ambulance~w~ enroute! You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "We are going to call an ~y~ambulance~w~ to your current location, officer. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
+                "We are going to call an ~y~ambulance~w~ to your current location, officer. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key."
             } :
             new string[]
             {
@@ -141,19 +243,26 @@ internal class Arrays
                 "Investigate the scene and report back, officer. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
                 "Please search the area and report your findings. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
                 "Officer, search the area and request for assistance if needed. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "We see you arriving on scene officer, check the area and report your findings. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-
+                "We see you arriving on scene officer, check the area and report your findings. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key."
             };
         WCDispatchCode4 = activateAIBackup ?
             new string[]
             {
-                "~b~ ~w~Dispatch we're code 4. Show me ~g~10-8.",
-                "",
+                "~b~Dispatch: ~w~All units, be advised, scene is code 4. No additional units required!",
+                "~b~Dispatch: ~w~We are showing all units back on patrol.",
+                "~b~Dispatch: ~w~Officer, you may all return to patrol.",
+                "~b~Dispatch: ~w~Thank you officer, all units back available.",
+                "~b~Dispatch: ~w~All units, code 4. Officer, you are welcome to stay although you should return to patrol.",
+                "~b~Dispatch: ~w~10-4, Showing you all available."
             } :
             new string[]
             {
-                "",
-                ""
+                "~b~Dispatch: ~w~Showing you code 4 on scene",
+                "~b~Dispatch: ~w~You may stay on scene officer though you should return to patrol.",
+                "~b~Dispatch: ~w~Copy that, showing you back on patrol.",
+                "~b~Dispatch: ~w~Scene is clear, awaiting your next call.",
+                "~b~Dispatch: ~w~Officer, you are required to return to patrol.",
+                "~b~Dispatch: ~w~Code 4, All units back on patrol."
             };
     }
 
@@ -175,7 +284,7 @@ internal class Arrays
         "weapon_nightstick",
         "weapon_wrench",
         "weapon_battleaxe",
-        //"weapon_poolcue", //Pubs/clubs only..
+        "weapon_poolcue",
         "weapon_stone_hatchet",
         //"weapon_candycane", //Unrealistic
 
@@ -189,15 +298,15 @@ internal class Arrays
         "weapon_snspistol",
         "weapon_snspistol_mk2",
         "weapon_heavypistol",
-        //"weapon_vintagepistol", // Some people use this as a radar gun //
-        "weapon_marsmanpistol",
+        "weapon_vintagepistol", // Some people use this as a radar gun //
+        "weapon_marksmanpistol",
         "weapon_revolver",
         "weapon_revolver_mk2",
         "weapon_doubleaction",
         //"weapon_raypistol", //Unrealistic
         "weapon_ceramicpistol",
         "weapon_navyrevolver",
-        //"weapon_gadgetpistol", //Unrealistic
+        "weapon_gadgetpistol",
         //"weapon_stungun_mp", //police weapon
         "weapon_pistolxm3",
 
@@ -210,7 +319,7 @@ internal class Arrays
         "weapon_machinepistol",
         "weapon_minismg",
         //"weapon_raycarbine", //Unrealistic
-        "weapon_tecpistol",
+        //"weapon_tecpistol",
 
         // shotguns //
         "weapon_pumpshotgun",
@@ -282,7 +391,7 @@ internal class Arrays
         "weapon_nightstick",
         "weapon_wrench",
         "weapon_battleaxe",
-        //"weapon_poolcue", //Pubs/clubs only..
+        "weapon_poolcue",
         "weapon_stone_hatchet",
         //"weapon_candycane", //Unrealistic
     };
@@ -298,7 +407,7 @@ internal class Arrays
         "weapon_snspistol",
         "weapon_snspistol_mk2",
         "weapon_heavypistol",
-        //"weapon_vintagepistol", // Some people use this as a radar gun //
+        "weapon_vintagepistol", // Some people use this as a radar gun //
         "weapon_marsmanpistol",
         "weapon_revolver",
         "weapon_revolver_mk2",
@@ -306,7 +415,49 @@ internal class Arrays
         //"weapon_raypistol", //Unrealistic
         "weapon_ceramicpistol",
         "weapon_navyrevolver",
-        //"weapon_gadgetpistol", //Unrealistic
+        "weapon_gadgetpistol",
+        //"weapon_stungun_mp", //police weapon
+        "weapon_pistolxm3",
+    };
+
+    internal static readonly string[] PisleeWeapons =
+        {
+        // melee //
+        "weapon_dagger",
+        "weapon_bat",
+        "weapon_bottle",
+        "weapon_crowbar",
+        "weapon_golfclub",
+        "weapon_hammer",
+        "weapon_hatchet",
+        "weapon_knife",
+        "weapon_machete",
+        "weapon_switchblade",
+        "weapon_nightstick",
+        "weapon_wrench",
+        "weapon_battleaxe",
+        "weapon_poolcue",
+        "weapon_stone_hatchet",
+        //"weapon_candycane", //Unrealistic
+        // pistols //
+        "weapon_pistol",
+        "weapon_pistol_mk2",
+        "weapon_combatpistol",
+        "weapon_appistol",
+        //"weapon_stungun", //police weapon
+        "weapon_pistol50",
+        "weapon_snspistol",
+        "weapon_snspistol_mk2",
+        "weapon_heavypistol",
+        "weapon_vintagepistol", // Some people use this as a radar gun //
+        "weapon_marsmanpistol",
+        "weapon_revolver",
+        "weapon_revolver_mk2",
+        "weapon_doubleaction",
+        //"weapon_raypistol", //Unrealistic
+        "weapon_ceramicpistol",
+        "weapon_navyrevolver",
+        "weapon_gadgetpistol",
         //"weapon_stungun_mp", //police weapon
         "weapon_pistolxm3",
     };

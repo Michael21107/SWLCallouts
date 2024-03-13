@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.7.2
+// Version: 0.4.8.0
 
 #region
 
@@ -102,39 +102,42 @@ public class SWLCyclistOnTheMotorway : Callout
         if (_subject) _subject.Delete();
         if (_bike) _bike.Delete();
         if (_blip) _blip.Delete();
+        Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
         base.OnCalloutNotAccepted();
     }
 
     public override void Process()
     {
-        if (_subject.DistanceTo(Game.LocalPlayer.Character) < 20f)
+        GameFiber.StartNew(delegate
         {
-            if (_isStolen == true && _startedPursuit == false)
+            if (_subject.DistanceTo(Game.LocalPlayer.Character) < 20f)
             {
-                if (_blip) _blip.Delete();
-                _pursuit = Functions.CreatePursuit();
-                Functions.AddPedToPursuit(_pursuit, _subject);
-                Functions.SetPursuitIsActiveForPlayer(_pursuit, true);
-                _startedPursuit = true;
-                _bike.IsStolen = true;
-                NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch Information", "The ~g~bicycle~w~ from the suspect is a ~o~" + _bike.Model.Name + "~w~. The ~g~bicycle~w~ was ~r~stolen~w~.");
-                GameFiber.Wait(2000);
+                if (_isStolen == true && _startedPursuit == false)
+                {
+                    if (_blip) _blip.Delete();
+                    _pursuit = Functions.CreatePursuit();
+                    Functions.AddPedToPursuit(_pursuit, _subject);
+                    Functions.SetPursuitIsActiveForPlayer(_pursuit, true);
+                    _startedPursuit = true;
+                    _bike.IsStolen = true;
+                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch Information", "The ~g~bicycle~w~ from the suspect is a ~o~" + _bike.Model.Name + "~w~. The ~g~bicycle~w~ was ~r~stolen~w~.");
+                    GameFiber.Wait(2000);
+                }
+                if (_subject.DistanceTo(Game.LocalPlayer.Character) < 25f && Game.LocalPlayer.Character.IsOnFoot && _alreadySubtitleIntrod == false && _pursuit == null)
+                {
+                    Print("Perform a normal traffic stop with the ~o~suspect~w~.");
+                    Print("~b~Dispatch:~w~ Checking the serial number of the bike...");
+                    GameFiber.Wait(2000);
+                    Print("~b~Dispatch~w~ We checked the serial number of the bike.<br>Model: ~o~" + _bike.Model.Name + "<br>~w~Serial number: ~o~" + _bike.LicensePlate);
+                    _alreadySubtitleIntrod = true;
+                    return;
+                }
             }
-            if (_subject.DistanceTo(Game.LocalPlayer.Character) < 25f && Game.LocalPlayer.Character.IsOnFoot && _alreadySubtitleIntrod == false && _pursuit == null)
+            if (_subject && Functions.IsPedArrested(_subject) && _isStolen && _subject.DistanceTo(Game.LocalPlayer.Character) < 15f)
             {
-                Print("Perform a normal traffic stop with the ~o~suspect~w~.");
-                Print("~b~Dispatch:~w~ Checking the serial number of the bike...");
-                GameFiber.Wait(2000);
-                Print("~b~Dispatch~w~ We checked the serial number of the bike.<br>Model: ~o~" + _bike.Model.Name + "<br>~w~Serial number: ~o~" + _bike.LicensePlate);
-                _alreadySubtitleIntrod = true;
-                return;
+                Game.DisplaySubtitle("~y~Suspect: ~w~Please let me go! I bring the bike back.", 4000);
             }
-        }
-        if (_subject && Functions.IsPedArrested(_subject) && _isStolen && _subject.DistanceTo(Game.LocalPlayer.Character) < 15f)
-        {
-            Game.DisplaySubtitle("~y~Suspect: ~w~Please let me go! I bring the bike back.", 4000);
-        }
-        Log("Bicycle on the Freeway [SWLCallouts]");
+        }, "Bicycle on the Freeway [SWLCallouts]");
         base.Process();
     }
 

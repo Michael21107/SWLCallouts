@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 4th Mar 2024
-// Version: 0.4.7.2
+// Version: 0.4.8.0
 
 #region
 
@@ -72,6 +72,7 @@ class SWLStolenEmergencyVehicle : Callout
         if (_suspect) _suspect.Delete();
         if (_emergencyVehicle) _emergencyVehicle.Delete();
         if (_blip) _blip.Delete();
+        Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
         base.OnCalloutNotAccepted();
     }
 
