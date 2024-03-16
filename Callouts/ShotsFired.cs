@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 2nd Mar 2024
-// Version: 0.4.8.4
+// Version: 0.4.8.5
 
 #region
 
@@ -60,25 +60,34 @@ public class SWLShotsFired : Callout
         {
             if (GPlayer.Position.DistanceTo(location) < 80f)
             {
+                Normal("Location too close, removing location from list...");
                 list.Remove(location); // Remove locations within the distance threshold
+                Normal("Choosing a different location..");
             }
         }
 
+        Normal("Choosing nearest location for callout...");
+        // Choose the nearest location from the updated list
         _spawnPoint = LocationChooser.ChooseNearestLocation(list);
         _scenario = new Random().Next(0, 100);
         ShowCalloutAreaBlipBeforeAccepting(_spawnPoint, 100f);
+        Normal("Setting callout message and location...");
         CalloutMessage = "[SWL]~w~ Reports of Shots Fired.";
         CalloutPosition = _spawnPoint;
+        Normal("Message and Position set.");
+        Normal("Choosing callout audio...");
         switch (new Random().Next(1, 3))
         { 
             case 1:
+                Normal("Audio 1 selected.");
                 Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS CRIME_SHOTS_FIRED_01 IN_OR_ON_POSITION", _spawnPoint);
                 break;
             case 2:
+                Normal("Audio 2 selected.");
                 Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS ASSAULT_WITH_AN_DEADLY_WEAPON CIV_ASSISTANCE IN_OR_ON_POSITION", _spawnPoint);
                 break;
         }
-        Normal("SWLCallouts - Shots Fired callout offered.");
+        Normal("Shots Fired callout offered.");
 
         return base.OnBeforeCalloutDisplayed();
     }
@@ -116,7 +125,7 @@ public class SWLShotsFired : Callout
                 Normal("Spawned suspects");
                 GameFiber.Wait(10000);
                 _suspect1.Tasks.Wander();
-                _suspect2?.Tasks.Wander();
+                _suspect2.Tasks.Wander();
                 break;
         }
 
@@ -171,7 +180,7 @@ public class SWLShotsFired : Callout
         if (_ped2) _ped2.Delete();
         if (_ped3) _ped3.Delete();
         Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
-        Normal("ShotFired callout entities.");
+        Normal("ShotFired callout entities removed.");
         base.OnCalloutNotAccepted();
     }
 
@@ -189,13 +198,13 @@ public class SWLShotsFired : Callout
         }*/
         if (_suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f && !_isArmed)
         {
-            Normal("");
+            Normal("Given suspect1 a weapon");
             _suspect1.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
             _isArmed = true;
         }
         if (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f && !_isArmed)
         {
-            Normal("");
+            Normal("Given suspect2 a weapon");
             _suspect2.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
             _isArmed = true;
         }
@@ -203,9 +212,10 @@ public class SWLShotsFired : Callout
         {
             if (_scenario > 40)
             {
+                Normal("Arriving on scene..");
                 if (_callOutScene == 1)
                 {
-                    Normal("");
+                    Normal("Arrived at callout scene 1");
                     new RelationshipGroup("SI");
                     new RelationshipGroup("PI");
                     _suspect1.RelationshipGroup = "SI";
@@ -215,14 +225,17 @@ public class SWLShotsFired : Callout
                     _suspect1.KeepTasks = true;
                     Game.SetRelationshipBetweenRelationshipGroups("SI", "PI", Relationship.Hate);
                     _suspect1.Tasks.FightAgainstClosestHatedTarget(1000f);
+                    Normal("Suspect attacking random civilians...");
                     GameFiber.Wait(2000);
                     _suspect1.Tasks.FightAgainst(GPlayer);
                     _hasBegunAttacking = true;
+                    Normal("Suspect attacking player...");
                     GameFiber.Wait(600);
+
                 }
                 else if (_callOutScene == 2)
                 {
-                    Normal("");
+                    Normal("Arrived at callout scene 2");
                     new RelationshipGroup("SI");
                     new RelationshipGroup("SII");
                     new RelationshipGroup("PI");
@@ -239,10 +252,12 @@ public class SWLShotsFired : Callout
                     Game.SetRelationshipBetweenRelationshipGroups("SII", "SI", Relationship.Hate);
                     _suspect1.Tasks.FightAgainstClosestHatedTarget(1000f);
                     _suspect2.Tasks.FightAgainstClosestHatedTarget(1000f);
+                    Normal("Suspects attacking random civilians...");
                     GameFiber.Wait(2000);
                     _suspect1.Tasks.FightAgainst(GPlayer);
                     _suspect2.Tasks.FightAgainst(GPlayer);
                     _hasBegunAttacking = true;
+                    Normal("Suspects attacking player...");
                     GameFiber.Wait(600);
                 }
             }
@@ -252,20 +267,22 @@ public class SWLShotsFired : Callout
                 {
                     if (_callOutScene == 1)
                     {
-                        Normal("");
+                        Normal("Arrived at callout pursuit scene 1");
                         _suspect1.Face(GPlayer);
                         _suspect1.Tasks.PutHandsUp(-1, GPlayer);
-                        HelpMsg("~b~Dispatch:~w~ The _suspect is surrendering. Try to ~o~arrest them~w~.");
+                        HelpMsg("~b~Dispatch:~w~ The suspect is surrendering. Try to ~o~arrest them~w~.");
+                        Normal("Suspect gives up.");
                         _hasPursuitBegun = true;
                     }
                     else if (_callOutScene == 2)
                     {
-                        Normal("");
+                        Normal("Arrived at callout pursuit scene 2");
                         _suspect1.Face(GPlayer);
                         _suspect2.Face(GPlayer);
                         _suspect1.Tasks.PutHandsUp(-1, GPlayer);
                         _suspect2.Tasks.PutHandsUp(-1, GPlayer);
-                        HelpMsg("~b~Dispatch:~w~ The _suspects are surrendering. Try to ~o~arrest them both~w~.");
+                        HelpMsg("~b~Dispatch:~w~ The suspects are surrendering. Try to ~o~arrest them both~w~.");
+                        Normal("Suspects give up.");
                         _hasPursuitBegun = true;
                     }
                 }
@@ -275,13 +292,14 @@ public class SWLShotsFired : Callout
 
         if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
         if (_suspect1 && (_suspect1.IsDead) || Functions.IsPedArrested(_suspect1)) End();
-        if (_suspect2.Exists && _suspect2.IsDead || Functions.IsPedArrested(_suspect2)) End();
+        if ((_suspect2 && _suspect2.IsDead) || Functions.IsPedArrested(_suspect2)) End();
+
         base.Process();
     }
 
     public override void End()
     {
-        Normal("Call ended, clea");
+        Normal("Call ended, cleaning up call...");
         if (_suspect1) _suspect1.Dismiss();
         if (_suspect2.Exists()) _suspect2.Dismiss();
         if (_ped1) _ped1.Dismiss();
@@ -291,7 +309,7 @@ public class SWLShotsFired : Callout
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Reports of Shots Fired", SFDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
-        Normal("SWLCallouts - Shots Fired cleanup.");
+        Normal("ShotsFired call cleaned up.");
         base.End();
     }
 }

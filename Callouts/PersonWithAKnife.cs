@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 28th Feb 2024
-// Version: 0.4.8.4
+// Version: 0.4.8.5
 
 #region
 
@@ -33,14 +33,14 @@ public class SWLPersonWithAKnife : Callout
         CalloutMessage = "[SWL]~w~ Reports of a Person With a Knife.";
         CalloutPosition = _spawnPoint;
         Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS ASSAULT_WITH_AN_DEADLY_WEAPON CIV_ASSISTANCE IN_OR_ON_POSITION", _spawnPoint);
-        Normal("SWLCallouts - Person With A Knife callout offered.");
+        Normal("PersonWithAKnife callout offered.");
 
         return base.OnBeforeCalloutDisplayed();
     }
 
     public override bool OnCalloutAccepted()
     {
-        Normal("SWLCallouts - Person With A Knife callout accepted.");
+        Normal("PersonWithAKnife callout accepted.");
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Person With a Knife", "~b~Dispatch: ~w~Try to arrest the Suspect. Respond with ~r~Code 3");
         Functions.PlayScannerAudio("UNITS_RESPOND_CODE_03_01");
 
@@ -63,58 +63,58 @@ public class SWLPersonWithAKnife : Callout
 
     public override void OnCalloutNotAccepted()
     {
+        Normal("ShotsFired callout NOT accepted.");
         if (_blip) _blip.Delete();
         if (_suspect) _suspect.Delete();
+        Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
+        Normal("ShotFired callout entities removed.");
         base.OnCalloutNotAccepted();
     }
 
     public override void Process()
     {
-        GameFiber.StartNew(delegate
+        if (_suspect.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 18f && !_isArmed)
         {
-            if (_suspect.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 18f && !_isArmed)
+            _suspect.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
+            _isArmed = true;
+        }
+        if (_suspect && _suspect.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 18f && !_hasBegunAttacking)
+        {
+            if (_scenario > 40)
             {
-                _suspect.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
-                _isArmed = true;
-            }
-            if (_suspect && _suspect.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 18f && !_hasBegunAttacking)
-            {
-                if (_scenario > 40)
+                _suspect.KeepTasks = true;
+                _suspect.Tasks.FightAgainst(GPlayer);
+                _hasBegunAttacking = true;
+                switch (new Random().Next(1, 3))
                 {
-                    _suspect.KeepTasks = true;
-                    _suspect.Tasks.FightAgainst(GPlayer);
-                    _hasBegunAttacking = true;
-                    switch (new Random().Next(1, 3))
-                    {
-                        case 1:
-                            Speech("~r~Suspect: ~w~I do not want to live anymore!", 4000);
-                            break;
-                        case 2:
-                            Speech("~r~Suspect: ~w~Go away! - I'm not going back to the psychiatric hospital!", 4000);
-                            break;
-                        case 3:
-                            Speech("~r~Suspect: ~w~I'm not going back to the psychiatric hospital!", 4000);
-                            break;
-                        default: break;
-                    }
-                    GameFiber.Wait(2000);
+                    case 1:
+                        Speech("~r~Suspect: ~w~I do not want to live anymore!", 4000);
+                        break;
+                    case 2:
+                        Speech("~r~Suspect: ~w~Go away! - I'm not going back to the psychiatric hospital!", 4000);
+                        break;
+                    case 3:
+                        Speech("~r~Suspect: ~w~I'm not going back to the psychiatric hospital!", 4000);
+                        break;
+                    default: break;
                 }
-                else
+                GameFiber.Wait(2000);
+            }
+            else
+            {
+                if (!_hasPursuitBegun)
                 {
-                    if (!_hasPursuitBegun)
-                    {
-                        _pursuit = Functions.CreatePursuit();
-                        Functions.AddPedToPursuit(_pursuit, _suspect);
-                        Functions.SetPursuitIsActiveForPlayer(_pursuit, true);
-                        _hasPursuitBegun = true;
-                    }
+                    _pursuit = Functions.CreatePursuit();
+                    Functions.AddPedToPursuit(_pursuit, _suspect);
+                    Functions.SetPursuitIsActiveForPlayer(_pursuit, true);
+                    _hasPursuitBegun = true;
                 }
             }
-            if (GPlayer.IsDead) End();
-            if (Game.IsKeyDown(Settings.EndCall)) End();
-            if (_suspect && _suspect.IsDead) End();
-            if (_suspect && Functions.IsPedArrested(_suspect)) End();
-        }, "Person With a Knife [SWLCallouts]");
+        }
+        if (GPlayer.IsDead) End();
+        if (Game.IsKeyDown(Settings.EndCall)) End();
+        if (_suspect && _suspect.IsDead) End();
+        if (_suspect && Functions.IsPedArrested(_suspect)) End();
         base.Process();
     }
 
@@ -125,7 +125,7 @@ public class SWLPersonWithAKnife : Callout
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
-        Normal("SWLCallouts - Person With A Knife cleanup.");
+        Normal("PersonWithAKnife cleanup.");
         base.End();
     }
 }

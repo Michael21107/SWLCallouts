@@ -1,12 +1,13 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.4
+// Version: 0.4.8.5
 
 #region
 
 #endregion
 
 using LSPD_First_Response.Mod.API;
+using System.IO;
 
 namespace SWLCallouts;
 
@@ -37,62 +38,20 @@ internal static class Settings
         Settings("Checking SWLCallouts.ini exists...");
         var path = "Plugins/LSPDFR/SWLCallouts.ini";
         var ini = new InitializationFile(path);
-        if (ini != null)
+        if (!File.Exists(path))
         {
             Settings("SWLCallouts.ini file NOT detected.");
             GameFiber.Sleep(500);
             Settings("Creating SWLCallouts.ini file...");
-            ini.Create();
+
             GameFiber.Sleep(100);
+            // Create the directory if it doesn't exist
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+
             Settings("Writing default settings to SWLCallouts.ini file...");
-            ini.Write("", "// File Created for SWLCallouts Settings by Scottywonderful", "");
-            ini.Write("", "// Author: Scottywonderful", "");
-            ini.Write("", $"// Created: {DateTime.Now.ToString("d MMM yyyy")}", ""); // Date of creation //
-            ini.Write("", $"// Version: {PluginVersion}", ""); // Grabs current installed version //
-            ini.Write("", "", "");
-            ini.Write("[Callouts]", "[Callouts]", "");
-            ini.Write("[Callouts]", "", "");
-            ini.Write("[Callouts]", "// If true, the Callout is enabled.", "");
-            ini.Write("[Callouts]", "// If false, the Callout is disabled. ", "");
-            ini.Write("[Callouts]", "// You can disable callouts, if you do not want to have them in game. ", "");
-            ini.Write("[Callouts]", "// (default -- true)", "");
-            ini.Write("[Callouts]", "", "");
-            ini.Write("[Callouts]", "CyclistOnTheMotorway", true);
-            ini.Write("[Callouts]", "HighSpeedChase", true);
-            ini.Write("[Callouts]", "PersonWithAKnife", true);
-            ini.Write("[Callouts]", "ShotsFired", true);
-            ini.Write("[Callouts]", "StolenEmergencyVehicle", true);
-            ini.Write("[Callouts]", "StolenEmergencyVehicle2", true);
-            ini.Write("[Callouts]", "WelfareCheck", true);
-            ini.Write("[Callouts]", "", "");
-            ini.Write("[Callouts]", "// The below are callouts which only work if you have 'Open All Interiors' installed.", "");
-            ini.Write("[Callouts]", "// You can download 'Open All Interiors' here: https://www.gta5-mods.com/scripts/open-all-interiors", "");
-            ini.Write("[Callouts]", "// (default -- false)", "");
-            ini.Write("[Callouts]", "", false);
-            ini.Write("[Callouts]", "", "");
-            ini.Write("[Settings]", "[Settings]", "");
-            ini.Write("[Settings]", "", "");
-            ini.Write("[Settings]", "// This is experimental, DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING!", "");
-            ini.Write("[Settings]", "// Choose between SWLCO, police, lssheriff, sheriff, highway, FIB, IAA, safire, saems/sams", "");
-            ini.Write("[Settings]", "//Department = SWLCO", "");
-            ini.Write("[Settings]", "", "");
-            ini.Write("[Settings]", "// Activate this option to have AI units responding to certain callouts with the Player (you).", "");
-            ini.Write("[Settings]", "// The backup type is different for each callout. This means you wont have a local unit responding to a heavily-armed terrorist attack.", "");
-            ini.Write("[Settings]", "// (default -- true)", "");
-            ini.Write("[Settings]", "ActivateAIBackup", true);
-            ini.Write("[Settings]", "", "");
-            ini.Write("[Settings]", "// This option allows you to remove the help messages used in some callouts and on startup.", "");
-            ini.Write("[Settings]", "// (default -- true)", "");
-            ini.Write("[Settings]", "HelpMessages", true);
-            ini.Write("[Settings]", "", "");
-            ini.Write("[Keys]", "[Keys]", "");
-            ini.Write("[Keys]", "", "");
-            ini.Write("[Keys]", "// You can change every key. Here is a list of valid keys you can use: https://msdn.microsoft.com/en-us/library/system.windows.forms.keys(v=vs.110).aspx", "");
-            ini.Write("[Keys]", "// With pressing this key, while you are in a callout of SWLCallouts, you can force the callout to end.", "");
-            ini.Write("[Keys]", "EndCall", Keys.End);
-            ini.Write("[Keys]", "", "");
-            ini.Write("[Keys]", "// With pressing this key you can start the dialog, if there is a dialog in the callout.", "");
-            ini.Write("[Keys]", "Dialog", Keys.Y);
+            // Write default settings to the INI file
+            WriteDefaultSettings(path);
+
             GameFiber.Sleep(500);
             Settings("Loading default settings...");
         }
@@ -127,7 +86,7 @@ internal static class Settings
         EndCall = ini.ReadEnum("Keys", "EndCall", Keys.End);
         Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
     }
-    public static readonly string PluginVersion = "0.4.8.4";
+    public static readonly string PluginVersion = "0.4.8.5";
     public static readonly string VersionType = "Alpha";
 
     private static bool ReadAndLogBoolean(InitializationFile ini, string calloutName)
@@ -135,5 +94,67 @@ internal static class Settings
         bool enabled = ini.ReadBoolean("Callouts", calloutName, true);
         Settings($"{calloutName} = {enabled}");
         return enabled;
+    }
+
+    private static void WriteDefaultSettings(string filePath)
+    {
+        using StreamWriter writer = new(filePath);
+        Settings("Writing file title...");
+        writer.WriteLine("// File Created by SWLCallouts Settings.");
+        writer.WriteLine("// Author: Scottywonderful");
+        writer.WriteLine($"// Created: {DateTime.Now:d MMM yyyy}"); // Date of creation //
+        writer.WriteLine($"// Version: {PluginVersion}"); // Grabs current installed version //
+        writer.WriteLine();
+        // Callouts //
+        Settings("Writing default callout settings...");
+        writer.WriteLine("[Callouts]");
+        writer.WriteLine();
+        writer.WriteLine("// If true, the Callout is enabled.");
+        writer.WriteLine("// If false, the Callout is disabled. ");
+        writer.WriteLine("// You can disable callouts, if you do not want to have them in game. ");
+        writer.WriteLine("// (default -- true)");
+        writer.WriteLine();
+        writer.WriteLine("CyclistOnTheMotorway = true");
+        writer.WriteLine("HighSpeedChase = true");
+        writer.WriteLine("PersonWithAKnife = true");
+        writer.WriteLine("ShotsFired = true");
+        writer.WriteLine("StolenEmergencyVehicle = true");
+        writer.WriteLine("StolenEmergencyVehicle2 = true");
+        writer.WriteLine("WelfareCheck = true");
+        writer.WriteLine();
+        writer.WriteLine("// The below are callouts which only work if you have 'Open All Interiors' installed.");
+        writer.WriteLine("// You can download 'Open All Interiors' here: https://www.gta5-mods.com/scripts/open-all-interiors");
+        writer.WriteLine("// (default -- false)");
+        writer.WriteLine("MurderInvestigation = false");
+        writer.WriteLine();
+        // Settings //
+        Settings("Writing default settings...");
+        writer.WriteLine("[Settings]");
+        writer.WriteLine();
+        writer.WriteLine("// This is experimental, DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING!");
+        writer.WriteLine("// Choose between SWLCO, police, lssheriff, sheriff, highway, FIB, IAA, safire, saems/sams");
+        writer.WriteLine("//Department = SWLCO");
+        writer.WriteLine();
+        writer.WriteLine("// Activate this option to have AI units responding to certain callouts with the Player (you).");
+        writer.WriteLine("// The backup type is different for each callout. This means you wont have a local unit responding to a heavily-armed terrorist attack.");
+        writer.WriteLine("// (default -- true)");
+        writer.WriteLine("ActivateAIBackup = true");
+        writer.WriteLine();
+        writer.WriteLine("// This option allows you to remove the help messages used in some callouts and on startup.");
+        writer.WriteLine("// (default -- true)");
+        writer.WriteLine("HelpMessages = true");
+        writer.WriteLine();
+        // Keys //
+        Settings("Writing default keys...");
+        writer.WriteLine("[Keys]");
+        writer.WriteLine();
+        writer.WriteLine("// You can change every key. Here is a list of valid keys you can use: https://msdn.microsoft.com/en-us/library/system.windows.forms.keys(v=vs.110).aspx");
+        writer.WriteLine("// With pressing this key, while you are in a callout of SWLCallouts, you can force the callout to end.");
+        writer.WriteLine("EndCall = End");
+        writer.WriteLine();
+        writer.WriteLine("// With pressing this key you can start the dialog, if there is a dialog in the callout.");
+        writer.WriteLine("Dialog = Y");
+        // FILE CREATED //
+        Settings("Default SWLCallouts.ini file written to location.");
     }
 }

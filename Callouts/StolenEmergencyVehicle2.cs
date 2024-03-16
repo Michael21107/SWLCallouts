@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 4th Mar 2024
-// Version: 0.4.8.4
+// Version: 0.4.8.5
 
 #region
 
@@ -69,22 +69,21 @@ class SWLStolenEmergencyVehicle2 : Callout
 
     public override void OnCalloutNotAccepted()
     {
+        Normal("ShotsFired callout NOT accepted.");
         if (_suspect) _suspect.Delete();
         if (_emergencyVehicle) _emergencyVehicle.Delete();
         if (_blip) _blip.Delete();
         Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
+        Normal("ShotFired callout entities removed.");
         base.OnCalloutNotAccepted();
     }
 
     public override void Process()
     {
-        GameFiber.StartNew(delegate
-        {
-            if (GPlayer.IsDead) End();
-            if (Game.IsKeyDown(Settings.EndCall)) End();
-            if (_suspect && _suspect.IsDead) End();
-            if (_suspect && Functions.IsPedArrested(_suspect)) End();
-        }, "Stolen Emergency Vehicle [SWLCallouts]");
+        if (GPlayer.IsDead) End();
+        if (Game.IsKeyDown(Settings.EndCall)) End();
+        if (_suspect && _suspect.IsDead) End();
+        if (_suspect && Functions.IsPedArrested(_suspect)) End();
         base.Process();
     }
 

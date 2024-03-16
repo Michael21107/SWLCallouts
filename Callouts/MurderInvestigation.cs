@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.4
+// Version: 0.4.8.5
 
 #region
 using LSPD_First_Response.Engine.Scripting.Entities;
@@ -11,7 +11,7 @@ namespace SWLCallouts.Callouts;
 [CalloutInfo("[SWL] Murder Investigation", CalloutProbability.Medium)]
 internal class SWLMurderInvestigation : Callout
 {
-    private readonly string[] _copCars = new string[] { "FBI", "FBI2" };
+    private readonly string[] _copCars = new string[] { "police4", "FBI", "FBI2" };
     private Ped _deadPerson;
     private Ped _deadPerson2;
     private Ped _murderer;
@@ -72,7 +72,9 @@ internal class SWLMurderInvestigation : Callout
         {
             if (GPlayer.Position.DistanceTo(location) < 80f)
             {
+                Normal("Location too close, removing location from list...");
                 list.Remove(location); // Remove locations within the distance threshold
+                Normal("Choosing a different location..");
             }
         }
 
@@ -131,9 +133,9 @@ internal class SWLMurderInvestigation : Callout
         _coroner2.BlockPermanentEvents = true;
         _coroner1.KeepTasks = false;
         _coroner2.KeepTasks = false;
-
-        Rage.Object camera = new Rage.Object("prop_ing_camera_01", _coroner1.GetOffsetPosition(Vector3.RelativeTop * 30));
-        Rage.Object camera2 = new Rage.Object("prop_ing_camera_01", _coroner2.GetOffsetPosition(Vector3.RelativeTop * 30));
+        
+        _ = new Rage.Object("prop_ing_camera_01", _coroner1.GetOffsetPosition(Vector3.RelativeTop * 30));
+        _ = new Rage.Object("prop_ing_camera_01", _coroner2.GetOffsetPosition(Vector3.RelativeTop * 30));
         _coroner1.Tasks.PlayAnimation("amb@world_human_paparazzi@male@idle_a", "idle_a", 8.0F, AnimationFlags.Loop);
         _coroner2.Tasks.PlayAnimation("amb@medic@standing@kneel@base", "base", 8.0F, AnimationFlags.Loop);
         _cop2.Tasks.PlayAnimation("amb@world_human_cop_idles@male@idle_a", "idle_a", 1.5f, AnimationFlags.Loop);
@@ -182,6 +184,7 @@ internal class SWLMurderInvestigation : Callout
 
     public override void OnCalloutNotAccepted()
     {
+        Normal("ShotsFired callout NOT accepted.");
         if (_cop1) _cop1.Delete();
         if (_cop2) _cop2.Delete();
         if (_coroner1) _coroner1.Delete();
@@ -193,6 +196,8 @@ internal class SWLMurderInvestigation : Callout
         if (_coronerVeh) _coronerVeh.Delete();
         if (SpawnLocationBlip) SpawnLocationBlip.Delete();
         if (MurderLocationBlip) MurderLocationBlip.Delete();
+        Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
+        Normal("ShotFired callout entities removed.");
         base.OnCalloutNotAccepted();
     }
 
