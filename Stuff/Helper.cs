@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 // Thanks for Astro for this idea
 
@@ -20,6 +20,10 @@ internal static class Helper
     internal static IEnumerable<T> PickRandom<T>(this IEnumerable<T> source, int count) => source.Shuffle().Take(count);
     internal static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source) => source.OrderBy(_ => Guid.NewGuid());
 
+    // Change Normal("message") to a Normal event log entry. //
+    internal static void Settings(string msg) => Game.LogTrivial($"SWLCallouts [SETTINGS]: {msg}");
+    // Change Normal("message") to a Normal event log entry. //
+    internal static void Normal(string msg) => Game.LogTrivial($"[NORMAL] SWLCallouts: {msg}");
     // Change Log("message") to a Log entry. //
     internal static void Log(string msg) => Game.LogTrivial($"[LOG] SWLCallouts: {msg}");
 

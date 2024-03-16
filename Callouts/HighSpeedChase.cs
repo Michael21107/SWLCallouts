@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 #region
 
@@ -26,14 +26,14 @@ public class SWLHighSpeedChase : Callout
         CalloutMessage = "[SWL]~w~ High Speed Chase in progress";
         CalloutPosition = _spawnPoint;
         Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_GRAND_THEFT_AUTO IN_OR_ON_POSITION", _spawnPoint);
-        Log("SWLCallouts - High Speed Chase callout offered.");
+        Normal("SWLCallouts - High Speed Chase callout offered.");
 
         return base.OnBeforeCalloutDisplayed();
     }
 
     public override bool OnCalloutAccepted()
     {
-        Log("SWLCallouts - High Speed Chase callout accepted.");
+        Normal("SWLCallouts - High Speed Chase callout accepted.");
         _suspectVehicle = new Vehicle(_vehicleList[new Random().Next((int)_vehicleList.Length)], _spawnPoint)
         {
             IsPersistent = true
@@ -78,7 +78,7 @@ public class SWLHighSpeedChase : Callout
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "[SWL] ~y~High Speed Chase", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
-        Log("SWLCallouts - High Speed Chase cleanup.");
+        Normal("SWLCallouts - High Speed Chase cleanup.");
         base.End();
     }
 }

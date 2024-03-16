@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 4th Mar 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 #region
 
@@ -31,7 +31,7 @@ class SWLStolenEmergencyVehicle2 : Callout
 
     public override bool OnCalloutAccepted()
     {
-        Log("SWLCallouts Log: Stolen Emergency Vehicle2 callout accepted.");
+        Normal("SWLCallouts Log: Stolen Emergency Vehicle2 callout accepted.");
 
         _emergencyVehicle = new Vehicle(_emVehicles[new Random().Next((int)_emVehicles.Length)], _spawnPoint)
         {

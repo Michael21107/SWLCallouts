@@ -1,12 +1,13 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 #region
 
 #endregion
 
 using Rage;
+using SWLCallouts.Callouts;
 
 namespace SWLCallouts.Stuff;
 
@@ -30,31 +31,48 @@ internal class SWLCalloutHandler
 
     internal static void DeregisterCallouts() // Unregister callouts due to unload/crash //
     {
-        Log("Stop current callout");
-        Print("==================================== Stopping SWLCallouts ====================================");
+        GameFiber.Sleep(200);
         Functions.StopCurrentCallout();
-        Print("[LOG]: All callouts of the SWLCallouts.ini were loaded successfully.");
+        Normal("Current callout was stopped (Including any not related to SWLCallouts).");
+        Normal("Stopping all callouts and deleting blips/peds");
+        Print("==================================== Stopping SWLCallouts ====================================");
+        Print("");
+        new SWLCyclistOnTheMotorway().End();
+        Normal("CyclistOnTheMotorway Callout Entities Removed.");
+        new SWLHighSpeedChase().End();
+        Normal("HighSpeedChase Callout Entities Removed.");
+        new SWLMurderInvestigation().End();
+        Normal("MurderInvestigation Callout Entities Removed.");
+        new SWLPersonWithAKnife().End();
+        Normal("PersonWithAKnife Callout Entities Removed.");
+        new SWLShotsFired().End();
+        Normal("ShotsFired Callout Entities Removed.");
+        new SWLStolenEmergencyVehicle().End();
+        Normal("StolenEmergencyVehicle Callout Entities Removed.");
+        new SWLStolenEmergencyVehicle2().End();
+        Normal("StolenEmergencyVehicle2 Callout Entities Removed.");
+        new SWLWelfareCheck().End();
+        Normal("WelfareCheck Callout Entities Removed.");
+        Print("");
+        Normal("All SWL Callouts was stopped and all blips/peds removed.");
+        Print("[LOG]: All callouts for SWLCallouts were unloaded successfully.");
+        Print("");
+        GameFiber.Sleep(200);
+        Functions.StopCurrentCallout();
+        Print("");
+        Normal("Ensuring all callouts were stopped (Including any not related to SWLCallouts).");
+        Print("[LOG]: Ensuring all callouts were stopped (Including any not related to SWLCallouts).");
         Print("============================== Callouts for SWLCallouts Stopped ==============================");
-        Log("Callout was stopped.");
 
-        // TO BE ADDED
-        // Add logic here to delete/dismiss all associated entities like peds and blips
-        // Example:
-        // - Dismiss Blips
-        // - Delete peds
-        // - Clear any other custom data such as vehicles and ped info.
-        //if (_blip.Exists()) _blip.Delete();
-        //if (_suspect.Exists()) _suspect.Dismiss();
-        //if (_suspect1.Exists()) _suspect1.Dismiss();
-        //if (_suspect2.Exists()) _suspect2.Dismiss();
-        //if (_suspect3.Exists()) _suspect3.Dismiss();
-        //if (_suspect4.Exists()) _suspect4.Dismiss();
-        //if (_ped1.Exists()) Ped1.Dismiss();
-        //if (_ped2.Exists()) Ped2.Dismiss();
-        //if (_ped3.Exists()) Ped3.Dismiss();
-        //if (_suspectVehicle.Exists()) _suspectVehicle.delete();
-        //if (_emergencyVehicle.Exists()) _emergencyVehicle.delete();
-        //if (_suspectBlip && _suspectBlip.Exists()) _suspectBlip.Delete();
-
+        /* Callout List
+        CyclistOnTheMotorway
+        HighSpeedChase
+        MurderInvestigation
+        PersonWithAKnife
+        ShotsFired
+        StolenEmergencyVehicle
+        StolenEmergencyVehicle2
+        WelfareCheck
+        */
     }
 }

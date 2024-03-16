@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 #region
 
@@ -30,7 +30,6 @@ public class SWLWelfareCheck : Callout
 
     public override bool OnBeforeCalloutDisplayed()
     {
-        //Random random = Rndm;
         List<Vector3> list = new List<Vector3>
         {
             // City Locations //
@@ -150,14 +149,14 @@ public class SWLWelfareCheck : Callout
         }
         CalloutPosition = _spawnPoint;
         Functions.PlayScannerAudioUsingPosition("UNITS WE_HAVE CRIME_CIVILIAN_NEEDING_ASSISTANCE_02", _spawnPoint);
-        Log("SWLCallouts - Welfare Check callout offered.");
+        Normal("SWLCallouts - Welfare Check callout offered.");
 
         return base.OnBeforeCalloutDisplayed();
     }
 
     public override bool OnCalloutAccepted()
     {
-        Log("SWLCallouts Log: Welfare Check callout accepted.");
+        Normal("SWLCallouts Log: Welfare Check callout accepted.");
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~Dispatch:~w~ Someone called the police for a welfare check. Search the ~y~yellow area~w~ for the person. Respond ~y~Code 2");
         Functions.PlayScannerAudio("UNITS_RESPOND_CODE_02_02");
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~p~*In Car Computer/Tablet*", "Loading ~g~Information~w~ off the ~y~LSPD Database~w~...");
@@ -187,7 +186,7 @@ public class SWLWelfareCheck : Callout
         {
             if (_suspect != null)
             {
-                if (_scene1 == true && _suspect && _suspect.DistanceTo(GPlayer) < 40f && (!GPlayer.IsInAnyVehicle(false) || GPlayer.IsOnFoot) && !_notificationDisplayed && !_getAmbulance)
+                if (_scene1 == true && _suspect.DistanceTo(GPlayer) < 40f && (!GPlayer.IsInAnyVehicle(true) || GPlayer.IsOnFoot) && !_notificationDisplayed && !_getAmbulance)
                 {
                     if (Settings.HelpMessages)
                     {
@@ -211,13 +210,13 @@ public class SWLWelfareCheck : Callout
                         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICERS_ARRIVED_ON_SCENE");
                     }
                 }
-                if (_scene2 == true && _spawnPoint.DistanceTo(GPlayer) < 20f && (!GPlayer.IsInAnyVehicle(false) || GPlayer.IsOnFoot) && !_notificationDisplayed)
+                if (_scene2 == true && _spawnPoint.DistanceTo(GPlayer) < 20f && (!GPlayer.IsInAnyVehicle(true) || GPlayer.IsOnFoot) && !_notificationDisplayed)
                 {
                     NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", "Investigate the area. If you don't find anyone, you may ~g~End~w~ the call and return to patrol.");
                     _notificationDisplayed = true;
                     Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICERS_ARRIVED_ON_SCENE");
                 }
-                if (_scene3 == true && _suspect && _suspect.DistanceTo(GPlayer) < 40f && (!GPlayer.IsInAnyVehicle(false) || GPlayer.IsOnFoot) && _alreadySubtitleIntrod == false)
+                if (_scene3 == true && _suspect.DistanceTo(GPlayer) < 40f && (!GPlayer.IsInAnyVehicle(true) || GPlayer.IsOnFoot) && !_alreadySubtitleIntrod)
                 {
                     Speech("Press ~y~" + Settings.Dialog + " ~w~to speak with the civilian.", 5000);
                     if (Settings.HelpMessages)
@@ -227,17 +226,20 @@ public class SWLWelfareCheck : Callout
                     Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICERS_ARRIVED_ON_SCENE");
                     if (_callOutMessage == 6)
                     {
-                        Speech("~y~Civilian: *YELLS* ~w~I'm armed and I'm not afraid to use it!!", 10000);
+                        _suspect.IsPersistent = true;
+                        Speech("~y~Civilian: *YELLS* ~w~I'm armed and I'm not afraid to use it!!", 5000);
                         GameFiber.Sleep(2000);
                         Speech("~b~You: ~w~Police! Put your weapon down NOW!", 5000);
                         if (Settings.ActivateAIBackup)
                         {
+                            Normal("Auto AI Backup being dispatched.");
                             Speech("~b~You: ~w~Dispatch, requesting code 3 backup immediately!", 2000);
                             GameFiber.Wait(1000);
                             Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICER_REQUESTING_BACKUP CODE3");
                             Functions.RequestBackup(GPlayer.Position, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
+                            Normal("Auto AI Backup dispatched to player location.");
                         }
-                        else { Settings.ActivateAIBackup = false; }
+                        else { Settings.ActivateAIBackup = false; Normal("AIBackup disabled"); }
                         GameFiber.Sleep(2000);
                         Speech("~y~Civilian: ~w~Oh shit, Sorry officer! Here you go!", 5000);
                         // Thanks Astro for the below suggested code //
@@ -251,6 +253,7 @@ public class SWLWelfareCheck : Callout
                     }
                     if (_callOutMessage == 7)
                     {
+                        _suspect.IsPersistent = true;
                         Speech("~y~Civilian: ~w~Fuck you bitch, you're gonna die for trespassing!", 5000);
                         GameFiber.Sleep(5000);
                         _suspect.KeepTasks = true;
@@ -273,6 +276,7 @@ public class SWLWelfareCheck : Callout
                     }
                     if (_callOutMessage == 8)
                     {
+                        _suspect.IsPersistent = true;
                         Speech("~y~Suspect: ~w~Fuck!! It's the cops!", 10000);
                         GameFiber.Wait(2000);
                         _suspect.KeepTasks = true;
@@ -280,7 +284,7 @@ public class SWLWelfareCheck : Callout
                     }
                     _alreadySubtitleIntrod = true;
                 }
-                if (_scene3 == true && _scene1 == false && _scene2 == false && _suspect.DistanceTo(GPlayer) < 5f && Game.IsKeyDown(Settings.Dialog))
+                if (_scene3 == true && !_scene1 && !_scene2 && _suspect.DistanceTo(GPlayer) < 5f && Game.IsKeyDown(Settings.Dialog))
                 {
                     _suspect.Face(GPlayer);
                     switch (_storyLine)
@@ -430,12 +434,12 @@ public class SWLWelfareCheck : Callout
 
     public override void End()
     {
-        _suspect?.Dismiss();
-        _blip?.Delete();
+        _suspect.Dismiss();
+        _blip.Delete();
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~DISPATCH", "[SWL] ~y~Welfare Check", WCDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
-        Log("SWLCallouts - Welfare Check cleanup.");
+        Normal("SWLCallouts - Welfare Check cleanup.");
         base.End();
     }
 }

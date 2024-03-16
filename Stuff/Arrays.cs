@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 #region
 
@@ -87,7 +87,7 @@ internal class Arrays
     static Arrays()
     {
         // Read the value of ActivateAIBackup from SWLCallouts.ini //
-        Log("Getting AIBackup Settings");
+        Normal("Getting AIBackup Settings");
         var ini = new InitializationFile("Plugins/LSPDFR/SWLCallouts.ini");
         bool activateAIBackup = ini.ReadBoolean("Settings", "ActivateAIBackup", true);
 

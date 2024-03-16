@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 28th Feb 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 #region
 
@@ -33,14 +33,14 @@ public class SWLPersonWithAKnife : Callout
         CalloutMessage = "[SWL]~w~ Reports of a Person With a Knife.";
         CalloutPosition = _spawnPoint;
         Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS ASSAULT_WITH_AN_DEADLY_WEAPON CIV_ASSISTANCE IN_OR_ON_POSITION", _spawnPoint);
-        Log("SWLCallouts - Person With A Knife callout offered.");
+        Normal("SWLCallouts - Person With A Knife callout offered.");
 
         return base.OnBeforeCalloutDisplayed();
     }
 
     public override bool OnCalloutAccepted()
     {
-        Log("SWLCallouts - Person With A Knife callout accepted.");
+        Normal("SWLCallouts - Person With A Knife callout accepted.");
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Person With a Knife", "~b~Dispatch: ~w~Try to arrest the Suspect. Respond with ~r~Code 3");
         Functions.PlayScannerAudio("UNITS_RESPOND_CODE_03_01");
 
@@ -125,7 +125,7 @@ public class SWLPersonWithAKnife : Callout
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
-        Log("SWLCallouts - Person With A Knife cleanup.");
+        Normal("SWLCallouts - Person With A Knife cleanup.");
         base.End();
     }
 }

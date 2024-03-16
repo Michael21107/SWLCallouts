@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 #region
 
@@ -16,9 +16,9 @@ public class Main : Plugin
 {
     public override void Initialize()
     {
-        Log("SWLCallouts (Version:" + Assembly.GetExecutingAssembly().GetName().Version?.ToString() + ") initialised");
+        Normal("SWLCallouts (Version:" + Assembly.GetExecutingAssembly().GetName().Version?.ToString() + ") initialised");
         Functions.OnOnDutyStateChanged += OnDutyStateChangedHandler;
-        Log("Go on duty to load SWLCallouts. Thanks for download it!");
+        Normal("Go on duty to load SWLCallouts. Thanks for download it!");
     }
 
     private static void OnDutyStateChangedHandler(bool onDuty)
@@ -28,14 +28,14 @@ public class Main : Plugin
             GameFiber.StartNew(() =>
             {
                 // Loading INI and checking for updates //
-                Log("Loading INI file settings");
+                Normal("Loading INI file settings");
                 Settings.LoadSettings();
-                Log("Adding console commands");
+                Normal("Adding console commands");
                 Game.AddConsoleCommands();
-                Log("Registering callouts");
+                Normal("Registering callouts");
                 SWLCalloutHandler.RegisterCallouts();
                 AppDomain.CurrentDomain.DomainUnload += Cleanup;
-                Log("Checking loaded version");
+                Normal("Checking loaded version");
                 Print("=============================================== SWLCallouts by Scottywonderful ================================================");
                 Print("[LOG]: Callouts and settings were loaded successfully.");
                 Print("[LOG]: The config file was loaded successfully.");
@@ -44,7 +44,7 @@ public class Main : Plugin
                 Print("=============================================== SWLCallouts by Scottywonderful ================================================");
 
                 // Check for updates and display version information //
-                Log("Checking for updates and comparing..");
+                Normal("Checking for updates and comparing..");
                 PluginCheck.IsUpdateAvailable();
 
                 // Display help messages or set HelpMessages to false //
@@ -58,12 +58,12 @@ public class Main : Plugin
         GameFiber.Wait(300);
         if (Settings.HelpMessages)
         {
-            Log("Help messages enabled.");
+            Normal("Help messages enabled.");
             Game.DisplayHelp("You can change all ~y~keys~w~ in the ~g~SWLCallouts.ini~w~. Press ~b~" + Settings.EndCall + "~w~ to end a callout.", 5000);
         }
         else
         {
-            Log("Help messages disabled.");
+            Normal("Help messages disabled.");
             Settings.HelpMessages = false;
         }
     }
@@ -111,7 +111,7 @@ public class Main : Plugin
             // Unregistering Callouts and cleaning up //
             SWLCalloutHandler.DeregisterCallouts();
 
-            Log("Unloaded SWLCallouts Successfully.");
+            Normal("Unloaded SWLCallouts Successfully.");
         }
         catch (Exception ex)
         {
@@ -120,7 +120,7 @@ public class Main : Plugin
     }
     public override void Finally()
     {
-        Log("SWLCallouts has been cleaned up.");
+        Normal("SWLCallouts has been cleaned up.");
     }
 
     public static Assembly LSPDFRResolveEventHandler(object sender, ResolveEventArgs args)

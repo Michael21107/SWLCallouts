@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 #region
 
@@ -21,16 +21,16 @@ public class PluginCheck
         /////////////////////////////////////////////////////////
 
 
-        Log("Checking installed version type");
+        Normal("Checking installed version type");
         string versionType = Settings.VersionType;
         string curType = (versionType == "Alpha" || versionType == "Beta" || versionType == "alpha" || versionType == "beta") ? "Unstable" : "Stable";
 
         // Below is the version checker against the github releases //
-        Log("Checking installed version");
+        Normal("Checking installed version");
         string curVersion = Settings.PluginVersion;
-        Log("Checking LSPDFR version");
+        Normal("Checking LSPDFR version");
         Uri latestPubVersionUri = new($"https://www.lcpdfr.com/applications/downloadsng/interface/api.php?do=checkForUpdates&fileId=46914&textOnly=1");
-        Log("Checking Github version");
+        Normal("Checking Github version");
         string owner = "Scottywonderful";
         string repo = "SWLCallouts";
         Uri latestTestingVersionUri = new($"https://api.github.com/repos/{owner}/{repo}/releases/latest");
@@ -40,14 +40,14 @@ public class PluginCheck
 
         try
         {
-            Log("Get a response for Pub");
+            Normal("Get a response for Pub");
             HttpResponseMessage responsePub = httpClient.GetAsync(latestPubVersionUri).Result;
-            Log("Get a response for Test");
+            Normal("Get a response for Test");
             HttpResponseMessage responseTest = httpClient.GetAsync(latestTestingVersionUri).Result;
 
             if (curType == "Stable" && responsePub.IsSuccessStatusCode)
             {
-                Log("Response from LSPDFR received");
+                Normal("Response from LSPDFR received");
                 string receivedPubData = responsePub.Content.ReadAsStringAsync().Result;
                 string latestPubVersion = receivedPubData.Trim();
                     
@@ -78,9 +78,9 @@ public class PluginCheck
             }
             else if (curType == "Unstable" && responseTest.IsSuccessStatusCode)
             {
-                Log("Response from Github received");
+                Normal("Response from Github received");
                 string receivedTestData = responseTest.Content.ReadAsStringAsync().Result;
-                Log("Response from LSPDFR received");
+                Normal("Response from LSPDFR received");
                 string receivedPubData = responsePub.Content.ReadAsStringAsync().Result;
                 string latestPubVersion = receivedPubData.Trim();
 
@@ -138,7 +138,7 @@ public class PluginCheck
             }
             else
             {
-                Log("Failed to receive current version type response");
+                Normal("Failed to receive current version type response");
                 NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts ~y~Warning", "~r~Failed to check for an update", "Please make sure you are ~y~connected~w~ to the internet or try to ~y~reload~w~ the plugin.");
 
                 Print("================================================== SWLCallouts ===================================================");
@@ -151,7 +151,7 @@ public class PluginCheck
         }
         catch (HttpRequestException)
         {
-            Log("No internet connection? - unable to connect to github.");
+            Normal("No internet connection? - unable to connect to github.");
             NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~r~Failed to check for an update", "Please make sure you are ~y~connected~w~ to the internet or try to ~y~reload~w~ the plugin.");
 
             Print("================================================== SWLCallouts ===================================================");

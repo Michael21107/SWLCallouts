@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 #region
 
@@ -18,8 +18,7 @@ internal static class ConsoleCommands
     [ConsoleCommand("Change a SWLCallouts callout to be enabled/disabled (true/false)")]
     internal static void Command_SWLChangeCalloutSettings(string calloutName, bool isEnabled)
     {
-        var path = "Plugins/LSPDFR/SWLCallouts.ini";
-        var ini = new InitializationFile(path);
+        var ini = new InitializationFile(@"Plugins/LSPDFR/SWLCallouts.ini");
 
         // Set the value of the callout in the INI file
         ini.Write(calloutName, isEnabled.ToString().ToLower(), "Callouts");

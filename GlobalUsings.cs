@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 // Thanks for Astro for this idea
 
@@ -13,6 +13,7 @@ global using System.Windows.Forms;
 global using System.Collections.Generic;
 global using LSPD_First_Response.Mod.API;
 global using LSPD_First_Response.Mod.Callouts;
+global using LSPD_First_Response.Engine.Scripting.Entities;
 global using Rage;
 global using Rage.Native;
 global using SWLCallouts;

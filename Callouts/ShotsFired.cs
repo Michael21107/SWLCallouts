@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 2nd Mar 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 #region
 
@@ -38,21 +38,21 @@ public class SWLShotsFired : Callout
             new(1155.258f, -741.4567f, 57.30391f), // Mirror Park
             new(291.6201f, 179.956f, 104.297f), // Downtown Vinewood
             new(39.61766f, -1743.935f, 29.30354f), // Davis
-            //new(), // 
-            //new(), // 
-            //new(), // 
+            new(-2196245f, -1998.847f, 27.75542f), // Maze Bank Arena
+            new(619.7628f, -2762.83f, 6.058973f), // Elysian Island
+            new(-1035.871f, -2734.664f, 13.75664f), // LSIA
             // Blaine County Locations //
-            //new(), // 
-            //new(), // 
-            //new(), // 
-            //new(), // 
-            //new(), // 
-            //new(), // 
+            new(2757.787f, 3468.468f, 55.72614f), // YouTool Sandy Shores
+            new(25.71366f, 3640.249f, 39.7965f), // Stab City
+            new(1703.841f, 4801.849f, 41.77493f), // Wonderama Grapeseed
+            new(3516.073f, 3764.618f, 29.91412f), // Humane Labs
+            new(591.8223f, 2735.149f, 42.06024f), // Dollar Pills Harmony
+            new(-1907.137f, 2048.193f, 140.7384f), // Tongva Hills Vines
             // Paleto Bay Locations //
-            //new(), // 
-            //new(), // 
-            //new(), // 
-            //new(), // 
+            new(-2203.282f, 4288.408f, 48.46412f), // North Chumash GOH
+            new(-577.6245f, 5326.903f, 70.2608f), // Sawmill
+            new(696.0341f, 5818.545f, 17.25508f), // Wooden Lodge
+            new(62.00109f, 6351.052f, 31.22805f), // Chick Factory
         };
 
         // Find the nearest location that is not within the distance threshold
@@ -78,53 +78,62 @@ public class SWLShotsFired : Callout
                 Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS ASSAULT_WITH_AN_DEADLY_WEAPON CIV_ASSISTANCE IN_OR_ON_POSITION", _spawnPoint);
                 break;
         }
-        Log("SWLCallouts - Shots Fired callout offered.");
+        Normal("SWLCallouts - Shots Fired callout offered.");
 
         return base.OnBeforeCalloutDisplayed();
     }
 
     public override bool OnCalloutAccepted()
     {
-        Log("SWLCallouts Log: Shots Fired callout accepted.");
+        Normal("Shots Fired callout accepted.");
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Reports of Shots Fired", "~b~Dispatch: ~w~Someone called the police because of shots fired. Respond with ~r~Code 3");
-
         switch (new Random().Next(1, 3))
         {
             case 1:
+                Normal("Loaded callout scene 1");
                 _callOutScene = 1;
+                Normal("Spawning 1 suspect...");
                 _suspect1 = new Ped(_spawnPoint);
                 _suspect1.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
                 _suspect1.BlockPermanentEvents = true;
                 _suspect1.IsPersistent = true;
+                Normal("Spawned suspect");
+                GameFiber.Wait(10000);
                 _suspect1.Tasks.Wander();
                 break;
             case 2:
-
+                Normal("Loaded callout scene 2");
                 _callOutScene = 2;
+                Normal("Spawning 2 supects...");
                 _suspect1 = new Ped(_spawnPoint);
-                _suspect1.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
-                _suspect1.BlockPermanentEvents = true;
-                _suspect1.IsPersistent = true;
-                _suspect1.Tasks.Wander();
-
                 _suspect2 = new Ped(_spawnPoint);
+                _suspect1.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
                 _suspect2.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
+                _suspect1.BlockPermanentEvents = true;
                 _suspect2.BlockPermanentEvents = true;
+                _suspect1.IsPersistent = true;
                 _suspect2.IsPersistent = true;
-                _suspect2.Tasks.Wander();
+                Normal("Spawned suspects");
+                GameFiber.Wait(10000);
+                _suspect1.Tasks.Wander();
+                _suspect2?.Tasks.Wander();
                 break;
         }
 
+        Normal("Spawning civilian peds...");
         _ped1 = new Ped(_spawnPoint);
         _ped2 = new Ped(_spawnPoint);
         _ped3 = new Ped(_spawnPoint);
         _ped1.IsPersistent = true;
         _ped2.IsPersistent = true;
         _ped3.IsPersistent = true;
+        Normal("Spwaned civilians");
+        GameFiber.Wait(10000);
         _ped1.Tasks.Wander();
         _ped2.Tasks.Wander();
         _ped3.Tasks.Wander();
 
+        Normal("Activating Blip...");
         _searcharea = _spawnPoint.Around2D(1f, 2f);
         _blip = new Blip(_searcharea, 80f)
         {
@@ -132,18 +141,19 @@ public class SWLShotsFired : Callout
             Alpha = 0.5f
         }; 
         _blip.EnableRoute(Color.Red);
+        Normal("Blip Enabled");
 
         if (Settings.ActivateAIBackup)
         {
-            Log("Dispatch requesting for AI Cops to respond..");
+            Normal("Dispatch requesting for AI Cops to respond..");
             Functions.PlayScannerAudio("ATTENTION_ALL_UNITS_05 WE_HAVE_02 CITIZENS_REPORT_04 CRIME_SHOTS_FIRED_AT_AN_OFFICER_03 CODE3");
             GameFiber.Wait(2000);
-            Log("AI responding to dispatch and spawn enroute..");
+            Normal("AI responding to dispatch and spawn enroute..");
             Functions.PlayScannerAudio("UNIT_RESPONDING_DISPATCH_02");
             Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
             Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
             GameFiber.Wait(2000);
-            Log("SWAT Team are now enroute..");
+            Normal("SWAT Team are now enroute..");
             Functions.PlayScannerAudio("AI_BOBCAT4_RESPONDING");
             Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.SwatTeam);
         }
@@ -153,6 +163,7 @@ public class SWLShotsFired : Callout
 
     public override void OnCalloutNotAccepted()
     {
+        Normal("ShotsFired callout NOT accepted.");
         if (_blip) _blip.Delete();
         if (_suspect1) _suspect1.Delete();
         if (_suspect2.Exists()) _suspect2.Delete();
@@ -160,112 +171,117 @@ public class SWLShotsFired : Callout
         if (_ped2) _ped2.Delete();
         if (_ped3) _ped3.Delete();
         Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
+        Normal("ShotFired callout entities.");
         base.OnCalloutNotAccepted();
     }
 
     public override void Process()
     {
-        GameFiber.StartNew(delegate
+        /*if (_suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f)
         {
-            if (_suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f)
+            Normal("");
+            if (_blip) _blip.Delete();
+        }
+        if (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f)
+        {
+            Normal("");
+            if (_blip) _blip.Delete();
+        }*/
+        if (_suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f && !_isArmed)
+        {
+            Normal("");
+            _suspect1.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
+            _isArmed = true;
+        }
+        if (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f && !_isArmed)
+        {
+            Normal("");
+            _suspect2.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
+            _isArmed = true;
+        }
+        if ((_suspect1 && _suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) || (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) && !_hasBegunAttacking)
+        {
+            if (_scenario > 40)
             {
-                if (_blip) _blip.Delete();
+                if (_callOutScene == 1)
+                {
+                    Normal("");
+                    new RelationshipGroup("SI");
+                    new RelationshipGroup("PI");
+                    _suspect1.RelationshipGroup = "SI";
+                    _ped1.RelationshipGroup = "PI";
+                    _ped2.RelationshipGroup = "PI";
+                    _ped3.RelationshipGroup = "PI";
+                    _suspect1.KeepTasks = true;
+                    Game.SetRelationshipBetweenRelationshipGroups("SI", "PI", Relationship.Hate);
+                    _suspect1.Tasks.FightAgainstClosestHatedTarget(1000f);
+                    GameFiber.Wait(2000);
+                    _suspect1.Tasks.FightAgainst(GPlayer);
+                    _hasBegunAttacking = true;
+                    GameFiber.Wait(600);
+                }
+                else if (_callOutScene == 2)
+                {
+                    Normal("");
+                    new RelationshipGroup("SI");
+                    new RelationshipGroup("SII");
+                    new RelationshipGroup("PI");
+                    _suspect1.RelationshipGroup = "SI";
+                    _suspect2.RelationshipGroup = "SII";
+                    _ped1.RelationshipGroup = "PI";
+                    _ped2.RelationshipGroup = "PI";
+                    _ped3.RelationshipGroup = "PI";
+                    _suspect1.KeepTasks = true;
+                    _suspect2.KeepTasks = true;
+                    Game.SetRelationshipBetweenRelationshipGroups("SI", "PI", Relationship.Hate);
+                    Game.SetRelationshipBetweenRelationshipGroups("SII", "PI", Relationship.Hate);
+                    Game.SetRelationshipBetweenRelationshipGroups("SI", "SII", Relationship.Hate);
+                    Game.SetRelationshipBetweenRelationshipGroups("SII", "SI", Relationship.Hate);
+                    _suspect1.Tasks.FightAgainstClosestHatedTarget(1000f);
+                    _suspect2.Tasks.FightAgainstClosestHatedTarget(1000f);
+                    GameFiber.Wait(2000);
+                    _suspect1.Tasks.FightAgainst(GPlayer);
+                    _suspect2.Tasks.FightAgainst(GPlayer);
+                    _hasBegunAttacking = true;
+                    GameFiber.Wait(600);
+                }
             }
-            if (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f)
+            else
             {
-                if (_blip) _blip.Delete();
-            }
-            if (_suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f && !_isArmed)
-            {
-                _suspect1.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
-                _isArmed = true;
-            }
-            if (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f && !_isArmed)
-            {
-                _suspect2.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
-                _isArmed = true;
-            }
-            if ((_suspect1 && _suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) || (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) && !_hasBegunAttacking)
-            {
-                if (_scenario > 40)
+                if (!_hasPursuitBegun)
                 {
                     if (_callOutScene == 1)
                     {
-                        new RelationshipGroup("SI");
-                        new RelationshipGroup("PI");
-                        _suspect1.RelationshipGroup = "SI";
-                        _ped1.RelationshipGroup = "PI";
-                        _ped2.RelationshipGroup = "PI";
-                        _ped3.RelationshipGroup = "PI";
-                        _suspect1.KeepTasks = true;
-                        _suspect2.KeepTasks = true;
-                        Game.SetRelationshipBetweenRelationshipGroups("SI", "PI", Relationship.Hate);
-                        _suspect1.Tasks.FightAgainstClosestHatedTarget(1000f);
-                        GameFiber.Wait(2000);
-                        _suspect1.Tasks.FightAgainst(GPlayer);
-                        _hasBegunAttacking = true;
-                        GameFiber.Wait(600);
+                        Normal("");
+                        _suspect1.Face(GPlayer);
+                        _suspect1.Tasks.PutHandsUp(-1, GPlayer);
+                        HelpMsg("~b~Dispatch:~w~ The _suspect is surrendering. Try to ~o~arrest them~w~.");
+                        _hasPursuitBegun = true;
                     }
                     else if (_callOutScene == 2)
                     {
-                        new RelationshipGroup("SI");
-                        new RelationshipGroup("SII");
-                        new RelationshipGroup("PI");
-                        _suspect1.RelationshipGroup = "SI";
-                        _suspect2.RelationshipGroup = "SII";
-                        _ped1.RelationshipGroup = "PI";
-                        _ped2.RelationshipGroup = "PI";
-                        _ped3.RelationshipGroup = "PI";
-                        _suspect1.KeepTasks = true;
-                        _suspect2.KeepTasks = true;
-                        Game.SetRelationshipBetweenRelationshipGroups("SI", "PI", Relationship.Hate);
-                        Game.SetRelationshipBetweenRelationshipGroups("SII", "PI", Relationship.Hate);
-                        Game.SetRelationshipBetweenRelationshipGroups("SI", "SII", Relationship.Hate);
-                        Game.SetRelationshipBetweenRelationshipGroups("SII", "SI", Relationship.Hate);
-                        _suspect1.Tasks.FightAgainstClosestHatedTarget(1000f);
-                        _suspect2.Tasks.FightAgainstClosestHatedTarget(1000f);
-                        GameFiber.Wait(2000);
-                        _suspect1.Tasks.FightAgainst(GPlayer);
-                        _suspect2.Tasks.FightAgainst(GPlayer);
-                        _hasBegunAttacking = true;
-                        GameFiber.Wait(600);
-                    }
-                }
-                else
-                {
-                    if (!_hasPursuitBegun)
-                    {
-                        if (_callOutScene == 1)
-                        {
-                            _suspect1.Face(GPlayer);
-                            _suspect1.Tasks.PutHandsUp(-1, GPlayer);
-                            HelpMsg("~b~Dispatch:~w~ The _suspect is surrendering. Try to ~o~arrest them~w~.");
-                            _hasPursuitBegun = true;
-                        }
-                        else if (_callOutScene == 2)
-                        {
-                            _suspect1.Face(GPlayer);
-                            _suspect2.Face(GPlayer);
-                            _suspect1.Tasks.PutHandsUp(-1, GPlayer);
-                            _suspect2.Tasks.PutHandsUp(-1, GPlayer);
-                            HelpMsg("~b~Dispatch:~w~ The _suspects are surrendering. Try to ~o~arrest them both~w~.");
-                            _hasPursuitBegun = true;
-                        }
+                        Normal("");
+                        _suspect1.Face(GPlayer);
+                        _suspect2.Face(GPlayer);
+                        _suspect1.Tasks.PutHandsUp(-1, GPlayer);
+                        _suspect2.Tasks.PutHandsUp(-1, GPlayer);
+                        HelpMsg("~b~Dispatch:~w~ The _suspects are surrendering. Try to ~o~arrest them both~w~.");
+                        _hasPursuitBegun = true;
                     }
                 }
             }
-            if (GPlayer.IsDead) End();
-            if (Game.IsKeyDown(Settings.EndCall)) End();
-            if (_suspect1 && _suspect1.IsDead) End();
-            if (_suspect1 && Functions.IsPedArrested(_suspect1)) End();
-            if (_suspect2 && _suspect2.IsDead) End();
-            if (_suspect2 && Functions.IsPedArrested(_suspect2)) End();
-        }, "Reports of Shots Fired [SWLCallouts]");
+            
+        }
+
+        if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
+        if (_suspect1 && (_suspect1.IsDead) || Functions.IsPedArrested(_suspect1)) End();
+        if (_suspect2.Exists && _suspect2.IsDead || Functions.IsPedArrested(_suspect2)) End();
         base.Process();
     }
 
     public override void End()
     {
+        Normal("Call ended, clea");
         if (_suspect1) _suspect1.Dismiss();
         if (_suspect2.Exists()) _suspect2.Dismiss();
         if (_ped1) _ped1.Dismiss();
@@ -275,7 +291,7 @@ public class SWLShotsFired : Callout
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Reports of Shots Fired", SFDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
-        Log("SWLCallouts - Shots Fired cleanup.");
+        Normal("SWLCallouts - Shots Fired cleanup.");
         base.End();
     }
 }

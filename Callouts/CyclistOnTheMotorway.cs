@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.1
+// Version: 0.4.8.4
 
 #region
 
@@ -82,7 +82,7 @@ public class SWLCyclistOnTheMotorway : Callout
 
     public override bool OnCalloutAccepted()
     {
-        Log("Cyclist On the Motorway callout accepted.");
+        Normal("Cyclist On the Motorway callout accepted.");
         Functions.PlayScannerAudio("CODE2");
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Cyclist on the Motorway", "~b~Dispatch:~w~ Someone called the police because there is someone with a ~g~bicycle~w~ on the ~o~motorway~w~. Respond with ~y~Code 2");
 
