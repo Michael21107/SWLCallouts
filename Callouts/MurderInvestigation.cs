@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.5
+// Version: 0.4.8.6
 
 #region
 using LSPD_First_Response.Engine.Scripting.Entities;
@@ -32,16 +32,24 @@ internal class SWLMurderInvestigation : Callout
     private Vector3 _murdererLocation;
     private Blip MurderLocationBlip;
     private Blip SpawnLocationBlip;
+#pragma warning disable CS0169 // The field 'SWLMurderInvestigation.pursuit' is never used
     private readonly LHandle pursuit;
+#pragma warning restore CS0169 // The field 'SWLMurderInvestigation.pursuit' is never used
     private int storyLine = 1;
     private int _callOutMessage = 0;
     private int scenario = 0;
     private bool _Scene1 = false;
     private bool _Scene2 = false;
+#pragma warning disable CS0414 // The field 'SWLMurderInvestigation.wasClose' is assigned but its value is never used
     private readonly bool wasClose = false;
+#pragma warning restore CS0414 // The field 'SWLMurderInvestigation.wasClose' is assigned but its value is never used
     private bool Noticed = false;
+#pragma warning disable CS0414 // The field 'SWLMurderInvestigation.notificationDisplayed' is assigned but its value is never used
     private readonly bool notificationDisplayed = false;
+#pragma warning restore CS0414 // The field 'SWLMurderInvestigation.notificationDisplayed' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'SWLMurderInvestigation.hasPursuitBegun' is assigned but its value is never used
     private readonly bool hasPursuitBegun = false;
+#pragma warning restore CS0414 // The field 'SWLMurderInvestigation.hasPursuitBegun' is assigned but its value is never used
 
     public override bool OnBeforeCalloutDisplayed()
     {
@@ -87,16 +95,20 @@ internal class SWLMurderInvestigation : Callout
             IsSirenOn = true,
             IsSirenSilent = true
         };
-        _coronerVeh = new Vehicle("Speedo", _coronerVehSpawn, 22.32638f);
-        _coronerVeh.IsEngineOn = true;
-        _coronerVeh.IsInteriorLightOn = true;
-        _coronerVeh.IndicatorLightsStatus = VehicleIndicatorLightsStatus.Both;
+        _coronerVeh = new Vehicle("Speedo", _coronerVehSpawn, 22.32638f)
+        {
+            IsEngineOn = true,
+            IsInteriorLightOn = true,
+            IndicatorLightsStatus = VehicleIndicatorLightsStatus.Both
+        };
 
         _deadPerson = new Ped(_deadPersonSpawn);
         _murderer = new Ped(_murdererLocation);
-        _deadPerson2 = new Ped(_murderer.GetOffsetPosition(new Vector3(0, 1.8f, 0)));
-        _deadPerson2.IsPersistent = true;
-        _deadPerson2.BlockPermanentEvents = true;
+        _deadPerson2 = new Ped(_murderer.GetOffsetPosition(new Vector3(0, 1.8f, 0)))
+        {
+            IsPersistent = true,
+            BlockPermanentEvents = true
+        };
         _cop1 = new Ped("s_m_y_sheriff_01", _cop1Spawn, 0f);
         _cop2 = new Ped("s_m_y_sheriff_01", _cop2Spawn, 0f);
         _coroner1 = new Ped("S_M_M_Doctor_01", _coroner1Spawn, 0f);

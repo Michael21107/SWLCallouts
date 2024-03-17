@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.8.5
+// Version: 0.4.8.6
 
 #region
 
@@ -75,6 +75,15 @@ internal class Arrays
         "REQUESTING_BACKUP_01",
     };
 
+
+    internal static readonly string[] COTMDispatchArrive;
+    internal static readonly string[] COTMDispatchCode4;
+    internal static readonly string[] HSCDispatchArrive;
+    internal static readonly string[] HSCDispatchCode4;
+    internal static readonly string[] MIDispatchArrive;
+    internal static readonly string[] MIDispatchCode4;
+    internal static readonly string[] PWAKDispatchArrive;
+    internal static readonly string[] PWAKDispatchCode4;
     internal static readonly string[] SFDispatchArrive;
     internal static readonly string[] SFDispatchCode4;
     internal static readonly string[] SEV1DispatchArrive;
@@ -92,123 +101,283 @@ internal class Arrays
         bool activateAIBackup = ini.ReadBoolean("Settings", "ActivateAIBackup", true);
 
         // Initialise Dispatch for .ShotsFired. Callout based on activateAIBackup
+        COTMDispatchArrive = activateAIBackup ?
+            new string[]
+            {
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
+            } :
+            new string[]
+            {
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
+            };
+        COTMDispatchCode4 = activateAIBackup ?
+            new string[]
+            {
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
+            } :
+            new string[]
+            {
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
+            };
+
+        // Initialise Dispatch for .ShotsFired. Callout based on activateAIBackup
+        HSCDispatchArrive = activateAIBackup ?
+            new string[]
+            {
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
+            } :
+            new string[]
+            {
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
+            };
+        HSCDispatchCode4 = activateAIBackup ?
+            new string[]
+            {
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
+            } :
+            new string[]
+            {
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
+            };
+
+        // Initialise Dispatch for .ShotsFired. Callout based on activateAIBackup
+        MIDispatchArrive = activateAIBackup ?
+            new string[]
+            {
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
+            } :
+            new string[]
+            {
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
+            };
+        MIDispatchCode4 = activateAIBackup ?
+            new string[]
+            {
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
+            } :
+            new string[]
+            {
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
+            };
+
+        // Initialise Dispatch for .ShotsFired. Callout based on activateAIBackup
+        PWAKDispatchArrive = activateAIBackup ?
+            new string[]
+            {
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
+            } :
+            new string[]
+            {
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
+            };
+        PWAKDispatchCode4 = activateAIBackup ?
+            new string[]
+            {
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
+            } :
+            new string[]
+            {
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
+            };
+
+        // Initialise Dispatch for .ShotsFired. Callout based on activateAIBackup
         SFDispatchArrive = activateAIBackup ?
             new string[]
             {
                 "Copy. Requesting you investigate the area.",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
             } :
             new string[]
             {
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
             };
         SFDispatchCode4 = activateAIBackup ?
             new string[]
             {
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
             } :
             new string[]
             {
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
             };
 
         // Initialise Dispatch Arrive for .StolenEmergencyVehicle1. Callout based on activateAIBackup
         SEV1DispatchArrive = activateAIBackup ?
             new string[]
             {
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
             } :
             new string[]
             {
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
             };
         SEV1DispatchCode4 = activateAIBackup ?
             new string[]
             {
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
             } :
             new string[]
             {
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
             };
 
         // Initialise Dispatch Arrive for .StolenEmergencyVehicle2. Callout based on activateAIBackup
         SEV2DispatchArrive = activateAIBackup ?
             new string[]
             {
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
             } :
             new string[]
             {
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
             };
         SEV2DispatchCode4 = activateAIBackup ?
             new string[]
             {
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "AIMessage1",
+                "AIMessage2",
+                "AIMessage3",
+                "AIMessage4",
+                "AIMessage5",
+                "AIMessage6"
             } :
             new string[]
             {
-                "",
-                "",
-                "",
-                "",
-                "",
-                ""
+                "Message1",
+                "Message2",
+                "Message3",
+                "Message4",
+                "Message5",
+                "Message6"
             };
 
         // Initialise Dispatch Arrive for .WelfareCheck. Callout based on activateAIBackup

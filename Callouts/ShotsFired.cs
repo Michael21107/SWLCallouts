@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 2nd Mar 2024
-// Version: 0.4.8.5
+// Version: 0.4.8.6
 
 #region
 
@@ -103,30 +103,68 @@ public class SWLShotsFired : Callout
                 _callOutScene = 1;
                 Normal("Spawning 1 suspect...");
                 _suspect1 = new Ped(_spawnPoint);
-                _suspect1.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
-                _suspect1.BlockPermanentEvents = true;
-                _suspect1.IsPersistent = true;
-                Normal("Spawned suspect");
-                GameFiber.Wait(10000);
-                _suspect1.Tasks.Wander();
-                break;
+                if (_suspect1.Exists())
+                {
+                    Normal("Spawned suspect 1 successfully.");
+                    _suspect1.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
+                    _suspect1.BlockPermanentEvents = true;
+                    _suspect1.IsPersistent = true;
+                    Normal("Suspect Unarmed.");
+                    GameFiber.Wait(2000);
+                    try
+                    {
+                        Normal("Suspect wandering...");
+                        _suspect1.Tasks.Wander(); 
+                    }
+                    catch (Exception ex)
+                    {
+                        Log("Failed to make Suspect 1 wander. Continuing with call.");
+                        Error(ex, nameof(OnCalloutAccepted));
+                    }
+                    break;
+                }
+                else
+                {
+                    Log("Failed to detect suspect 1, ending call...");
+                    End();
+                    break;
+                }
             case 2:
                 Normal("Loaded callout scene 2");
                 _callOutScene = 2;
                 Normal("Spawning 2 supects...");
                 _suspect1 = new Ped(_spawnPoint);
                 _suspect2 = new Ped(_spawnPoint);
-                _suspect1.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
-                _suspect2.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
-                _suspect1.BlockPermanentEvents = true;
-                _suspect2.BlockPermanentEvents = true;
-                _suspect1.IsPersistent = true;
-                _suspect2.IsPersistent = true;
-                Normal("Spawned suspects");
-                GameFiber.Wait(10000);
-                _suspect1.Tasks.Wander();
-                _suspect2.Tasks.Wander();
-                break;
+                if (_suspect1.Exists() && _suspect2.Exists())
+                {
+                    Normal("Spawned suspects successfully.");
+                    _suspect1.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
+                    _suspect2.Inventory.GiveNewWeapon("WEAPON_UNARMED", 500, true);
+                    _suspect1.BlockPermanentEvents = true;
+                    _suspect2.BlockPermanentEvents = true;
+                    _suspect1.IsPersistent = true;
+                    _suspect2.IsPersistent = true;
+                    Normal("Suspect Unarmed.");
+                    GameFiber.Wait(2000);
+                    try
+                    {
+                        Normal("Suspects wandering...");
+                        _suspect1.Tasks.Wander();
+                        _suspect2.Tasks.Wander();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log("Failed to make Suspects wander. Continuing with call.");
+                        Error(ex, nameof(OnCalloutAccepted));
+                    }
+                    break;
+                }
+                else
+                {
+                    Log("Failed to detect both suspect 1 and suspect 2, ending call...");
+                    End();
+                    break;
+                }
         }
 
         Normal("Spawning civilian peds...");
@@ -137,13 +175,13 @@ public class SWLShotsFired : Callout
         _ped2.IsPersistent = true;
         _ped3.IsPersistent = true;
         Normal("Spwaned civilians");
-        GameFiber.Wait(10000);
-        _ped1.Tasks.Wander();
-        _ped2.Tasks.Wander();
-        _ped3.Tasks.Wander();
+        GameFiber.Wait(2000);
+        if (_ped1.Exists()) _ped1.Tasks.Wander();
+        if (_ped2.Exists()) _ped2.Tasks.Wander();
+        if (_ped3.Exists()) _ped3.Tasks.Wander();
 
         Normal("Activating Blip...");
-        _searcharea = _spawnPoint.Around2D(1f, 2f);
+        _searcharea = _spawnPoint.Around2D(1f, 250f);
         _blip = new Blip(_searcharea, 80f)
         {
             Color = Color.Red,
@@ -156,12 +194,12 @@ public class SWLShotsFired : Callout
         {
             Normal("Dispatch requesting for AI Cops to respond..");
             Functions.PlayScannerAudio("ATTENTION_ALL_UNITS_05 WE_HAVE_02 CITIZENS_REPORT_04 CRIME_SHOTS_FIRED_AT_AN_OFFICER_03 CODE3");
-            GameFiber.Wait(2000);
+            GameFiber.Wait(5000);
             Normal("AI responding to dispatch and spawn enroute..");
             Functions.PlayScannerAudio("UNIT_RESPONDING_DISPATCH_02");
             Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
             Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
-            GameFiber.Wait(2000);
+            GameFiber.Wait(6000);
             Normal("SWAT Team are now enroute..");
             Functions.PlayScannerAudio("AI_BOBCAT4_RESPONDING");
             Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.SwatTeam);
@@ -173,12 +211,12 @@ public class SWLShotsFired : Callout
     public override void OnCalloutNotAccepted()
     {
         Normal("ShotsFired callout NOT accepted.");
-        if (_blip) _blip.Delete();
-        if (_suspect1) _suspect1.Delete();
-        if (_suspect2.Exists()) _suspect2.Delete();
-        if (_ped1) _ped1.Delete();
-        if (_ped2) _ped2.Delete();
-        if (_ped3) _ped3.Delete();
+        if (_blip.Exists()) _blip.Delete();
+        if (_suspect1.Exists()) _suspect1.Dismiss();
+        if (_suspect2.Exists()) _suspect2.Dismiss();
+        if (_ped1.Exists()) _ped1.Dismiss();
+        if (_ped2.Exists()) _ped2.Dismiss();
+        if (_ped3.Exists()) _ped3.Dismiss();
         Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
         Normal("ShotFired callout entities removed.");
         base.OnCalloutNotAccepted();

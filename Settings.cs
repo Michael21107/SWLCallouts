@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.5
+// Version: 0.4.8.6
 
 #region
 
@@ -13,18 +13,17 @@ namespace SWLCallouts;
 
 internal static class Settings
 {
-    private static readonly List<(bool enabled, Type callouts)> AllCallouts = new();
     // Check the department
     //internal static string Department = "SWLCO"; // Default to SWLCO logo //
     // Callouts below //
-    internal static bool CyclistOnTheMotorway = true;
-    internal static bool HighSpeedChase = true;
-    internal static bool MurderInvestigation = true;
-    internal static bool PersonWithAKnife = true;
-    internal static bool ShotsFired = true;
-    internal static bool StolenEmergencyVehicle = true;
-    internal static bool StolenEmergencyVehicle2 = true;
-    internal static bool WelfareCheck = true;
+    internal static bool SWLCyclistOnTheMotorway = true;
+    internal static bool SWLHighSpeedChase = true;
+    internal static bool SWLMurderInvestigation = false;
+    internal static bool SWLPersonWithAKnife = true;
+    internal static bool SWLShotsFired = true;
+    internal static bool SWLStolenEmergencyVehicle = true;
+    internal static bool SWLStolenEmergencyVehicle2 = true;
+    internal static bool SWLWelfareCheck = true;
     // Extras below //
     internal static bool ActivateAIBackup = true;
     internal static bool HelpMessages = true;
@@ -66,35 +65,44 @@ internal static class Settings
         Settings("////////////////////////////////////////////////");
         Settings("////**********SWLCallouts Settings**********////");
         Settings("////////////////////////////////////////////////");
+        Settings("Callouts, Settings and Keybinds loading...");
 
         // Callouts below //
-        CyclistOnTheMotorway = ReadAndLogBoolean(ini, "SWLCyclistOnTheMotorway");
-        HighSpeedChase = ReadAndLogBoolean(ini, "SWLHighSpeedChase");
-        MurderInvestigation = ReadAndLogBoolean(ini, "SWLMurderInvestigation");
-        PersonWithAKnife = ReadAndLogBoolean(ini, "SWLPersonWithAKnife");
-        ShotsFired = ReadAndLogBoolean(ini, "SWLShotsFired");
-        StolenEmergencyVehicle = ReadAndLogBoolean(ini, "SWLStolenEmergencyVehicle");
-        StolenEmergencyVehicle2 = ReadAndLogBoolean(ini, "SWLStolenEmergencyVehicle2");
-        WelfareCheck = ReadAndLogBoolean(ini, "SWLWelfareCheck");
+        Settings("..Callouts..");
+        SWLCyclistOnTheMotorway = ini.ReadBoolean("Callouts", "CyclistOnTheMotorway", true);
+        Settings($"CyclistOnTheMotorway = {SWLCyclistOnTheMotorway}");
+        SWLHighSpeedChase = ini.ReadBoolean("Callouts", "HighSpeedChase", true);
+        Settings($"CyclistOnTheMotorway = {SWLHighSpeedChase}");
+        SWLMurderInvestigation = ini.ReadBoolean("Callouts", "MurderInvestigation", true);
+        Settings($"CyclistOnTheMotorway = {SWLMurderInvestigation}");
+        SWLPersonWithAKnife = ini.ReadBoolean("Callouts", "PersonWithAKnife", true);
+        Settings($"CyclistOnTheMotorway = {SWLPersonWithAKnife}");
+        SWLShotsFired = ini.ReadBoolean("Callouts", "ShotsFired", true);
+        Settings($"CyclistOnTheMotorway = {SWLShotsFired}");
+        SWLStolenEmergencyVehicle = ini.ReadBoolean("Callouts", "StolenEmergencyVehicle", true);
+        Settings($"CyclistOnTheMotorway = {SWLStolenEmergencyVehicle}");
+        SWLStolenEmergencyVehicle2 = ini.ReadBoolean("Callouts", "StolenEmergencyVehicle2", true);
+        Settings($"CyclistOnTheMotorway = {SWLStolenEmergencyVehicle2}");
+        SWLWelfareCheck = ini.ReadBoolean("Callouts", "WelfareCheck", true);
+        Settings($"CyclistOnTheMotorway = {SWLWelfareCheck}");
 
         // Settings Below //
+        Settings("..Settings..");
         //Department = ini.ReadString("Settings", "Department", "SWLCO"); // Default to SWLCallout Logo if not specified //
         ActivateAIBackup = ini.ReadBoolean("Settings", "ActivateAIBackup", true);
+        Settings($"ActivateAIBackup = {ActivateAIBackup}");
         HelpMessages = ini.ReadBoolean("Settings", "HelpMessages", true);
+        Settings($"HelpMessages = {HelpMessages}");
 
         // Keys Below //
+        Settings("..Keybinds..");
         EndCall = ini.ReadEnum("Keys", "EndCall", Keys.End);
+        Settings($"EndCall = {EndCall}");
         Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
+        Settings($"Dialog = {Dialog}");
     }
-    public static readonly string PluginVersion = "0.4.8.5";
+    public static readonly string PluginVersion = "0.4.8.6";
     public static readonly string VersionType = "Alpha";
-
-    private static bool ReadAndLogBoolean(InitializationFile ini, string calloutName)
-    {
-        bool enabled = ini.ReadBoolean("Callouts", calloutName, true);
-        Settings($"{calloutName} = {enabled}");
-        return enabled;
-    }
 
     private static void WriteDefaultSettings(string filePath)
     {

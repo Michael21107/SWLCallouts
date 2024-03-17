@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.5
+// Version: 0.4.8.6
 
 #region
 
@@ -17,14 +17,14 @@ internal class SWLCalloutHandler
     internal static void RegisterCallouts() // Register all callouts here//
     {
         Print("======================================== Start of callout loading for SWLCallouts ========================================");
-        if (Settings.CyclistOnTheMotorway) { Functions.RegisterCallout(typeof(SWLCyclistOnTheMotorway)); }
-        if (Settings.HighSpeedChase) { Functions.RegisterCallout(typeof(SWLHighSpeedChase)); }
+        if (Settings.SWLCyclistOnTheMotorway) { Functions.RegisterCallout(typeof(SWLCyclistOnTheMotorway)); }
+        if (Settings.SWLHighSpeedChase) { Functions.RegisterCallout(typeof(SWLHighSpeedChase)); }
         //if (Settings.MurderInvestigation) { Functions.RegisterCallout(typeof(SWLMurderInvestigation)); }
-        if (Settings.PersonWithAKnife) { Functions.RegisterCallout(typeof(SWLPersonWithAKnife)); }
-        if (Settings.ShotsFired) { Functions.RegisterCallout(typeof(SWLShotsFired)); }
-        if (Settings.StolenEmergencyVehicle) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle)); }
-        if (Settings.StolenEmergencyVehicle2) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle2)); }
-        if (Settings.WelfareCheck) { Functions.RegisterCallout(typeof(SWLWelfareCheck)); }
+        if (Settings.SWLPersonWithAKnife) { Functions.RegisterCallout(typeof(SWLPersonWithAKnife)); }
+        if (Settings.SWLShotsFired) { Functions.RegisterCallout(typeof(SWLShotsFired)); }
+        if (Settings.SWLStolenEmergencyVehicle) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle)); }
+        if (Settings.SWLStolenEmergencyVehicle2) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle2)); }
+        if (Settings.SWLWelfareCheck) { Functions.RegisterCallout(typeof(SWLWelfareCheck)); }
         Print("[LOG]: All callouts of the SWLCallouts.ini were loaded successfully.");
         Print("========================================= End of callout loading for SWLCallouts =========================================");
     }

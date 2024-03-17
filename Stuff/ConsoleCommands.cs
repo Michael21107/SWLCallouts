@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.8.5
+// Version: 0.4.8.6
 
 #region
 
@@ -21,7 +21,7 @@ internal static class ConsoleCommands
         var ini = new InitializationFile(@"Plugins/LSPDFR/SWLCallouts.ini");
 
         // Set the value of the callout in the INI file
-        ini.Write(calloutName, isEnabled.ToString().ToLower(), "Callouts");
+        ini.Write("Callouts", calloutName, isEnabled.ToString().ToLower());
 
         // Refresh settings by reloading them
         Settings.LoadSettings();
