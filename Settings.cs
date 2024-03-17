@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.6
+// Version: 0.4.8.7
 
 #region
 
@@ -72,19 +72,19 @@ internal static class Settings
         SWLCyclistOnTheMotorway = ini.ReadBoolean("Callouts", "CyclistOnTheMotorway", true);
         Settings($"CyclistOnTheMotorway = {SWLCyclistOnTheMotorway}");
         SWLHighSpeedChase = ini.ReadBoolean("Callouts", "HighSpeedChase", true);
-        Settings($"CyclistOnTheMotorway = {SWLHighSpeedChase}");
+        Settings($"HighSpeedChase = {SWLHighSpeedChase}");
         SWLMurderInvestigation = ini.ReadBoolean("Callouts", "MurderInvestigation", true);
-        Settings($"CyclistOnTheMotorway = {SWLMurderInvestigation}");
+        Settings($"MurderInvestigation = {SWLMurderInvestigation}");
         SWLPersonWithAKnife = ini.ReadBoolean("Callouts", "PersonWithAKnife", true);
-        Settings($"CyclistOnTheMotorway = {SWLPersonWithAKnife}");
+        Settings($"PersonWithAKnife = {SWLPersonWithAKnife}");
         SWLShotsFired = ini.ReadBoolean("Callouts", "ShotsFired", true);
-        Settings($"CyclistOnTheMotorway = {SWLShotsFired}");
+        Settings($"ShotsFired = {SWLShotsFired}");
         SWLStolenEmergencyVehicle = ini.ReadBoolean("Callouts", "StolenEmergencyVehicle", true);
-        Settings($"CyclistOnTheMotorway = {SWLStolenEmergencyVehicle}");
+        Settings($"StolenEmergencyVehicle = {SWLStolenEmergencyVehicle}");
         SWLStolenEmergencyVehicle2 = ini.ReadBoolean("Callouts", "StolenEmergencyVehicle2", true);
-        Settings($"CyclistOnTheMotorway = {SWLStolenEmergencyVehicle2}");
+        Settings($"StolenEmergencyVehicle2 = {SWLStolenEmergencyVehicle2}");
         SWLWelfareCheck = ini.ReadBoolean("Callouts", "WelfareCheck", true);
-        Settings($"CyclistOnTheMotorway = {SWLWelfareCheck}");
+        Settings($"WelfareCheck = {SWLWelfareCheck}");
 
         // Settings Below //
         Settings("..Settings..");
