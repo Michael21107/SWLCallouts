@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 4th Mar 2024
-// Version: 0.4.8.6
+// Version: 0.4.8.7
 
 #region
 
@@ -69,12 +69,12 @@ class SWLStolenEmergencyVehicle2 : Callout
 
     public override void OnCalloutNotAccepted()
     {
-        Normal("ShotsFired callout NOT accepted.");
+        Normal("StolenEmergencyVehicle2 callout NOT accepted.");
         if (_suspect) _suspect.Delete();
         if (_emergencyVehicle) _emergencyVehicle.Delete();
         if (_blip) _blip.Delete();
         Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
-        Normal("ShotFired callout entities removed.");
+        Normal("StolenEmergencyVehicle2 callout entities removed.");
         base.OnCalloutNotAccepted();
     }
 

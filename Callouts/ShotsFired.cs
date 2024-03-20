@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 2nd Mar 2024
-// Version: 0.4.8.6
+// Version: 0.4.8.7
 
 #region
 
@@ -110,7 +110,6 @@ public class SWLShotsFired : Callout
                     _suspect1.BlockPermanentEvents = true;
                     _suspect1.IsPersistent = true;
                     Normal("Suspect Unarmed.");
-                    GameFiber.Wait(2000);
                     try
                     {
                         Normal("Suspect wandering...");
@@ -145,7 +144,6 @@ public class SWLShotsFired : Callout
                     _suspect1.IsPersistent = true;
                     _suspect2.IsPersistent = true;
                     Normal("Suspect Unarmed.");
-                    GameFiber.Wait(2000);
                     try
                     {
                         Normal("Suspects wandering...");
@@ -174,8 +172,7 @@ public class SWLShotsFired : Callout
         _ped1.IsPersistent = true;
         _ped2.IsPersistent = true;
         _ped3.IsPersistent = true;
-        Normal("Spwaned civilians");
-        GameFiber.Wait(2000);
+        Normal("Spawned civilians");
         if (_ped1.Exists()) _ped1.Tasks.Wander();
         if (_ped2.Exists()) _ped2.Tasks.Wander();
         if (_ped3.Exists()) _ped3.Tasks.Wander();
@@ -224,29 +221,19 @@ public class SWLShotsFired : Callout
 
     public override void Process()
     {
-        /*if (_suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f)
-        {
-            Normal("");
-            if (_blip) _blip.Delete();
-        }
-        if (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f)
-        {
-            Normal("");
-            if (_blip) _blip.Delete();
-        }*/
-        if (_suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f && !_isArmed)
+        if (_suspect1 != null && (_suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f) && !_isArmed)
         {
             Normal("Given suspect1 a weapon");
             _suspect1.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
             _isArmed = true;
         }
-        if (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f && !_isArmed)
+        if (_suspect2 != null && (_suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f) && !_isArmed)
         {
             Normal("Given suspect2 a weapon");
             _suspect2.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
             _isArmed = true;
         }
-        if ((_suspect1 && _suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) || (_suspect2 && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) && !_hasBegunAttacking)
+        if ((_suspect1 != null && _suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) || (_suspect2 != null && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) && !_hasBegunAttacking)
         {
             if (_scenario > 40)
             {
@@ -329,8 +316,8 @@ public class SWLShotsFired : Callout
         }
 
         if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
-        if (_suspect1 && (_suspect1.IsDead) || Functions.IsPedArrested(_suspect1)) End();
-        if ((_suspect2 && _suspect2.IsDead) || Functions.IsPedArrested(_suspect2)) End();
+        if (_suspect1.Exists() && (_suspect1.IsDead) || Functions.IsPedArrested(_suspect1)) End();
+        if (_suspect2.Exists() && (_suspect2.IsDead) || Functions.IsPedArrested(_suspect2)) End();
 
         base.Process();
     }

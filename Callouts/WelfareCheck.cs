@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.6
+// Version: 0.4.8.7
 
 #region
 
@@ -42,7 +42,7 @@ public class SWLWelfareCheck : Callout
             new(15.1229f, 522.7809f, 170.2276f), // Vinewood Hills 1
             new(-1071.873f, 575.5293f, 102.9082f), // Vinewood Hills 2
             new(-121.3116f, -21.69181f, 58.30245f), // West Vinewood/Burton
-            new(-1817.674f, -657.7974f, 13.81194f), // Pacific Bluffs
+            new(-1849.062f, -633.7643f, 11.16098f), // Pacific Bluffs
             // Blaine County Locations //
             new(1661.571f, 4767.511f, 42.00745f), // Grapeseed
             new(1878.274f, 3922.46f, 33.06999f), // Sandy Shores
@@ -220,12 +220,11 @@ public class SWLWelfareCheck : Callout
     {
         if (_spawnPoint.DistanceTo(GPlayer) < 50f)
         {
-            Normal("Officer arriving on scene, checking suspect...");
             if (_suspect != null)
             {
-                Normal("Suspect exists, loading scene...");
                 if (_scene1 == true && _suspect.DistanceTo(GPlayer) < 40f && !_notificationDisplayed && !_getAmbulance)
                 {
+                    Normal("Scene 1 loaded.");
                     if (Settings.HelpMessages)
                     {
                         Game.DisplayHelp("Press the ~y~" + Settings.EndCall + " ~w~ key to end the welfare check callout.");
@@ -255,6 +254,7 @@ public class SWLWelfareCheck : Callout
                 }
                 if (_scene2 == true && _spawnPoint.DistanceTo(GPlayer) < 20f && !_notificationDisplayed)
                 {
+                    Normal("Scene 2 loaded.");
                     Normal("Showing officer on scene.");
                     NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", "Investigate the area. If you don't find anyone, you may ~g~End~w~ the call and return to patrol.");
                     _notificationDisplayed = true;
@@ -263,6 +263,7 @@ public class SWLWelfareCheck : Callout
                 }
                 if (_scene3 == true && _suspect.DistanceTo(GPlayer) < 40f && !_alreadySubtitleIntrod)
                 {
+                    Normal("Scene 3 loaded.");
                     Normal("Showing officer on scene.");
                     Speech("Press ~y~" + Settings.Dialog + " ~w~to speak with the civilian.", 5000);
                     if (Settings.HelpMessages)

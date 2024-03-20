@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 28th Feb 2024
-// Version: 0.4.8.6
+// Version: 0.4.8.7
 
 #region
 
@@ -63,11 +63,11 @@ public class SWLPersonWithAKnife : Callout
 
     public override void OnCalloutNotAccepted()
     {
-        Normal("ShotsFired callout NOT accepted.");
+        Normal("PersonWithAKnife callout NOT accepted.");
         if (_blip) _blip.Delete();
         if (_suspect) _suspect.Delete();
         Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
-        Normal("ShotFired callout entities removed.");
+        Normal("PersonWithAKnife callout entities removed.");
         base.OnCalloutNotAccepted();
     }
 

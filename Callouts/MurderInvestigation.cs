@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.6
+// Version: 0.4.8.7
 
 #region
 using LSPD_First_Response.Engine.Scripting.Entities;
@@ -196,7 +196,7 @@ internal class SWLMurderInvestigation : Callout
 
     public override void OnCalloutNotAccepted()
     {
-        Normal("ShotsFired callout NOT accepted.");
+        Normal("MurderInvestigation callout NOT accepted.");
         if (_cop1) _cop1.Delete();
         if (_cop2) _cop2.Delete();
         if (_coroner1) _coroner1.Delete();
@@ -209,7 +209,7 @@ internal class SWLMurderInvestigation : Callout
         if (SpawnLocationBlip) SpawnLocationBlip.Delete();
         if (MurderLocationBlip) MurderLocationBlip.Delete();
         Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
-        Normal("ShotFired callout entities removed.");
+        Normal("MurderInvestigation callout entities removed.");
         base.OnCalloutNotAccepted();
     }
 
