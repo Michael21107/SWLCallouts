@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 28th Feb 2024
-// Version: 0.4.8.8
+// Version: 0.4.8.9
 
 #region
 
@@ -99,7 +99,7 @@ public class SWLPersonWithAKnife : Callout
                         break;
                     default: break;
                 }
-                GameFiber.Wait(2000);
+                GameFiber.Sleep(2000);
             }
             else
             {

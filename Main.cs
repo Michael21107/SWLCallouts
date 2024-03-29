@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.8
+// Version: 0.4.8.9
 
 #region
 
@@ -55,7 +55,7 @@ public class Main : Plugin
 
     static void SetHelpMessages()
     {
-        GameFiber.Wait(300);
+        GameFiber.Sleep(300);
         if (Settings.HelpMessages)
         {
             Normal("Help messages enabled.");

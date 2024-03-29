@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.8
+// Version: 0.4.8.9
 
 #region
 
@@ -8,6 +8,7 @@
 
 using LSPD_First_Response.Mod.API;
 using System.IO;
+using System.Reflection;
 
 namespace SWLCallouts;
 
@@ -101,8 +102,8 @@ internal static class Settings
         Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
         Settings($"Dialog = {Dialog}");
     }
-    public static readonly string PluginVersion = "0.4.8.8";
-    public static readonly string VersionType = "Alpha";
+    public static readonly string PluginVersion = "0.4.8.9";
+    public static readonly string VersionType = "Public";
 
     private static void WriteDefaultSettings(string filePath)
     {
@@ -164,5 +165,12 @@ internal static class Settings
         writer.WriteLine("Dialog = Y");
         // FILE CREATED //
         Settings("Default SWLCallouts.ini file written to location.");
+    }
+
+    internal static bool CalloutExists(string calloutName)
+    {
+        // Check if the calloutName exists as a boolean field in the Settings class
+        return typeof(Settings).GetFields(BindingFlags.Static | BindingFlags.NonPublic)
+            .Any(field => field.Name.Equals(calloutName, StringComparison.OrdinalIgnoreCase) && field.FieldType == typeof(bool));
     }
 }

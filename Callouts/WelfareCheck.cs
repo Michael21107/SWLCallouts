@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.8
+// Version: 0.4.8.9
 
 #region
 
@@ -222,7 +222,7 @@ public class SWLWelfareCheck : Callout
         {
             if (_suspect != null)
             {
-                if (_scene1 == true && _suspect.DistanceTo(GPlayer) < 40f && !_notificationDisplayed && !_getAmbulance)
+                if (_scene1 == true && _suspect.DistanceTo(GPlayer) < 50f && !_notificationDisplayed && !_getAmbulance)
                 {
                     Normal("Scene 1 loaded.");
                     if (Settings.HelpMessages)
@@ -233,9 +233,9 @@ public class SWLWelfareCheck : Callout
                     if (Settings.ActivateAIBackup)
                     {
                         Normal("Showing officer on scene with AI backup enroute...");
-                        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", WCDispatchArrive.PickRandom());
+                        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", WCDispatchArriveS1.PickRandom());
                         _notificationDisplayed = true;
-                        GameFiber.Wait(1000);
+                        GameFiber.Sleep(1000);
                         Normal("Sending ambulance backup, playing audio...");
                         Functions.RequestBackup(GPlayer.Position, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.Ambulance);
                         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICERS_ARRIVED_ON_SCENE CRIME_AMBULANCE_REQUESTED_03");
@@ -245,9 +245,9 @@ public class SWLWelfareCheck : Callout
                     {
                         Normal("Showing officer on scene, NO AI backup sent.");
                         Settings.ActivateAIBackup = false;
-                        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", WCDispatchArrive.PickRandom());
+                        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", WCDispatchArriveS1.PickRandom());
                         _notificationDisplayed = true;
-                        GameFiber.Wait(1000);
+                        GameFiber.Sleep(1000);
                         Normal("Playing officer on scene audio...");
                         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICERS_ARRIVED_ON_SCENE");
                     }
@@ -256,7 +256,7 @@ public class SWLWelfareCheck : Callout
                 {
                     Normal("Scene 2 loaded.");
                     Normal("Showing officer on scene.");
-                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", "Investigate the area. If you don't find anyone, you may ~g~End~w~ the call and return to patrol.");
+                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", WCDispatchArriveS2.PickRandom());
                     _notificationDisplayed = true;
                     Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICERS_ARRIVED_ON_SCENE");
                     Normal("Officer investigating area.");
@@ -265,6 +265,7 @@ public class SWLWelfareCheck : Callout
                 {
                     Normal("Scene 3 loaded.");
                     Normal("Showing officer on scene.");
+                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", WCDispatchArriveS3.PickRandom());
                     Speech("Press ~y~" + Settings.Dialog + " ~w~to speak with the civilian.", 5000);
                     if (Settings.HelpMessages)
                     {
@@ -276,7 +277,7 @@ public class SWLWelfareCheck : Callout
                     {
                         Normal("Callout 6 Dialog loaded.");
                         _suspect.IsPersistent = true;
-                        Speech("~y~Civilian: *YELLS* ~w~I'm armed and I'm not afraid to use it!!", 5000);
+                        Speech("~r~Civilian: *YELLS* ~w~I'm armed and I'm not afraid to use it!!", 5000);
                         GameFiber.Sleep(2000);
                         Normal("Officer weapon down dialog.");
                         Speech("~b~You: ~w~Police! Put your weapon down NOW!", 5000);
@@ -284,14 +285,14 @@ public class SWLWelfareCheck : Callout
                         {
                             Normal("Auto AI Backup being dispatched.");
                             Speech("~b~You: ~w~Dispatch, requesting code 3 backup immediately!", 2000);
-                            GameFiber.Wait(1000);
+                            GameFiber.Sleep(1000);
                             Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICER_REQUESTING_BACKUP CODE3");
                             Functions.RequestBackup(GPlayer.Position, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
                             Normal("Auto AI Backup dispatched to player location.");
                         }
                         else { Settings.ActivateAIBackup = false; Normal("AIBackup disabled"); }
                         GameFiber.Sleep(2000);
-                        Speech("~y~Civilian: ~w~Oh shit, Sorry officer! Here you go!", 5000);
+                        Speech("~r~Civilian: ~w~Oh shit, Sorry officer! Here you go!", 5000);
                         Normal("Suspect giving up and drops weapon.");
                         // Thanks Astro for the below suggested code //
                         if (_suspect.Inventory.EquippedWeapon is not null && _suspect.Inventory.EquippedWeapon != "WEAPON_UNARMED")
@@ -299,14 +300,14 @@ public class SWLWelfareCheck : Callout
                             NativeFunction.Natives.x6B7513D9966FBEC0(_suspect); // SET_PED_DROPS_WEAPON
                         }
                         _suspect.Tasks.PutHandsUp(4000, GPlayer);
-                        Speech("~y~Civilian: ~w~Can we chat without cuffs being involved?", 5000);
-                        GameFiber.Wait(1000);
+                        Speech("~r~Civilian: ~w~Can we chat without cuffs being involved?", 5000);
+                        GameFiber.Sleep(1000);
                     }
                     if (_callOutMessage == 7)
                     {
                         Normal("Callout 7 Dialog loaded.");
                         _suspect.IsPersistent = true;
-                        Speech("~y~Civilian: ~w~Fuck you bitch, you're gonna die for trespassing!", 5000);
+                        Speech("~r~Civilian: ~w~Fuck you bitch, you're gonna die for trespassing!", 5000);
                         GameFiber.Sleep(5000);
                         Normal("Suspect attempts to fight with officer..");
                         _suspect.KeepTasks = true;
@@ -316,7 +317,7 @@ public class SWLWelfareCheck : Callout
                         GameFiber.Sleep(2500);
                         Speech("~b~You: ~y~*YELLS* ~w~STOP! POLICE!! GET DOWN ON THE GROUND!", 4000);
                         GameFiber.Sleep(4000);
-                        Speech("~y~Civilian: ~w~Oh shit, Sorry officer! I thought you were an intruder!", 5000);
+                        Speech("~r~Civilian: ~w~Oh shit, Sorry officer! I thought you were an intruder!", 5000);
                         _suspect.Tasks.Pause(1000);
                         Normal("Suspect giving up and drops weapon.");
                         // Thanks Astro for the below suggested code //
@@ -325,16 +326,16 @@ public class SWLWelfareCheck : Callout
                             NativeFunction.Natives.x6B7513D9966FBEC0(_suspect); // SET_PED_DROPS_WEAPON
                         }
                         _suspect.Tasks.PutHandsUp(8000, GPlayer);
-                        GameFiber.Wait(5000);
-                        Speech("~y~Civilian: Please officer, don't arrest me. I wasn't thinking and didn't know it was you", 10000);
+                        GameFiber.Sleep(5000);
+                        Speech("~y~Civilian: ~w~Please officer, don't arrest me. I wasn't thinking and didn't know it was you", 10000);
                         GameFiber.Sleep(2000);
                     }
                     if (_callOutMessage == 8)
                     {
                         Normal("Callout 8 Dialog loaded.");
                         _suspect.IsPersistent = true;
-                        Speech("~y~Suspect: ~w~Fuck!! It's the cops!", 2000);
-                        GameFiber.Wait(2000);
+                        Speech("~r~Suspect: ~w~Fuck!! It's the cops!", 2000);
+                        GameFiber.Sleep(2000);
                         Normal("Suspect attempting to kill player.");
                         _suspect.KeepTasks = true;
                         _suspect.Tasks.FightAgainst(GPlayer);
@@ -417,15 +418,17 @@ public class SWLWelfareCheck : Callout
                                 GameFiber.Sleep(10000);
                                 Speech("~b~You: ~w~Great, can I get your details and check it with dispatch.", 5000);
                                 GameFiber.Sleep(5000);
-                                Speech("~y~Civilian: ~w~Yes, Here you go.", 10000);
+                                Speech("~y~Civilian: ~w~Yes, Here you go.", 5000);
                                 Functions.DisplayPedId(_suspect, false);
                                 GameFiber.Sleep(5000);
-                                Speech("~b~You: ~w~Ok, Can I let dispatch know that you are fine and well?", 5000);
-                                GameFiber.Wait(4000);
+                                Speech("~b~You: ~w~Ok, Can I let dispatch know that you are fine and well?", 4000);
+                                GameFiber.Sleep(4000);
                                 // Inside your Process method or wherever you want to display the information
                                 Persona pedPersona = Functions.GetPersonaForPed(_suspect);
                                 string message = String.Format("Dispatch requesting an ID check on {0}, born on {1}.", pedPersona.FullName, pedPersona.Birthday.ToShortDateString());
                                 Speech("~b~You: ~w~" + message, 5000);
+                                Functions.SetPedAsIdentified(_suspect, true);
+                                Functions.DisplayPedId(_suspect, true);
                             }
                             if (_callOutMessage == 7)
                                 Speech("~b~You: ~w~Why would I want to kill you, I'm here to do a welfare check to make sure everything is fine.", 10000);
@@ -442,14 +445,14 @@ public class SWLWelfareCheck : Callout
                                 Speech("~y~Civilian: ~w~So, Why are you here? I don't understand?", 5000);
                             if (_callOutMessage == 5)
                             {
-                                Speech("~y~Civilian: ~w~Fuck off ya pig!", 5000);
+                                Speech("~r~Civilian: ~w~Fuck off ya pig!", 5000);
                                 if (Settings.ActivateAIBackup)
                                 {
                                     Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICER_REQUESTING_BACKUP CODE3");
                                     Functions.RequestBackup(GPlayer.Position, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
                                 }
                                 else { Settings.ActivateAIBackup = false; }
-                                GameFiber.Wait(2000);
+                                GameFiber.Sleep(2000);
                                 Normal("Suspects attempting to kill player.");
                                 _suspect.KeepTasks = true;
                                 _suspect.Tasks.FightAgainst(GPlayer);
@@ -457,15 +460,15 @@ public class SWLWelfareCheck : Callout
                             if (_callOutMessage == 6)
                             {
                                 Speech("~y~Civilian: ~w~Yes you can, Sorry again about before officer, you have a wonderful day! Stay safe.", 5000);
-                                GameFiber.Wait(5000);
+                                GameFiber.Sleep(5000);
                                 Speech("~b~You: ~w~No worries, you have yourself a wonderful day too!", 5000);
-                                GameFiber.Wait(5000);
+                                GameFiber.Sleep(5000);
                                 Normal("Callout 6 finished.");
                                 End();
                             }
                             if (_callOutMessage == 7)
                             {
-                                Speech("~b~Civilian: ~w~Well everything is fine officer. Thanks for checking, Goodbye!", 5000);
+                                Speech("~y~Civilian: ~w~Well everything is fine officer. Thanks for checking, Goodbye!", 5000);
                                 _suspect.Tasks.Wander();
                                 _suspect.KeepTasks = true;
                                 GameFiber.Sleep(5000);

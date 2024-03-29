@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.8
+// Version: 0.4.8.9
 
 #region
 
@@ -124,13 +124,13 @@ public class SWLCyclistOnTheMotorway : Callout
                 _startedPursuit = true;
                 _bike.IsStolen = true;
                 NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch Information", "The ~o~bicycle~w~ from the suspect is a ~o~" + _bike.Model.Name + "~w~. The ~g~bicycle~w~ was ~r~stolen~w~.");
-                GameFiber.Wait(2000);
+                GameFiber.Sleep(2000);
             }
             if (_suspect.DistanceTo(Game.LocalPlayer.Character) < 25f && Game.LocalPlayer.Character.IsOnFoot && _alreadySubtitleIntrod == false && _pursuit == null)
             {
                 Print("Perform a normal traffic stop with the ~o~suspect~w~.");
                 Print("~b~Dispatch:~w~ Checking the serial number of the bike...");
-                GameFiber.Wait(2000);
+                GameFiber.Sleep(2000);
                 Print("~b~Dispatch~w~ We checked the serial number of the bike.<br>Model: ~o~" + _bike.Model.Name + "<br>~w~Serial number: ~o~" + _bike.LicensePlate);
                 _alreadySubtitleIntrod = true;
                 return;

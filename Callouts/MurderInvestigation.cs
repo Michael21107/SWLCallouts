@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.8
+// Version: 0.4.8.9
 
 #region
 using LSPD_First_Response.Engine.Scripting.Entities;
@@ -190,7 +190,7 @@ internal class SWLMurderInvestigation : Callout
 
         Functions.PlayScannerAudioUsingPosition("ATTENTION_GENERIC_01 UNITS WE_HAVE A_01 CRIME_DEAD_BODY_01 CODE3", _deadPersonSpawn);
         Game.DisplayNotification("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Murder Investigation", "~b~Dispatch: ~w~The police department needs a ~b~detective~w~ on scene to find and arrest the murder. Respond with ~r~Code 3");
-        GameFiber.Wait(2000);
+        GameFiber.Sleep(2000);
         return base.OnCalloutAccepted();
     }
 
@@ -241,7 +241,7 @@ internal class SWLMurderInvestigation : Callout
                 _deadPerson2.RelationshipGroup = "VI";
                 Game.SetRelationshipBetweenRelationshipGroups("AG", "VI", Relationship.Hate);
                 _murderer.Tasks.FightAgainstClosestHatedTarget(1000f);
-                GameFiber.Wait(300);
+                GameFiber.Sleep(300);
                 _murderer.Tasks.FightAgainst(GPlayer);
             }
         }
@@ -280,7 +280,7 @@ internal class SWLMurderInvestigation : Callout
                     {
                         Normal("Checking possible suspect ID...");
                         Speech("~b~*You look at the ID*", 4000);
-                        GameFiber.Wait(1000);
+                        GameFiber.Sleep(1000);
                         Functions.DisplayPedId(_murderer, true);
                         Speech("~b~*You see the results paper*", 4000);
                         GPlayer.Tasks.PlayAnimation("amb@world_human_clipboard@male@idle_a", "idle_a", 8.0F, AnimationFlags.Loop);
@@ -295,7 +295,7 @@ internal class SWLMurderInvestigation : Callout
                     {
                         Normal("Checking possible suspect ID...");
                         Speech("~b~*You look at the ID*", 4000);
-                        GameFiber.Wait(1000);
+                        GameFiber.Sleep(1000);
                         Functions.DisplayPedId(_murderer, true);
                         Speech("~b~*You see the results paper*", 4000);
                         GPlayer.Tasks.PlayAnimation("amb@world_human_clipboard@male@idle_a", "idle_a", 8.0F, AnimationFlags.Loop);
@@ -316,7 +316,7 @@ internal class SWLMurderInvestigation : Callout
                         Game.DisplaySubtitle("~b~You: ~w~Okay, thank you for letting me know! I'll find the murder!", 5000);
                     storyLine++;
                     Game.DisplayHelp("The ~y~Police Department~w~ is setting up the location on your GPS...", 5000);
-                    GameFiber.Wait(3000);
+                    GameFiber.Sleep(3000);
                     Normal("Location of murder suspect revealed.");
                     Game.DisplayNotification("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Police Department",
                                              "~b~Detective~w~, we ~o~marked the apartment~w~ for you on the map. Search the ~y~yellow circle area~w~ on your map and try to ~y~find~w~ and ~b~arrest~w~ the ~g~murderer~w~.");

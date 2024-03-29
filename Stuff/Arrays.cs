@@ -1,10 +1,12 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.8.8
+// Version: 0.4.8.9
 
 #region
 
 #endregion
+
+using System.Windows.Forms;
 
 namespace SWLCallouts.Stuff;
 
@@ -103,7 +105,9 @@ internal class Arrays
     internal static readonly string[] SEV1DispatchCode4;
     internal static readonly string[] SEV2DispatchArrive;
     internal static readonly string[] SEV2DispatchCode4;
-    internal static readonly string[] WCDispatchArrive;
+    internal static readonly string[] WCDispatchArriveS1;
+    internal static readonly string[] WCDispatchArriveS2;
+    internal static readonly string[] WCDispatchArriveS3;
     internal static readonly string[] WCDispatchCode4;
 
     static Arrays()
@@ -394,38 +398,100 @@ internal class Arrays
             };
 
         // Initialise Dispatch Arrive for .WelfareCheck. Callout based on activateAIBackup
-        WCDispatchArrive = activateAIBackup ?
+        WCDispatchArriveS1 = activateAIBackup ?
             new string[]
             {
-                "We have an ~y~ambulance~w~ on the way to your current location. You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "An ~y~ambulance~w~ is enroute to the location. You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "An ~y~ambulance~w~ is enroute to your current location, officer. You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "~y~Ambulance~w~ has been dispatched to you officer. You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "~y~Ambulance~w~ enroute! You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "We are going to call an ~y~ambulance~w~ to your current location, officer. You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
+                "We have an ~y~ambulance~w~ on the way to your current location.",
+                "An ~y~ambulance~w~ is enroute to the location.",
+                "An ~y~ambulance~w~ is enroute to your current location, officer.",
+                "~y~Ambulance~w~ has been dispatched to you officer.",
+                "~y~Ambulance~w~ enroute!",
+                "We are going to call an ~y~ambulance~w~ to your current location, officer.",
                 // End Call button sentence change //
-                "We have an ~y~ambulance~w~ on the way to your current location. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "An ~y~ambulance~w~ is enroute to the location. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "An ~y~ambulance~w~ is enroute to your current location, officer. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "~y~Ambulance~w~ has been dispatched to you officer. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "~y~Ambulance~w~ enroute! You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "We are going to call an ~y~ambulance~w~ to your current location, officer. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key."
+                "We have an ~y~ambulance~w~ on the way to your current location.",
+                "An ~y~ambulance~w~ is enroute to the location.",
+                "An ~y~ambulance~w~ is enroute to your current location, officer.",
+                "~y~Ambulance~w~ has been dispatched to you officer.",
+                "~y~Ambulance~w~ enroute!",
+                "We are going to call an ~y~ambulance~w~ to your current location, officer."
             } :
             new string[]
             {
-                "We see you on scene officer, check the area and return to patrol. You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "Check the area and return to patrol officer. You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "Investigate the scene and report back, officer. You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "Please search the area and report your findings. You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "Officer, search the area and request for assistance if needed. You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "We see you arriving on scene officer, check the area and report your findings. You may end the call by pressing the ~y~" + Settings.EndCall + "~w~ key.",
+                "We see you on scene officer, check the area and return to patrol.",
+                "Check the area and return to patrol officer.",
+                "Investigate the scene and report back, officer.",
+                "Please search the area and report your findings.",
+                "Officer, search the area and request for assistance if needed.",
+                "We see you arriving on scene officer, check the area and report your findings.",
                 // End Call button sentence change //
-                "We see you on scene officer, check the area and return to patrol. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "Check the area and return to patrol officer. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "Investigate the scene and report back, officer. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "Please search the area and report your findings. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "Officer, search the area and request for assistance if needed. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key.",
-                "We see you arriving on scene officer, check the area and report your findings. You may return to patrol by pressing the ~y~" + Settings.EndCall + "~w~ key."
+                "We see you on scene officer, check the area and return to patrol.",
+                "Check the area and return to patrol officer.",
+                "Investigate the scene and report back, officer.",
+                "Please search the area and report your findings.",
+                "Officer, search the area and request for assistance if needed.",
+                "We see you arriving on scene officer, check the area and report your findings."
+            };
+        WCDispatchArriveS2 = activateAIBackup ?
+            new string[]
+            {
+                "Investigate the area. If you don't find anyone, you may ~g~End~w~ the call and return to patrol.",
+                "Search the area, if you are unable to find anyone, you may return to patrol. ",
+                "We received a hangup call, look around the area. Report your findings and then return to patrol.",
+                "Seeing you are on scene officer, investigate, report and return to patrol. ",
+                "Possible fake call, check in and then return to patrol.",
+                "Officer, proceed with caution, caller hung up and doesn't seem to be answering. Return to patrol if all clear. ",
+                "Officer, be on the look out. Caller failed to complete ID check.",
+                "We are showing you are on scene, be aware that caller couldn't be reached.",
+                "Check the area, if you don't find anything or anyone, you may return to patrol.",
+                "Preparing backup unit, report if they are required.",
+                "Officer, be aware that caller has been unable to be reached for some time, search the area and report.",
+                "Showing you on scene investigating.",
+            } :
+            new string[]
+            {
+                "Investigate the area. If you don't find anyone, you may ~g~End~w~ the call and return to patrol.",
+                "Search the area, if you are unable to find anyone, you may return to patrol. ",
+                "We received a hangup call, look around the area. Report your findings and then return to patrol.",
+                "Seeing you are on scene officer, investigate, report and return to patrol. ",
+                "Possible fake call, check in and then return to patrol.",
+                "Officer, proceed with caution, caller hung up and doesn't seem to be answering. Return to patrol if all clear. ",
+                "Officer, be on the look out. Caller failed to complete ID check.",
+                "We are showing you are on scene, be aware that caller couldn't be reached.",
+                "Check the area, if you don't find anything or anyone, you may return to patrol.",
+                "Preparing backup unit, report if they are required.",
+                "Officer, be aware that caller has been unable to be reached for some time, search the area and report.",
+                "Showing you on scene investigating."
+            };
+        WCDispatchArriveS3 = activateAIBackup ?
+            new string[]
+            {
+                "Officer, I'm showing you arrived on scene, backup on standby if required.",
+                "Be on alert the caller advised that caller may be armed. Backup on standby.",
+                "Showing you on scene. Report and return to patrol.",
+                "Caller has requested a welfare check on a friend, proceed with caution.",
+                "Showing you on scene, officer. Please report findings, backup on standby.",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            } :
+            new string[]
+            {
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
             };
         WCDispatchCode4 = activateAIBackup ?
             new string[]

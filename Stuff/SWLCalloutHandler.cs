@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.8
+// Version: 0.4.8.9
 
 #region
 
@@ -32,8 +32,13 @@ internal class SWLCalloutHandler
     internal static void EndCallouts() // End all callouts due to unload/crash //
     {
         GameFiber.Sleep(200);
-        Functions.StopCurrentCallout();
-        Normal("Current callout was stopped (Including any not related to SWLCallouts).");
+        bool isCalloutRunning = Functions.IsCalloutRunning();
+        if (isCalloutRunning)
+        {
+            Functions.StopCurrentCallout();
+            Normal("Active callout was stopped (Including any not related to SWLCallouts).");
+        }
+        else { Normal("No active callouts."); }
         Normal("Stopping all callouts and deleting blips/peds");
         Print("==================================== Stopping SWLCallouts ====================================");
         Print("");
@@ -58,9 +63,14 @@ internal class SWLCalloutHandler
         Print("[LOG]: All callouts for SWLCallouts were unloaded successfully.");
         Print("");
         GameFiber.Sleep(200);
-        Functions.StopCurrentCallout();
+        bool isCalloutRunning2 = Functions.IsCalloutRunning();
+        if (isCalloutRunning2)
+        {
+            Functions.StopCurrentCallout();
+            Normal("Ensuring all callouts were stopped (Including any not related to SWLCallouts).");
+        }
+        else { Normal("No active callouts."); }
         Print("");
-        Normal("Ensuring all callouts were stopped (Including any not related to SWLCallouts).");
         Print("[LOG]: Ensuring all callouts were stopped (Including any not related to SWLCallouts).");
         Print("============================== Callouts for SWLCallouts Stopped ==============================");
 

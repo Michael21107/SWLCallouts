@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.8
+// Version: 0.4.8.9
 
 #region
 
@@ -60,7 +60,7 @@ public class PluginCheck
                 {
                     // Display a message thanking the user for helping with testing
                     NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", $"{Arrays.PluginLoadTestingSubtitle.PickRandom()}", "~r~[ERROR] ~w~Version Type issue!<br>~w~Please update this plugin ~r~ASAP~w~!<br>~y~Public release version detected!");
-                    GameFiber.Wait(5000);
+                    GameFiber.Sleep(5000);
                     NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~o~Unstable Build", "This must be a mistake, please check as you are on a ~p~future ~y~test build ~w~as you may notice ~o~bugs ~w~while playing this unstable build version.");
                     return false;
                 }
@@ -109,7 +109,7 @@ public class PluginCheck
                         {
                             // Display a message thanking the user for helping with testing
                             NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", $"{Arrays.PluginLoadTestingSubtitle.PickRandom()}", $"{Arrays.PluginLoadTestingText.PickRandom()}");
-                            GameFiber.Wait(5000);
+                            GameFiber.Sleep(5000);
                             NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~o~Unstable Test Build", "This must be a ~r~unstable ~p~wonder build ~w~of SWLCallouts. You may notice ~o~bugs ~w~while playing this unstable build.");
                             return false;
                         }
@@ -117,7 +117,7 @@ public class PluginCheck
                         {
                             // Display a message thanking the user for helping with testing
                             NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", $"{Arrays.PluginLoadTestingSubtitle.PickRandom()}", $"{Arrays.PluginLoadTestingText.PickRandom()}");
-                            GameFiber.Wait(5000);
+                            GameFiber.Sleep(5000);
                             NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~o~Unstable Test Build", "This must be a ~r~unstable ~p~wonder build ~w~of SWLCallouts. You may notice ~o~bugs ~w~while playing this unstable build.");
                             return false;
                         }

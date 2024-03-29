@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 2nd Mar 2024
-// Version: 0.4.8.8
+// Version: 0.4.8.9
 
 #region
 
@@ -203,12 +203,12 @@ public class SWLShotsFired : Callout
             {
                 Normal("Dispatch requesting for AI Cops to respond..");
                 Functions.PlayScannerAudio("ATTENTION_ALL_UNITS_05 WE_HAVE_02 CITIZENS_REPORT_04 CRIME_SHOTS_FIRED_AT_AN_OFFICER_03 CODE3");
-                GameFiber.Wait(5000);
+                GameFiber.Sleep(5000);
                 Normal("AI responding to dispatch and spawn enroute..");
                 Functions.PlayScannerAudio("UNIT_RESPONDING_DISPATCH");
                 Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
                 Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
-                GameFiber.Wait(6000);
+                GameFiber.Sleep(6000);
                 Normal("SWAT Team are now enroute..");
                 Functions.PlayScannerAudio("AI_BOBCAT4_RESPONDING");
                 Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.SwatTeam);
@@ -258,6 +258,7 @@ public class SWLShotsFired : Callout
         }
         if ((_suspect1 != null && _suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) || (_suspect2 != null && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) && !_hasBegunAttacking)
         {
+            NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", SFDispatchArrive.PickRandom());
             if (_scenario > 40)
             {
                 Normal("Arriving on scene..");
@@ -274,11 +275,11 @@ public class SWLShotsFired : Callout
                     Game.SetRelationshipBetweenRelationshipGroups("SI", "PI", Relationship.Hate);
                     _suspect1.Tasks.FightAgainstClosestHatedTarget(1000f);
                     Normal("Suspect attacking random civilians...");
-                    GameFiber.Wait(2000);
+                    GameFiber.Sleep(2000);
                     _suspect1.Tasks.FightAgainst(GPlayer);
                     _hasBegunAttacking = true;
                     Normal("Suspect attacking player...");
-                    GameFiber.Wait(600);
+                    GameFiber.Sleep(600);
 
                 }
                 else if (_callOutScene == 2)
@@ -301,12 +302,12 @@ public class SWLShotsFired : Callout
                     _suspect1.Tasks.FightAgainstClosestHatedTarget(1000f);
                     _suspect2.Tasks.FightAgainstClosestHatedTarget(1000f);
                     Normal("Suspects attacking random civilians...");
-                    GameFiber.Wait(2000);
+                    GameFiber.Sleep(2000);
                     _suspect1.Tasks.FightAgainst(GPlayer);
                     _suspect2.Tasks.FightAgainst(GPlayer);
                     _hasBegunAttacking = true;
                     Normal("Suspects attacking player...");
-                    GameFiber.Wait(600);
+                    GameFiber.Sleep(600);
                 }
             }
             else
