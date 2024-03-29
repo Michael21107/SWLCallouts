@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 2nd Mar 2024
-// Version: 0.4.8.7
+// Version: 0.4.8.8
 
 #region
 
@@ -96,6 +96,8 @@ public class SWLShotsFired : Callout
     {
         Normal("Shots Fired callout accepted.");
         NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Reports of Shots Fired", "~b~Dispatch: ~w~Someone called the police because of shots fired. Respond with ~r~Code 3");
+        bool result = false; // This is to store the result of the switch statement below //
+
         switch (new Random().Next(1, 3))
         {
             case 1:
@@ -113,25 +115,26 @@ public class SWLShotsFired : Callout
                     try
                     {
                         Normal("Suspect wandering...");
-                        _suspect1.Tasks.Wander(); 
+                        _suspect1.Tasks.Wander();
                     }
                     catch (Exception ex)
                     {
                         Log("Failed to make Suspect 1 wander. Continuing with call.");
                         Error(ex, nameof(OnCalloutAccepted));
                     }
-                    break;
+                    result = true; // Set result to true after successfully spawning suspect 1
                 }
                 else
                 {
                     Log("Failed to detect suspect 1, ending call...");
                     End();
-                    break;
+                    return false; // Return false if failed to spawn suspect 1
                 }
+                break;
             case 2:
                 Normal("Loaded callout scene 2");
                 _callOutScene = 2;
-                Normal("Spawning 2 supects...");
+                Normal("Spawning 2 suspects...");
                 _suspect1 = new Ped(_spawnPoint);
                 _suspect2 = new Ped(_spawnPoint);
                 if (_suspect1.Exists() && _suspect2.Exists())
@@ -143,7 +146,7 @@ public class SWLShotsFired : Callout
                     _suspect2.BlockPermanentEvents = true;
                     _suspect1.IsPersistent = true;
                     _suspect2.IsPersistent = true;
-                    Normal("Suspect Unarmed.");
+                    Normal("Suspects Unarmed.");
                     try
                     {
                         Normal("Suspects wandering...");
@@ -155,55 +158,75 @@ public class SWLShotsFired : Callout
                         Log("Failed to make Suspects wander. Continuing with call.");
                         Error(ex, nameof(OnCalloutAccepted));
                     }
-                    break;
+                    result = true; // Set result to true after successfully spawning both suspects
                 }
                 else
                 {
                     Log("Failed to detect both suspect 1 and suspect 2, ending call...");
                     End();
-                    break;
+                    return false; // Return false if failed to spawn both suspects
                 }
+                break;
+            default:
+                Log("Unknown issue, ending call...");
+                End();
+                return false; // Return false by default if neither case is executed
         }
 
-        Normal("Spawning civilian peds...");
-        _ped1 = new Ped(_spawnPoint);
-        _ped2 = new Ped(_spawnPoint);
-        _ped3 = new Ped(_spawnPoint);
-        _ped1.IsPersistent = true;
-        _ped2.IsPersistent = true;
-        _ped3.IsPersistent = true;
-        Normal("Spawned civilians");
-        if (_ped1.Exists()) _ped1.Tasks.Wander();
-        if (_ped2.Exists()) _ped2.Tasks.Wander();
-        if (_ped3.Exists()) _ped3.Tasks.Wander();
-
-        Normal("Activating Blip...");
-        _searcharea = _spawnPoint.Around2D(1f, 250f);
-        _blip = new Blip(_searcharea, 80f)
+        // Code after the switch statement
+        if (result)
         {
-            Color = Color.Red,
-            Alpha = 0.5f
-        }; 
-        _blip.EnableRoute(Color.Red);
-        Normal("Blip Enabled");
+            // This block should only be executed if result is true
+            Normal("Spawning civilian peds...");
+            _ped1 = new Ped(_spawnPoint);
+            _ped2 = new Ped(_spawnPoint);
+            _ped3 = new Ped(_spawnPoint);
+            _ped1.IsPersistent = true;
+            _ped2.IsPersistent = true;
+            _ped3.IsPersistent = true;
+            Normal("Spawned civilians");
+            if (_ped1.Exists()) _ped1.Tasks.Wander();
+            if (_ped2.Exists()) _ped2.Tasks.Wander();
+            if (_ped3.Exists()) _ped3.Tasks.Wander();
 
-        if (Settings.ActivateAIBackup)
-        {
-            Normal("Dispatch requesting for AI Cops to respond..");
-            Functions.PlayScannerAudio("ATTENTION_ALL_UNITS_05 WE_HAVE_02 CITIZENS_REPORT_04 CRIME_SHOTS_FIRED_AT_AN_OFFICER_03 CODE3");
-            GameFiber.Wait(5000);
-            Normal("AI responding to dispatch and spawn enroute..");
-            Functions.PlayScannerAudio("UNIT_RESPONDING_DISPATCH_02");
-            Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
-            Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
-            GameFiber.Wait(6000);
-            Normal("SWAT Team are now enroute..");
-            Functions.PlayScannerAudio("AI_BOBCAT4_RESPONDING");
-            Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.SwatTeam);
+            Normal("Activating Blip...");
+            _searcharea = _spawnPoint.Around2D(1f, 250f);
+            _blip = new Blip(_searcharea, 80f)
+            {
+                Color = Color.Red,
+                Alpha = 0.5f
+            };
+            _blip.EnableRoute(Color.Red);
+            Normal("Blip Enabled");
+
+            if (Settings.ActivateAIBackup)
+            {
+                Normal("Dispatch requesting for AI Cops to respond..");
+                Functions.PlayScannerAudio("ATTENTION_ALL_UNITS_05 WE_HAVE_02 CITIZENS_REPORT_04 CRIME_SHOTS_FIRED_AT_AN_OFFICER_03 CODE3");
+                GameFiber.Wait(5000);
+                Normal("AI responding to dispatch and spawn enroute..");
+                Functions.PlayScannerAudio("UNIT_RESPONDING_DISPATCH");
+                Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
+                Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
+                GameFiber.Wait(6000);
+                Normal("SWAT Team are now enroute..");
+                Functions.PlayScannerAudio("AI_BOBCAT4_RESPONDING");
+                Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.SwatTeam);
+            }
+            else
+            {
+                Settings.ActivateAIBackup = false;
+            }
         }
-        else { Settings.ActivateAIBackup = false; }
+        else
+        {
+            Log("No results found. Ending call...");
+            End();
+        }
+
         return base.OnCalloutAccepted();
     }
+
 
     public override void OnCalloutNotAccepted()
     {

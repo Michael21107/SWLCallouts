@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.4.8.7
+// Version: 0.4.8.8
 
 #region
 
@@ -45,7 +45,7 @@ internal class Arrays
         "~r~Oh shit! ~y~Was that a bomb?",
         "~r~WOOW! ~w~What happened?",
         "~p~I guess you crashed..",
-        "~g~Green~w~, ~y~Yellow~w~, ~r~Red~w~. Did you know that red means stop?",
+        "~g~Green~w~, ~y~Yellow~w~, ~r~Red~w~. Did you know that ~r~red~w~ means stop?",
         "~w~I think that was a ~r~red ~y~lig~g~ht ~w~back there.",
         "~w~Welp, that didn't last long.. Not long enough."
     };
@@ -75,6 +75,19 @@ internal class Arrays
         "REQUESTING_BACKUP_01",
     };
 
+    internal static readonly string[] PWAKSuspectSpeech =
+    {
+        "~r~Suspect: ~w~I don't want to live anymore! So Shoot me already!",
+        "~r~Suspect: ~w~Go away! You are not going to take me alive!",
+        "~r~Suspect: ~w~I'm not going back to that padded cell!",
+        "~r~Suspect: ~w~You are going to die pig!",
+        "~r~Suspect: ~w~You came to the wrong place arsehole!",
+        "~r~Suspect: ~w~What do you want? Wanna fight? Let's go!",
+        "~r~Suspect: ~w~Cops thinking they can always help!",
+        "~r~Suspect: ~w~What you gonna do? Shoot me?",
+        "~r~Suspect: ~w~Shoot me! Get it over with!",
+        "~r~Suspect: ~w~Come on then, bring it! Shoot me!"
+    };
 
     internal static readonly string[] COTMDispatchArrive;
     internal static readonly string[] COTMDispatchCode4;
@@ -123,21 +136,21 @@ internal class Arrays
         COTMDispatchCode4 = activateAIBackup ?
             new string[]
             {
-                "AIMessage1",
-                "AIMessage2",
-                "AIMessage3",
-                "AIMessage4",
-                "AIMessage5",
-                "AIMessage6"
+                "~b~Dispatch: ~w~All units, be advised, scene is code 4. No additional units required!",
+                "~b~Dispatch: ~w~We are showing all units back on patrol.",
+                "~b~Dispatch: ~w~Officer, you may all return to patrol.",
+                "~b~Dispatch: ~w~Thank you officer, all units back available.",
+                "~b~Dispatch: ~w~All units, code 4. Officer, you are welcome to stay although you should return to patrol.",
+                "~b~Dispatch: ~w~10-4, Showing you all available."
             } :
             new string[]
             {
-                "Message1",
-                "Message2",
-                "Message3",
-                "Message4",
-                "Message5",
-                "Message6"
+                "~b~Dispatch: ~w~Showing you code 4 on scene",
+                "~b~Dispatch: ~w~You may stay on scene officer though you should return to patrol.",
+                "~b~Dispatch: ~w~Copy that, showing you back on patrol.",
+                "~b~Dispatch: ~w~Scene is clear, awaiting your next call.",
+                "~b~Dispatch: ~w~Officer, you are required to return to patrol.",
+                "~b~Dispatch: ~w~Code 4, All units back on patrol."
             };
 
         // Initialise Dispatch for .ShotsFired. Callout based on activateAIBackup
@@ -163,21 +176,21 @@ internal class Arrays
         HSCDispatchCode4 = activateAIBackup ?
             new string[]
             {
-                "AIMessage1",
-                "AIMessage2",
-                "AIMessage3",
-                "AIMessage4",
-                "AIMessage5",
-                "AIMessage6"
+                "~b~Dispatch: ~w~All units, be advised, scene is code 4. No additional units required!",
+                "~b~Dispatch: ~w~We are showing all units back on patrol.",
+                "~b~Dispatch: ~w~Officer, you may all return to patrol.",
+                "~b~Dispatch: ~w~Thank you officer, all units back available.",
+                "~b~Dispatch: ~w~All units, code 4. Officer, you are welcome to stay although you should return to patrol.",
+                "~b~Dispatch: ~w~10-4, Showing you all available."
             } :
             new string[]
             {
-                "Message1",
-                "Message2",
-                "Message3",
-                "Message4",
-                "Message5",
-                "Message6"
+                "~b~Dispatch: ~w~Showing you code 4 on scene",
+                "~b~Dispatch: ~w~You may stay on scene officer though you should return to patrol.",
+                "~b~Dispatch: ~w~Copy that, showing you back on patrol.",
+                "~b~Dispatch: ~w~Scene is clear, awaiting your next call.",
+                "~b~Dispatch: ~w~Officer, you are required to return to patrol.",
+                "~b~Dispatch: ~w~Code 4, All units back on patrol."
             };
 
         // Initialise Dispatch for .ShotsFired. Callout based on activateAIBackup
@@ -203,21 +216,21 @@ internal class Arrays
         MIDispatchCode4 = activateAIBackup ?
             new string[]
             {
-                "AIMessage1",
-                "AIMessage2",
-                "AIMessage3",
-                "AIMessage4",
-                "AIMessage5",
-                "AIMessage6"
+                "~b~Dispatch: ~w~All units, be advised, scene is code 4. No additional units required!",
+                "~b~Dispatch: ~w~We are showing all units back on patrol.",
+                "~b~Dispatch: ~w~Officer, you may all return to patrol.",
+                "~b~Dispatch: ~w~Thank you officer, all units back available.",
+                "~b~Dispatch: ~w~All units, code 4. Officer, you are welcome to stay although you should return to patrol.",
+                "~b~Dispatch: ~w~10-4, Showing you all available."
             } :
             new string[]
             {
-                "Message1",
-                "Message2",
-                "Message3",
-                "Message4",
-                "Message5",
-                "Message6"
+                "~b~Dispatch: ~w~Showing you code 4 on scene",
+                "~b~Dispatch: ~w~You may stay on scene officer though you should return to patrol.",
+                "~b~Dispatch: ~w~Copy that, showing you back on patrol.",
+                "~b~Dispatch: ~w~Scene is clear, awaiting your next call.",
+                "~b~Dispatch: ~w~Officer, you are required to return to patrol.",
+                "~b~Dispatch: ~w~Code 4, All units back on patrol."
             };
 
         // Initialise Dispatch for .ShotsFired. Callout based on activateAIBackup
@@ -243,21 +256,21 @@ internal class Arrays
         PWAKDispatchCode4 = activateAIBackup ?
             new string[]
             {
-                "AIMessage1",
-                "AIMessage2",
-                "AIMessage3",
-                "AIMessage4",
-                "AIMessage5",
-                "AIMessage6"
+                "~b~Dispatch: ~w~All units, be advised, scene is code 4. No additional units required!",
+                "~b~Dispatch: ~w~We are showing all units back on patrol.",
+                "~b~Dispatch: ~w~Officer, you may all return to patrol.",
+                "~b~Dispatch: ~w~Thank you officer, all units back available.",
+                "~b~Dispatch: ~w~All units, code 4. Officer, you are welcome to stay although you should return to patrol.",
+                "~b~Dispatch: ~w~10-4, Showing you all available."
             } :
             new string[]
             {
-                "Message1",
-                "Message2",
-                "Message3",
-                "Message4",
-                "Message5",
-                "Message6"
+                "~b~Dispatch: ~w~Showing you code 4 on scene",
+                "~b~Dispatch: ~w~You may stay on scene officer though you should return to patrol.",
+                "~b~Dispatch: ~w~Copy that, showing you back on patrol.",
+                "~b~Dispatch: ~w~Scene is clear, awaiting your next call.",
+                "~b~Dispatch: ~w~Officer, you are required to return to patrol.",
+                "~b~Dispatch: ~w~Code 4, All units back on patrol."
             };
 
         // Initialise Dispatch for .ShotsFired. Callout based on activateAIBackup
@@ -283,21 +296,21 @@ internal class Arrays
         SFDispatchCode4 = activateAIBackup ?
             new string[]
             {
-                "AIMessage1",
-                "AIMessage2",
-                "AIMessage3",
-                "AIMessage4",
-                "AIMessage5",
-                "AIMessage6"
+                "~b~Dispatch: ~w~All units, be advised, scene is code 4. No additional units required!",
+                "~b~Dispatch: ~w~We are showing all units back on patrol.",
+                "~b~Dispatch: ~w~Officer, you may all return to patrol.",
+                "~b~Dispatch: ~w~Thank you officer, all units back available.",
+                "~b~Dispatch: ~w~All units, code 4. Officer, you are welcome to stay although you should return to patrol.",
+                "~b~Dispatch: ~w~10-4, Showing you all available."
             } :
             new string[]
             {
-                "Message1",
-                "Message2",
-                "Message3",
-                "Message4",
-                "Message5",
-                "Message6"
+                "~b~Dispatch: ~w~Showing you code 4 on scene",
+                "~b~Dispatch: ~w~You may stay on scene officer though you should return to patrol.",
+                "~b~Dispatch: ~w~Copy that, showing you back on patrol.",
+                "~b~Dispatch: ~w~Scene is clear, awaiting your next call.",
+                "~b~Dispatch: ~w~Officer, you are required to return to patrol.",
+                "~b~Dispatch: ~w~Code 4, All units back on patrol."
             };
 
         // Initialise Dispatch Arrive for .StolenEmergencyVehicle1. Callout based on activateAIBackup
@@ -323,30 +336,30 @@ internal class Arrays
         SEV1DispatchCode4 = activateAIBackup ?
             new string[]
             {
-                "AIMessage1",
-                "AIMessage2",
-                "AIMessage3",
-                "AIMessage4",
-                "AIMessage5",
-                "AIMessage6"
+                "~b~Dispatch: ~w~All units, be advised, scene is code 4. No additional units required!",
+                "~b~Dispatch: ~w~We are showing all units back on patrol.",
+                "~b~Dispatch: ~w~Officer, you may all return to patrol.",
+                "~b~Dispatch: ~w~Thank you officer, all units back available.",
+                "~b~Dispatch: ~w~All units, code 4. Officer, you are welcome to stay although you should return to patrol.",
+                "~b~Dispatch: ~w~10-4, Showing you all available."
             } :
             new string[]
             {
-                "Message1",
-                "Message2",
-                "Message3",
-                "Message4",
-                "Message5",
-                "Message6"
+                "~b~Dispatch: ~w~Showing you code 4 on scene",
+                "~b~Dispatch: ~w~You may stay on scene officer though you should return to patrol.",
+                "~b~Dispatch: ~w~Copy that, showing you back on patrol.",
+                "~b~Dispatch: ~w~Scene is clear, awaiting your next call.",
+                "~b~Dispatch: ~w~Officer, you are required to return to patrol.",
+                "~b~Dispatch: ~w~Code 4, All units back on patrol."
             };
 
         // Initialise Dispatch Arrive for .StolenEmergencyVehicle2. Callout based on activateAIBackup
         SEV2DispatchArrive = activateAIBackup ?
             new string[]
             {
-                "AIMessage1",
-                "AIMessage2",
-                "AIMessage3",
+                "All units on scene, primary unit is now on scene!",
+                "Stop the pursuit without casualties! You are now the primary unit!",
+                "Catch up to the pursuit and apprehend the suspect.",
                 "AIMessage4",
                 "AIMessage5",
                 "AIMessage6"
@@ -363,21 +376,21 @@ internal class Arrays
         SEV2DispatchCode4 = activateAIBackup ?
             new string[]
             {
-                "AIMessage1",
-                "AIMessage2",
-                "AIMessage3",
-                "AIMessage4",
-                "AIMessage5",
-                "AIMessage6"
+                "~b~Dispatch: ~w~All units, be advised, scene is code 4. No additional units required!",
+                "~b~Dispatch: ~w~We are showing all units back on patrol.",
+                "~b~Dispatch: ~w~Officer, you may all return to patrol.",
+                "~b~Dispatch: ~w~Thank you officer, all units back available.",
+                "~b~Dispatch: ~w~All units, code 4. Officer, you are welcome to stay although you should return to patrol.",
+                "~b~Dispatch: ~w~10-4, Showing you all available."
             } :
             new string[]
             {
-                "Message1",
-                "Message2",
-                "Message3",
-                "Message4",
-                "Message5",
-                "Message6"
+                "~b~Dispatch: ~w~Showing you code 4 on scene",
+                "~b~Dispatch: ~w~You may stay on scene officer though you should return to patrol.",
+                "~b~Dispatch: ~w~Copy that, showing you back on patrol.",
+                "~b~Dispatch: ~w~Scene is clear, awaiting your next call.",
+                "~b~Dispatch: ~w~Officer, you are required to return to patrol.",
+                "~b~Dispatch: ~w~Code 4, All units back on patrol."
             };
 
         // Initialise Dispatch Arrive for .WelfareCheck. Callout based on activateAIBackup

@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 28th Feb 2024
-// Version: 0.4.8.7
+// Version: 0.4.8.8
 
 #region
 
@@ -80,11 +80,12 @@ public class SWLPersonWithAKnife : Callout
         }
         if (_suspect && _suspect.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 18f && !_hasBegunAttacking)
         {
-            if (_scenario > 40)
+            if (_scenario > 50)
             {
                 _suspect.KeepTasks = true;
                 _suspect.Tasks.FightAgainst(GPlayer);
                 _hasBegunAttacking = true;
+                Speech(PWAKSuspectSpeech.PickRandom(), 4000);
                 switch (new Random().Next(1, 3))
                 {
                     case 1:

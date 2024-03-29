@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 4th Mar 2024
-// Version: 0.4.8.7
+// Version: 0.4.8.8
 
 #region
 
@@ -80,6 +80,10 @@ class SWLStolenEmergencyVehicle2 : Callout
 
     public override void Process()
     {
+        if (_suspect.DistanceTo(GPlayer) < 80f)
+        {
+            NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", WCDispatchArrive.PickRandom());
+        }
         if (GPlayer.IsDead) End();
         if (Game.IsKeyDown(Settings.EndCall)) End();
         if (_suspect && _suspect.IsDead) End();

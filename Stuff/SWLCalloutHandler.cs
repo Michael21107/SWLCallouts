@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.7
+// Version: 0.4.8.8
 
 #region
 
@@ -19,7 +19,7 @@ internal class SWLCalloutHandler
         Print("======================================== Start of callout loading for SWLCallouts ========================================");
         if (Settings.SWLCyclistOnTheMotorway) { Functions.RegisterCallout(typeof(SWLCyclistOnTheMotorway)); }
         if (Settings.SWLHighSpeedChase) { Functions.RegisterCallout(typeof(SWLHighSpeedChase)); }
-        //if (Settings.MurderInvestigation) { Functions.RegisterCallout(typeof(SWLMurderInvestigation)); }
+        if (Settings.SWLMurderInvestigation) { Functions.RegisterCallout(typeof(SWLMurderInvestigation)); }
         if (Settings.SWLPersonWithAKnife) { Functions.RegisterCallout(typeof(SWLPersonWithAKnife)); }
         if (Settings.SWLShotsFired) { Functions.RegisterCallout(typeof(SWLShotsFired)); }
         if (Settings.SWLStolenEmergencyVehicle) { Functions.RegisterCallout(typeof(SWLStolenEmergencyVehicle)); }
@@ -29,7 +29,7 @@ internal class SWLCalloutHandler
         Print("========================================= End of callout loading for SWLCallouts =========================================");
     }
 
-    internal static void DeregisterCallouts() // Unregister callouts due to unload/crash //
+    internal static void EndCallouts() // End all callouts due to unload/crash //
     {
         GameFiber.Sleep(200);
         Functions.StopCurrentCallout();
