@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.9.0
+// Version: 0.5.0.1
 
 #region
 
@@ -220,7 +220,7 @@ public class SWLWelfareCheck : Callout
     {
         if (_spawnPoint.DistanceTo(GPlayer) < 50f)
         {
-            if (_suspect != null)
+            if (_suspect.Exists())
             {
                 if (_scene1 == true && _suspect.DistanceTo(GPlayer) < 50f && !_notificationDisplayed && !_getAmbulance)
                 {

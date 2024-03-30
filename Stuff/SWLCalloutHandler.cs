@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.9.0
+// Version: 0.5.0.1
 
 #region
 
@@ -41,21 +41,21 @@ internal class SWLCalloutHandler
         Normal("Stopping all callouts and deleting blips/peds");
         Print("==================================== Stopping SWLCallouts ====================================");
         Print("");
-        new SWLCyclistOnTheMotorway().End();
+        //new SWLCyclistOnTheMotorway().End();
         Normal("CyclistOnTheMotorway Callout Entities Removed.");
-        new SWLHighSpeedChase().End();
+        //new SWLHighSpeedChase().End();
         Normal("HighSpeedChase Callout Entities Removed.");
-        new SWLMurderInvestigation().End();
+        //new SWLMurderInvestigation().End();
         Normal("MurderInvestigation Callout Entities Removed.");
-        new SWLPersonWithAKnife().End();
+        //new SWLPersonWithAKnife().End();
         Normal("PersonWithAKnife Callout Entities Removed.");
-        new SWLShotsFired().End();
+        //new SWLShotsFired().End();
         Normal("ShotsFired Callout Entities Removed.");
-        new SWLStolenEmergencyVehicle().End();
+        //new SWLStolenEmergencyVehicle().End();
         Normal("StolenEmergencyVehicle Callout Entities Removed.");
-        new SWLStolenEmergencyVehicle2().End();
+        //new SWLStolenEmergencyVehicle2().End();
         Normal("StolenEmergencyVehicle2 Callout Entities Removed.");
-        new SWLWelfareCheck().End();
+        //new SWLWelfareCheck().End();
         Normal("WelfareCheck Callout Entities Removed.");
         Print("");
         Normal("All SWL Callouts was stopped and all blips/peds removed.");

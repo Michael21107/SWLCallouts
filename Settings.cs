@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.9.0
+// Version: 0.5.0.1
 
 #region
 
@@ -102,7 +102,7 @@ internal static class Settings
         Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
         Settings($"Dialog = {Dialog}");
     }
-    public static readonly string PluginVersion = "0.4.9.0";
+    public static readonly string PluginVersion = "0.5.0.1";
     public static readonly string VersionType = "Public";
 
     private static void WriteDefaultSettings(string filePath)
