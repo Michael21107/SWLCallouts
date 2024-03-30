@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.9
+// Version: 0.4.9.0
 
 #region
 
@@ -19,7 +19,7 @@ internal static class Settings
     // Callouts below //
     internal static bool SWLCyclistOnTheMotorway = true;
     internal static bool SWLHighSpeedChase = true;
-    internal static bool SWLMurderInvestigation = false;
+    internal static bool SWLMurderInvestigation = true;
     internal static bool SWLPersonWithAKnife = true;
     internal static bool SWLShotsFired = true;
     internal static bool SWLStolenEmergencyVehicle = true;
@@ -102,7 +102,7 @@ internal static class Settings
         Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
         Settings($"Dialog = {Dialog}");
     }
-    public static readonly string PluginVersion = "0.4.8.9";
+    public static readonly string PluginVersion = "0.4.9.0";
     public static readonly string VersionType = "Public";
 
     private static void WriteDefaultSettings(string filePath)

@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.9
+// Version: 0.4.9.0
 
 #region
 using LSPD_First_Response.Engine.Scripting.Entities;
@@ -208,7 +208,7 @@ internal class SWLMurderInvestigation : Callout
         if (_coronerVeh) _coronerVeh.Delete();
         if (SpawnLocationBlip) SpawnLocationBlip.Delete();
         if (MurderLocationBlip) MurderLocationBlip.Delete();
-        Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
+        Functions.PlayScannerAudio(AIOfficerEnroute.PickRandom());
         Normal("MurderInvestigation callout entities removed.");
         base.OnCalloutNotAccepted();
     }
@@ -331,17 +331,15 @@ internal class SWLMurderInvestigation : Callout
             }
             Normal("Storyline Completed");
         }
-        if (Game.IsKeyDown(Settings.EndCall)) End();
-        if (GPlayer.IsDead) End();
-        if (_murderer && _murderer.IsDead) End();
-        if (_murderer && Functions.IsPedArrested(_murderer)) End();
+        if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
+        if (_murderer.Exists() && (Functions.IsPedArrested(_murderer) || _murderer.IsDead)) End();
 
         base.Process();
     }
 
     public override void End()
     {
-        Normal("Cleaning up call...");
+        Normal("Called ended, cleaning up call...");
         if (_cop1) _cop1.Dismiss();
         if (_cop2) _cop2.Dismiss();
         if (_coroner1) _coroner1.Dismiss();
@@ -353,7 +351,7 @@ internal class SWLMurderInvestigation : Callout
         if (_coronerVeh) _coronerVeh.Dismiss();
         if (SpawnLocationBlip) SpawnLocationBlip.Delete();
         if (MurderLocationBlip) MurderLocationBlip.Delete();
-        Game.DisplayNotification("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Murder Investigation", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~Murder Investigation", MIDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
         Normal("Call cleared.");
         base.End();

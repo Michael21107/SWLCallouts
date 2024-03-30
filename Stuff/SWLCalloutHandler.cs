@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.9
+// Version: 0.4.9.0
 
 #region
 
@@ -31,7 +31,6 @@ internal class SWLCalloutHandler
 
     internal static void EndCallouts() // End all callouts due to unload/crash //
     {
-        GameFiber.Sleep(200);
         bool isCalloutRunning = Functions.IsCalloutRunning();
         if (isCalloutRunning)
         {
@@ -62,7 +61,6 @@ internal class SWLCalloutHandler
         Normal("All SWL Callouts was stopped and all blips/peds removed.");
         Print("[LOG]: All callouts for SWLCallouts were unloaded successfully.");
         Print("");
-        GameFiber.Sleep(200);
         bool isCalloutRunning2 = Functions.IsCalloutRunning();
         if (isCalloutRunning2)
         {

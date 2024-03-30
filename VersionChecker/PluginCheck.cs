@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.9
+// Version: 0.4.9.0
 
 #region
 
@@ -24,6 +24,15 @@ public class PluginCheck
         Normal("Checking installed version type");
         string versionType = Settings.VersionType;
         string curType = (versionType == "Alpha" || versionType == "Beta" || versionType == "alpha" || versionType == "beta") ? "Unstable" : "Stable";
+
+        if (curType == "Stable")
+        {
+            Normal("Stable Version Detected.");
+        }
+        else if (curType == "Unstable")
+        {
+            Normal("UNSTABLE VERSION DETECTED.");
+        }
 
         // Below is the version checker against the github releases //
         Normal("Checking installed version");
@@ -53,19 +62,22 @@ public class PluginCheck
                     
                 if (latestPubVersion == curVersion)
                 {
+                    Normal("Playing on latest public build.");
                     NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~g~Latest ~w~Build", $"{Arrays.PluginLoadText.PickRandom()}");
                     return false;
                 }
                 else if (String.Compare(curVersion, latestPubVersion) > 0)
                 {
+                    Log("[ERROR]: Current version is greater than public released version.");
                     // Display a message thanking the user for helping with testing
                     NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", $"{Arrays.PluginLoadTestingSubtitle.PickRandom()}", "~r~[ERROR] ~w~Version Type issue!<br>~w~Please update this plugin ~r~ASAP~w~!<br>~y~Public release version detected!");
                     GameFiber.Sleep(5000);
-                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~o~Unstable Build", "This must be a mistake, please check as you are on a ~p~future ~y~test build ~w~as you may notice ~o~bugs ~w~while playing this unstable build version.");
+                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~o~Unstable Build", "This must be a mistake, please check, as you are on a ~p~future ~y~test build ~w~and may notice ~o~bugs ~w~while playing this version.");
                     return false;
                 }
                 else
                 {
+                    Normal("New update available. Please update ASAP!");
                     NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts ~y~Warning", "~y~A new Update is available!", $"Current Version: ~r~{curVersion}~w~<br>New Version: ~o~{latestPubVersion}~w~<br>Please ~b~update ~w~to the latest build ~r~ASAP!");
 
                     Print("================================================== SWLCallouts ===================================================");
@@ -96,6 +108,7 @@ public class PluginCheck
 
                         if (latestTestVersion == curVersion && String.Compare(curVersion, latestPubVersion) < 0)
                         {
+                            Normal("New public update is available. Please update ASAP!");
                             NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts ~y~Warning", "~y~A new Update is available!", $"Current Version: ~r~{curVersion}~w~<br>New Version: ~o~{latestPubVersion}~w~<br>Current Type: ~b~{curType}~w~<br>~r~Please update to the latest Public build from LSPDFR!");
 
                             Print("================================================== SWLCallouts ===================================================");
@@ -107,6 +120,7 @@ public class PluginCheck
                         }
                         else if (latestTestVersion == curVersion)
                         {
+                            Normal("Playing on latest Test build.");
                             // Display a message thanking the user for helping with testing
                             NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", $"{Arrays.PluginLoadTestingSubtitle.PickRandom()}", $"{Arrays.PluginLoadTestingText.PickRandom()}");
                             GameFiber.Sleep(5000);
@@ -115,6 +129,7 @@ public class PluginCheck
                         }
                         else if (String.Compare(curVersion, latestTestVersion) > 0)
                         {
+                            Log("Current version is greater than current Test released version.");
                             // Display a message thanking the user for helping with testing
                             NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", $"{Arrays.PluginLoadTestingSubtitle.PickRandom()}", $"{Arrays.PluginLoadTestingText.PickRandom()}");
                             GameFiber.Sleep(5000);
@@ -123,6 +138,7 @@ public class PluginCheck
                         }
                         else
                         {
+                            Normal("New testing update is available. Please update ASAP!");
                             NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts ~y~Warning", "~y~A new Update is available!", $"Current Version: ~r~{curVersion}~w~<br>New Version: ~o~{latestTestVersion}~w~<br>Current Type: ~b~{curType}~w~<br>~r~Please update to the latest Testing build from Github!");
 
                             Print("================================================== SWLCallouts ===================================================");

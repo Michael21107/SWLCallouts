@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.4.8.9
+// Version: 0.4.9.0
 
 #region
 
@@ -106,7 +106,7 @@ public class SWLCyclistOnTheMotorway : Callout
         if (_suspect) _suspect.Delete();
         if (_bike) _bike.Delete();
         if (_blip) _blip.Delete();
-        Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
+        Functions.PlayScannerAudio(AIOfficerEnroute.PickRandom());
         Normal("CyclistOnTheMotorway callout entities removed.");
         base.OnCalloutNotAccepted();
     }
@@ -140,15 +140,18 @@ public class SWLCyclistOnTheMotorway : Callout
         {
             Game.DisplaySubtitle("~y~Suspect: ~w~Please let me go! I'll bring the bike back.", 4000);
         }
+        if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
+        if (_suspect.Exists() && (Functions.IsPedArrested(_suspect) || _suspect.IsDead)) End();
         base.Process();
     }
 
     public override void End()
     {
+        Normal("Called ended, cleaning up call...");
         if (_suspect) _suspect.Dismiss();
         if (_bike) _bike.Dismiss();
         if (_blip) _blip.Delete();
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Bicycle on the Freeway", "~b~You: ~w~Dispatch we're code 4. Show me ~g~10-8.");
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~Cyclist On The Motorway", COTMDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
         base.End();
     }

@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 2nd Mar 2024
-// Version: 0.4.8.9
+// Version: 0.4.9.0
 
 #region
 
@@ -231,13 +231,14 @@ public class SWLShotsFired : Callout
     public override void OnCalloutNotAccepted()
     {
         Normal("ShotsFired callout NOT accepted.");
-        if (_blip.Exists()) _blip.Delete();
-        if (_suspect1.Exists()) _suspect1.Dismiss();
+        if (_blip) _blip.Delete();
+        if (_suspect1) _suspect1.Dismiss();
         if (_suspect2.Exists()) _suspect2.Dismiss();
-        if (_ped1.Exists()) _ped1.Dismiss();
-        if (_ped2.Exists()) _ped2.Dismiss();
-        if (_ped3.Exists()) _ped3.Dismiss();
-        Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
+        if (_ped1) _ped1.Dismiss();
+        if (_ped2) _ped2.Dismiss();
+        if (_ped3) _ped3.Dismiss();
+        Functions.RequestBackup(_spawnPoint, LSPD_First_Response.EBackupResponseType.Code3, LSPD_First_Response.EBackupUnitType.LocalUnit);
+        Functions.PlayScannerAudio(AIOfficerEnroute.PickRandom());
         Normal("ShotFired callout entities removed.");
         base.OnCalloutNotAccepted();
     }
@@ -246,13 +247,13 @@ public class SWLShotsFired : Callout
     {
         if (_suspect1 != null && (_suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f) && !_isArmed)
         {
-            Normal("Given suspect1 a weapon");
+            Normal("Giving suspect1 a weapon...");
             _suspect1.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
             _isArmed = true;
         }
         if (_suspect2 != null && (_suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 70f) && !_isArmed)
         {
-            Normal("Given suspect2 a weapon");
+            Normal("Giving suspect2 a weapon...");
             _suspect2.Inventory.GiveNewWeapon(WeaponList.PickRandom(), 500, true);
             _isArmed = true;
         }
@@ -338,10 +339,9 @@ public class SWLShotsFired : Callout
             }
             
         }
-
         if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
-        if (_suspect1.Exists() && (_suspect1.IsDead) || Functions.IsPedArrested(_suspect1)) End();
-        if (_suspect2.Exists() && (_suspect2.IsDead) || Functions.IsPedArrested(_suspect2)) End();
+        if (_suspect2.Exists() && _suspect1.Exists() && ((_suspect1.IsDead || Functions.IsPedArrested(_suspect1)) && (_suspect2.IsDead || Functions.IsPedArrested(_suspect2)))) End();
+        if (!(_suspect2 != null) && _suspect1.Exists() && (_suspect1.IsDead || Functions.IsPedArrested(_suspect1))) End();
 
         base.Process();
     }
@@ -355,7 +355,7 @@ public class SWLShotsFired : Callout
         if (_ped2) _ped2.Dismiss();
         if (_ped3) _ped3.Dismiss();
         if (_blip) _blip.Delete();
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Reports of Shots Fired", SFDispatchCode4.PickRandom());
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~Reports of Shots Fired", SFDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
         Normal("ShotsFired call cleaned up.");

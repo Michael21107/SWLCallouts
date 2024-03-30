@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.4.8.9
+// Version: 0.4.9.0
 
 #region
 
@@ -211,7 +211,7 @@ public class SWLWelfareCheck : Callout
         Normal("WelfareCheck callout NOT accepted.");
         if (_suspect) _suspect.Delete();
         if (_blip) _blip.Delete();
-        Functions.PlayScannerAudio(CalloutNoAnswer.PickRandom());
+        Functions.PlayScannerAudio(AIOfficerEnroute.PickRandom());
         Normal("WelfareCheck callout entities removed.");
         base.OnCalloutNotAccepted();
     }
@@ -516,19 +516,20 @@ public class SWLWelfareCheck : Callout
                 }
             }
         }
-        
+
         if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
-    
+        if (_suspect.Exists() && (Functions.IsPedArrested(_suspect) || _suspect.IsDead)) End();
+
         base.Process();
     }
 
     public override void End()
     {
         Normal("Called ended, cleaning up call...");
-        _suspect.Dismiss();
-        _blip.Delete();
+        if (_suspect) _suspect.Dismiss();
+        if (_blip) _blip.Delete();
         Normal("Showing code4 message and playing audio...");
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~DISPATCH", "[SWL] ~y~Welfare Check", WCDispatchCode4.PickRandom());
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~Welfare Check", WCDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
         Normal("WelfareCheck call cleaned up.");
