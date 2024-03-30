@@ -525,7 +525,7 @@ public class SWLWelfareCheck : Callout
 
     public override void End()
     {
-        Normal("Called ended, cleaning up call...");
+        Normal("Call ended, cleaning up call...");
         if (_suspect) _suspect.Dismiss();
         if (_blip) _blip.Delete();
         Normal("Showing code4 message and playing audio...");

@@ -165,7 +165,7 @@ public class SWLPersonWithAKnife : Callout
 
     public override void End()
     {
-        Normal("Called ended, cleaning up call...");
+        Normal("Call ended, cleaning up call...");
         if (_suspect) _suspect.Dismiss();
         if (_blip) _blip.Delete();
         NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~Person With A Knife", PWAKDispatchCode4.PickRandom());

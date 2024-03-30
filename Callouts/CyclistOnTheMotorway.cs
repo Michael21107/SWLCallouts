@@ -147,7 +147,7 @@ public class SWLCyclistOnTheMotorway : Callout
 
     public override void End()
     {
-        Normal("Called ended, cleaning up call...");
+        Normal("Call ended, cleaning up call...");
         if (_suspect) _suspect.Dismiss();
         if (_bike) _bike.Dismiss();
         if (_blip) _blip.Delete();

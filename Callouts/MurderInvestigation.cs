@@ -339,7 +339,7 @@ internal class SWLMurderInvestigation : Callout
 
     public override void End()
     {
-        Normal("Called ended, cleaning up call...");
+        Normal("Call ended, cleaning up call...");
         if (_cop1) _cop1.Dismiss();
         if (_cop2) _cop2.Dismiss();
         if (_coroner1) _coroner1.Dismiss();

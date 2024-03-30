@@ -97,7 +97,7 @@ public class SWLHighSpeedChase : Callout
 
     public override void End()
     {
-        Normal("Called ended, cleaning up call...");
+        Normal("Call ended, cleaning up call...");
         if (_suspectBlip && _suspectBlip.Exists()) _suspectBlip.Delete();
         NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~High Speed Chase", HSCDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
