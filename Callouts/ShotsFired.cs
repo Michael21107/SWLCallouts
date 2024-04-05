@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 2nd Mar 2024
-// Version: 0.5.0.1
+// Version: 0.5.0.2
 
 #region
 
@@ -72,7 +72,7 @@ public class SWLShotsFired : Callout
         _scenario = new Random().Next(0, 100);
         ShowCalloutAreaBlipBeforeAccepting(_spawnPoint, 100f);
         Normal("Setting callout message and location...");
-        CalloutMessage = "[SWL]~w~ Reports of Shots Fired.";
+        CalloutMessage = "~w~Reports of Shots Fired.";
         CalloutPosition = _spawnPoint;
         Normal("Message and Position set.");
         Normal("Choosing callout audio...");
@@ -259,7 +259,7 @@ public class SWLShotsFired : Callout
         }
         if ((_suspect1 != null && _suspect1.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) || (_suspect2 != null && _suspect2.DistanceTo(GPlayer.GetOffsetPosition(Vector3.RelativeFront)) < 40f) && !_hasBegunAttacking)
         {
-            NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", SFDispatchArrive.PickRandom());
+            NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~b~Dispatch", SFDispatchArrive.PickRandom());
             if (_scenario > 40)
             {
                 Normal("Arriving on scene..");
@@ -355,7 +355,7 @@ public class SWLShotsFired : Callout
         if (_ped2) _ped2.Dismiss();
         if (_ped3) _ped3.Dismiss();
         if (_blip) _blip.Delete();
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~Reports of Shots Fired", SFDispatchCode4.PickRandom());
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~y~Reports of Shots Fired", SFDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
         Normal("ShotsFired call cleaned up.");

@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 10th Mar 2024
-// Version: 0.5.0.1
+// Version: 0.5.0.2
 
 #region
 

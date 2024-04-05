@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.5.0.1
+// Version: 0.5.0.2
 
 #region
 
@@ -125,50 +125,50 @@ public class SWLWelfareCheck : Callout
         switch (Rndm.Next(1, 9))
         {
             case 1:
-                CalloutMessage = "[SWL]~w~ Welfare Check";
+                CalloutMessage = "~w~Welfare Check";
                 _callOutMessage = 1;
                 Normal("Loading callout dialog no.1...");
                 break;
             case 2:
-                CalloutMessage = "[SWL]~w~ Welfare Check";
+                CalloutMessage = "~w~Welfare Check";
                 _callOutMessage = 2;
                 Normal("Loading callout dialog no.2...");
                 break;
             case 3:
-                CalloutMessage = "[SWL]~w~ Welfare Check";
+                CalloutMessage = "~w~Welfare Check";
                 _callOutMessage = 3;
                 Normal("Loading callout dialog no.3...");
                 break;
             case 4:
-                CalloutMessage = "[SWL]~w~ Welfare Check";
+                CalloutMessage = "~w~Welfare Check";
                 _suspect.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
                 _suspect.IsPersistent = true;
                 _callOutMessage = 4;
                 Normal("Loading callout dialog no.4...");
                 break;
             case 5:
-                CalloutMessage = "[SWL]~w~ Welfare Check";
+                CalloutMessage = "~w~Welfare Check";
                 _suspect.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
                 _suspect.IsPersistent = true;
                 _callOutMessage = 5;
                 Normal("Loading callout dialog no.5...");
                 break;
             case 6:
-                CalloutMessage = "[SWL]~w~ Welfare Check";
+                CalloutMessage = "~w~Welfare Check";
                 _suspect.Inventory.GiveNewWeapon("WEAPON_PISTOL", 500, true);
                 _suspect.IsPersistent = true;
                 _callOutMessage = 6;
                 Normal("Loading callout dialog no.6...");
                 break;
             case 7:
-                CalloutMessage = "[SWL]~w~ Welfare Check";
+                CalloutMessage = "~w~Welfare Check";
                 _suspect.Inventory.GiveNewWeapon("WEAPON_KNIFE", 500, true);
                 _suspect.IsPersistent = true;
                 _callOutMessage = 7;
                 Normal("Loading callout dialog no.7...");
                 break;
             case 8:
-                CalloutMessage = "[SWL]~w~ Welfare Check";
+                CalloutMessage = "~w~Welfare Check";
                 _suspect.Inventory.GiveNewWeapon(PisleeWeapons.PickRandom(), 500, true);
                 _suspect.IsPersistent = true;
                 _callOutMessage = 8;
@@ -186,7 +186,7 @@ public class SWLWelfareCheck : Callout
     public override bool OnCalloutAccepted()
     {
         Normal("SWLCallouts Log: Welfare Check callout accepted.");
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "[SWL] ~y~Welfare Check", "~b~Dispatch:~w~ Someone called the police for a welfare check. Search the ~y~yellow area~w~ for the person. Respond ~y~Code 2");
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Welfare Check", "~b~Dispatch:~w~ Someone called the police for a welfare check. Search the ~y~yellow area~w~ for the person. Respond ~y~Code 2");
         Normal("Respond code 2 audio...");
         Functions.PlayScannerAudio("CODE2");
         Normal("Loading welfare check subject ID...");
@@ -233,7 +233,7 @@ public class SWLWelfareCheck : Callout
                     if (Settings.ActivateAIBackup)
                     {
                         Normal("Showing officer on scene with AI backup enroute...");
-                        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", WCDispatchArriveS1.PickRandom());
+                        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~b~Dispatch", WCDispatchArriveS1.PickRandom());
                         _notificationDisplayed = true;
                         GameFiber.Sleep(1000);
                         Normal("Sending ambulance backup, playing audio...");
@@ -245,7 +245,7 @@ public class SWLWelfareCheck : Callout
                     {
                         Normal("Showing officer on scene, NO AI backup sent.");
                         Settings.ActivateAIBackup = false;
-                        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", WCDispatchArriveS1.PickRandom());
+                        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~b~Dispatch", WCDispatchArriveS1.PickRandom());
                         _notificationDisplayed = true;
                         GameFiber.Sleep(1000);
                         Normal("Playing officer on scene audio...");
@@ -256,7 +256,7 @@ public class SWLWelfareCheck : Callout
                 {
                     Normal("Scene 2 loaded.");
                     Normal("Showing officer on scene.");
-                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", WCDispatchArriveS2.PickRandom());
+                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~b~Dispatch", WCDispatchArriveS2.PickRandom());
                     _notificationDisplayed = true;
                     Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH OFFICERS_ARRIVED_ON_SCENE");
                     Normal("Officer investigating area.");
@@ -265,7 +265,7 @@ public class SWLWelfareCheck : Callout
                 {
                     Normal("Scene 3 loaded.");
                     Normal("Showing officer on scene.");
-                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", WCDispatchArriveS3.PickRandom());
+                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~b~Dispatch", WCDispatchArriveS3.PickRandom());
                     Speech("Press ~y~" + Settings.Dialog + " ~w~to speak with the civilian.", 5000);
                     if (Settings.HelpMessages)
                     {
@@ -529,7 +529,7 @@ public class SWLWelfareCheck : Callout
         if (_suspect) _suspect.Dismiss();
         if (_blip) _blip.Delete();
         Normal("Showing code4 message and playing audio...");
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~Welfare Check", WCDispatchCode4.PickRandom());
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~y~Welfare Check", WCDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
         Normal("WelfareCheck call cleaned up.");

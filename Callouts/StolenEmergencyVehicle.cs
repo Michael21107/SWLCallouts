@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 4th Mar 2024
-// Version: 0.5.0.1
+// Version: 0.5.0.2
 
 #region
 
@@ -25,7 +25,7 @@ class SWLStolenEmergencyVehicle : Callout
         Normal("Displaying callout blip...");
         ShowCalloutAreaBlipBeforeAccepting(_spawnPoint, 15f);
         Normal("Displaying callout message...");
-        CalloutMessage = "[SWL]~w~ Reports of a Stolen Emergency Vehicle.";
+        CalloutMessage = "~w~Reports of a Stolen Emergency Vehicle.";
         CalloutPosition = _spawnPoint;
         Normal("Playing callout audio..");
         Functions.PlayScannerAudioUsingPosition("CRIME_OFFICER_IN_NEED_OF_ASSISTANCE_01 FOR CRIME_STOLEN_VEHICLE", _spawnPoint);
@@ -46,7 +46,7 @@ class SWLStolenEmergencyVehicle : Callout
             IsSirenOn = true
         };
         Normal("Loading vehicle record...");
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", "Loading ~g~Information~w~ of the ~y~LSPD Database~w~...");
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~b~Dispatch", "Loading ~g~Information~w~ of the ~y~LSPD Database~w~...");
         Functions.DisplayVehicleRecord(_emergencyVehicle, true);
         Normal("Displaying vehicle record.");
 
@@ -86,7 +86,7 @@ class SWLStolenEmergencyVehicle : Callout
         }
         GameFiber.Sleep(2000);
         Normal("Showing officer responding/on scene.");
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", SEV1DispatchArrive.PickRandom());
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~b~Dispatch", SEV1DispatchArrive.PickRandom());
         return base.OnCalloutAccepted();
     }
 
@@ -114,7 +114,7 @@ class SWLStolenEmergencyVehicle : Callout
         if (_blip) _blip.Delete();
         if (_emergencyVehicle) _emergencyVehicle.Dismiss();
         if (_suspect) _suspect.Dismiss();
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~Stolen Emergency Vehicle", SEV1DispatchCode4.PickRandom());
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~y~Stolen Emergency Vehicle", SEV1DispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
         base.End();
     }

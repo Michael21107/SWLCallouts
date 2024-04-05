@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.5.0.1
+// Version: 0.5.0.2
 
 #region
 
@@ -76,7 +76,7 @@ public class SWLCyclistOnTheMotorway : Callout
             case 2:
                 break;
         }
-        CalloutMessage = "[SWL]~w~ Reports of a Cyclist on the Motorway";
+        CalloutMessage = "~w~Reports of a Cyclist on the Motorway";
         CalloutPosition = _spawnPoint;
         Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS SUSPICIOUS_PERSON IN_OR_ON_POSITION", _spawnPoint);
         return base.OnBeforeCalloutDisplayed();
@@ -151,7 +151,7 @@ public class SWLCyclistOnTheMotorway : Callout
         if (_suspect) _suspect.Dismiss();
         if (_bike) _bike.Dismiss();
         if (_blip) _blip.Delete();
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~Cyclist On The Motorway", COTMDispatchCode4.PickRandom());
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~y~Cyclist On The Motorway", COTMDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
         base.End();
     }

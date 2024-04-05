@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 28th Feb 2024
-// Version: 0.5.0.1
+// Version: 0.5.0.2
 
 #region
 
@@ -34,7 +34,7 @@ public class SWLPersonWithAKnife : Callout
         ShowCalloutAreaBlipBeforeAccepting(_spawnPoint, 100f);
         Normal("Blip loaded.");
         Normal("Displaying callout message...");
-        CalloutMessage = "[SWL]~w~ Reports of a Person With a Knife.";
+        CalloutMessage = "~w~Reports of a Person With a Knife.";
         CalloutPosition = _spawnPoint;
         Normal("Play scanner audio...");
         Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS ASSAULT_WITH_AN_DEADLY_WEAPON CIV_ASSISTANCE IN_OR_ON_POSITION", _spawnPoint);
@@ -168,7 +168,7 @@ public class SWLPersonWithAKnife : Callout
         Normal("Call ended, cleaning up call...");
         if (_suspect) _suspect.Dismiss();
         if (_blip) _blip.Delete();
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~Person With A Knife", PWAKDispatchCode4.PickRandom());
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~y~Person With A Knife", PWAKDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
         Normal("PersonWithAKnife cleanup.");

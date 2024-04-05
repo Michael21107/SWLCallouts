@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.5.0.1
+// Version: 0.5.0.2
 
 #region
 using LSPD_First_Response.Engine.Scripting.Entities;
@@ -167,11 +167,11 @@ internal class SWLMurderInvestigation : Callout
         switch (new Random().Next(1, 2))
         {
             case 1:
-                CalloutMessage = "[SWL]~w~ Dead Body Located, ~y~detective~w~ required.";
+                CalloutMessage = "~w~Dead Body Located, ~y~detective~w~ required.";
                 _callOutMessage = 1;
                 break;
             case 2:
-                CalloutMessage = "[SWL]~w~ Dead Body Located, ~y~detective~w~ required.";
+                CalloutMessage = "~w~Dead Body Located, ~y~detective~w~ required.";
                 _callOutMessage = 2;
                 break;
         }
@@ -351,7 +351,7 @@ internal class SWLMurderInvestigation : Callout
         if (_coronerVeh) _coronerVeh.Dismiss();
         if (SpawnLocationBlip) SpawnLocationBlip.Delete();
         if (MurderLocationBlip) MurderLocationBlip.Delete();
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~Murder Investigation", MIDispatchCode4.PickRandom());
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~y~Murder Investigation", MIDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
         Normal("Call cleared.");
         base.End();

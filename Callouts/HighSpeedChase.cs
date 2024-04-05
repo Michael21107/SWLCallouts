@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.5.0.1
+// Version: 0.5.0.2
 
 #region
 
@@ -25,7 +25,7 @@ public class SWLHighSpeedChase : Callout
     {
         _spawnPoint = World.GetNextPositionOnStreet(GPlayer.Position.Around(1000f));
         ShowCalloutAreaBlipBeforeAccepting(_spawnPoint, 50f);
-        CalloutMessage = "[SWL]~w~ High Speed Chase in progress";
+        CalloutMessage = "~w~High Speed Chase in progress";
         CalloutPosition = _spawnPoint;
         Functions.PlayScannerAudioUsingPosition("WE_HAVE CRIME_GRAND_THEFT_AUTO IN_OR_ON_POSITION", _spawnPoint);
         Normal("HighSpeedChase callout offered.");
@@ -72,7 +72,7 @@ public class SWLHighSpeedChase : Callout
         if (!_pursuitCreated && GPlayer.DistanceTo(_suspectVehicle) <= 30f)
         {
             Normal("Showing officer in pursuit.");
-            NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Dispatch", HSCDispatchArrive.PickRandom());
+            NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~b~Dispatch", HSCDispatchArrive.PickRandom());
             Normal("Creating pursuit...");
             _pursuit = Functions.CreatePursuit();
             Functions.AddPedToPursuit(_pursuit, _suspect);
@@ -99,7 +99,7 @@ public class SWLHighSpeedChase : Callout
     {
         Normal("Call ended, cleaning up call...");
         if (_suspectBlip && _suspectBlip.Exists()) _suspectBlip.Delete();
-        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~w~[SWL] ~y~High Speed Chase", HSCDispatchCode4.PickRandom());
+        NotifyP("3dtextures", "mpgroundlogo_cops", "~b~DISPATCH", "~y~High Speed Chase", HSCDispatchCode4.PickRandom());
         Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH ALL_UNITS_CODE4 NO_FURTHER_UNITS_REQUIRED");
 
         Normal("HighSpeedChase cleanup.");
