@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.5.0.2
+// Version: 0.5.0.5
 
 #region
 
@@ -91,7 +91,7 @@ public class SWLHighSpeedChase : Callout
             _pursuitCreated = true;
         }
         if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
-        if (_suspect.Exists() && (Functions.IsPedArrested(_suspect) || _suspect.IsDead)) End();
+        //if (_suspect.Exists() && (Functions.IsPedArrested(_suspect) || _suspect.IsDead)) End();
         base.Process();
     }
 

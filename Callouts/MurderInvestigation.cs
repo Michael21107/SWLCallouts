@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.5.0.2
+// Version: 0.5.0.5
 
 #region
 using LSPD_First_Response.Engine.Scripting.Entities;
@@ -332,7 +332,7 @@ internal class SWLMurderInvestigation : Callout
             Normal("Storyline Completed");
         }
         if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
-        if (_murderer.Exists() && (Functions.IsPedArrested(_murderer) || _murderer.IsDead)) End();
+        //if (_murderer.Exists() && (Functions.IsPedArrested(_murderer) || _murderer.IsDead)) End();
 
         base.Process();
     }

@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.5.0.2
+// Version: 0.5.0.5
 
 #region
 
@@ -40,35 +40,32 @@ internal class SWLCalloutHandler
         else { Normal("No active callouts."); }
         Normal("Stopping all callouts and deleting blips/peds");
         Print("==================================== Stopping SWLCallouts ====================================");
-        Print("");
         //new SWLCyclistOnTheMotorway().End();
-        Normal("CyclistOnTheMotorway Callout Entities Removed.");
+        //Normal("CyclistOnTheMotorway Callout Entities Removed.");
         //new SWLHighSpeedChase().End();
-        Normal("HighSpeedChase Callout Entities Removed.");
+        //Normal("HighSpeedChase Callout Entities Removed.");
         //new SWLMurderInvestigation().End();
-        Normal("MurderInvestigation Callout Entities Removed.");
+        //Normal("MurderInvestigation Callout Entities Removed.");
         //new SWLPersonWithAKnife().End();
-        Normal("PersonWithAKnife Callout Entities Removed.");
+        //Normal("PersonWithAKnife Callout Entities Removed.");
         //new SWLShotsFired().End();
-        Normal("ShotsFired Callout Entities Removed.");
+        //Normal("ShotsFired Callout Entities Removed.");
         //new SWLStolenEmergencyVehicle().End();
-        Normal("StolenEmergencyVehicle Callout Entities Removed.");
+        //Normal("StolenEmergencyVehicle Callout Entities Removed.");
         //new SWLStolenEmergencyVehicle2().End();
-        Normal("StolenEmergencyVehicle2 Callout Entities Removed.");
+        //Normal("StolenEmergencyVehicle2 Callout Entities Removed.");
         //new SWLWelfareCheck().End();
-        Normal("WelfareCheck Callout Entities Removed.");
-        Print("");
+        //Normal("WelfareCheck Callout Entities Removed.");
         Normal("All SWL Callouts was stopped and all blips/peds removed.");
         Print("[LOG]: All callouts for SWLCallouts were unloaded successfully.");
-        Print("");
         bool isCalloutRunning2 = Functions.IsCalloutRunning();
+        Normal("Ensuring all callouts were stopped (Including any not related to SWLCallouts).");
         if (isCalloutRunning2)
         {
             Functions.StopCurrentCallout();
-            Normal("Ensuring all callouts were stopped (Including any not related to SWLCallouts).");
+            Normal("Active callout stopped.");
         }
         else { Normal("No active callouts."); }
-        Print("");
         Print("[LOG]: Ensuring all callouts were stopped (Including any not related to SWLCallouts).");
         Print("============================== Callouts for SWLCallouts Stopped ==============================");
 

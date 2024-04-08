@@ -14,3 +14,5 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "<Pending>", Scope = "member", Target = "~F:SWLCallouts.Callouts.SWLMurderInvestigation.wasClose")]
 [assembly: SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "<Pending>", Scope = "member", Target = "~F:SWLCallouts.Callouts.SWLMurderInvestigation.notificationDisplayed")]
 [assembly: SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "<Pending>", Scope = "member", Target = "~F:SWLCallouts.Callouts.SWLMurderInvestigation.hasPursuitBegun")]
+[assembly: SuppressMessage("Style", "IDE0090:Use 'new(...)'", Justification = "<Pending>", Scope = "member", Target = "~M:SWLCallouts.Stuff.Vector3Extension.ExtensionRandomXY~Rage.Vector3")]
+[assembly: SuppressMessage("Style", "IDE0090:Use 'new(...)'", Justification = "<Pending>", Scope = "member", Target = "~M:SWLCallouts.Callouts.SWLBankRobbery.OnBeforeCalloutDisplayed~System.Boolean")]

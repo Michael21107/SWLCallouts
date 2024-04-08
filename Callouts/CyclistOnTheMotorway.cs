@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 11th Mar 2024
-// Version: 0.5.0.2
+// Version: 0.5.0.5
 
 #region
 
@@ -141,7 +141,7 @@ public class SWLCyclistOnTheMotorway : Callout
             Game.DisplaySubtitle("~y~Suspect: ~w~Please let me go! I'll bring the bike back.", 4000);
         }
         if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
-        if (_suspect.Exists() && (Functions.IsPedArrested(_suspect) || _suspect.IsDead)) End();
+        //if (_suspect.Exists() && (Functions.IsPedArrested(_suspect) || _suspect.IsDead)) End();
         base.Process();
     }
 

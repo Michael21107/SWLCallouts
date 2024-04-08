@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 4th Mar 2024
-// Version: 0.5.0.2
+// Version: 0.5.0.5
 
 #region
 
@@ -104,7 +104,7 @@ class SWLStolenEmergencyVehicle : Callout
     public override void Process()
     {
         if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
-        if (_suspect.Exists() && (Functions.IsPedArrested(_suspect) || _suspect.IsDead)) End();
+        //if (_suspect.Exists() && (Functions.IsPedArrested(_suspect) || _suspect.IsDead)) End();
         base.Process();
     }
 

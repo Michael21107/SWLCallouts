@@ -1,14 +1,16 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.5.0.2
+// Version: 0.5.0.5
 
 #region
 
 #endregion
 
 using LSPD_First_Response.Mod.API;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Reflection;
+using System.Security.Cryptography;
 
 namespace SWLCallouts;
 
@@ -17,7 +19,9 @@ internal static class Settings
     // Check the department
     //internal static string Department = "SWLCO"; // Default to SWLCO logo //
     // Callouts below //
+    internal static bool SWLBankRobbery = true;
     internal static bool SWLCyclistOnTheMotorway = true;
+    internal static bool SWLEmergencyCallHangup = true;
     internal static bool SWLHighSpeedChase = true;
     internal static bool SWLMurderInvestigation = true;
     internal static bool SWLPersonWithAKnife = true;
@@ -26,6 +30,7 @@ internal static class Settings
     internal static bool SWLStolenEmergencyVehicle2 = true;
     internal static bool SWLWelfareCheck = true;
     // Extras below //
+    internal static string ESNumber = "911";
     internal static bool ActivateAIBackup = true;
     internal static bool HelpMessages = true;
     // Keys below //
@@ -64,14 +69,18 @@ internal static class Settings
             Settings("Loading custom settings...");
         }
         Settings("////////////////////////////////////////////////");
-        Settings("////**********SWLCallouts Settings**********////");
+        Settings("////********SWLCallouts Settings********////");
         Settings("////////////////////////////////////////////////");
         Settings("Callouts, Settings and Keybinds loading...");
 
         // Callouts below //
         Settings("..Callouts..");
+        SWLBankRobbery = ini.ReadBoolean("Callouts", "BankRobbery", true);
+        Settings($"BankRobbery = {SWLBankRobbery}");
         SWLCyclistOnTheMotorway = ini.ReadBoolean("Callouts", "CyclistOnTheMotorway", true);
         Settings($"CyclistOnTheMotorway = {SWLCyclistOnTheMotorway}");
+        SWLEmergencyCallHangup = ini.ReadBoolean("Callouts", "EmergencyCallHangup", true);
+        Settings($"EmergencyCallHangup = {SWLEmergencyCallHangup}");
         SWLHighSpeedChase = ini.ReadBoolean("Callouts", "HighSpeedChase", true);
         Settings($"HighSpeedChase = {SWLHighSpeedChase}");
         SWLMurderInvestigation = ini.ReadBoolean("Callouts", "MurderInvestigation", true);
@@ -90,6 +99,8 @@ internal static class Settings
         // Settings Below //
         Settings("..Settings..");
         //Department = ini.ReadString("Settings", "Department", "SWLCO"); // Default to SWLCallout Logo if not specified //
+        ESNumber = ini.ReadString("Settings", "ESNumber", "911");
+        Settings($"ESNumber = {ESNumber}");
         ActivateAIBackup = ini.ReadBoolean("Settings", "ActivateAIBackup", true);
         Settings($"ActivateAIBackup = {ActivateAIBackup}");
         HelpMessages = ini.ReadBoolean("Settings", "HelpMessages", true);
@@ -102,7 +113,7 @@ internal static class Settings
         Dialog = ini.ReadEnum("Keys", "Dialog", Keys.Y);
         Settings($"Dialog = {Dialog}");
     }
-    public static readonly string PluginVersion = "0.5.0.2";
+    public static readonly string PluginVersion = "0.5.0.3";
     public static readonly string VersionType = "Beta";
 
     private static void WriteDefaultSettings(string filePath)
@@ -123,7 +134,9 @@ internal static class Settings
         writer.WriteLine("// You can disable callouts, if you do not want to have them in game. ");
         writer.WriteLine("// (default -- true)");
         writer.WriteLine();
+        writer.WriteLine("BankRobbery = true");
         writer.WriteLine("CyclistOnTheMotorway = true");
+        writer.WriteLine("EmergencyCallHangup = true");
         writer.WriteLine("HighSpeedChase = true");
         writer.WriteLine("PersonWithAKnife = true");
         writer.WriteLine("ShotsFired = true");
@@ -143,6 +156,11 @@ internal static class Settings
         writer.WriteLine("// This is experimental, DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING!");
         writer.WriteLine("// Choose between SWLCO, police, lssheriff, sheriff, highway, FIB, IAA, safire, saems/sams");
         writer.WriteLine("//Department = SWLCO");
+        writer.WriteLine();
+        writer.WriteLine("// This option is so that you can have custom dispatch calls with your own local 'Emergency Services' number.");
+        writer.WriteLine("// Either it be 911, 112 or 000 for example. Enter it below and it will display in game on our calls.");
+        writer.WriteLine("// (default -- 911)");
+        writer.WriteLine("ESNumber = 911");
         writer.WriteLine();
         writer.WriteLine("// Activate this option to have AI units responding to certain callouts with the Player (you).");
         writer.WriteLine("// The backup type is different for each callout. This means you wont have a local unit responding to a heavily-armed terrorist attack.");

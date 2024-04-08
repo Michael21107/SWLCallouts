@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.5.0.2
+// Version: 0.5.0.5
 
 #region
 
@@ -77,7 +77,7 @@ public class PluginCheck
                 }
                 else
                 {
-                    Normal("New update available. Please update ASAP!");
+                    Log("New update available. Please update ASAP!");
                     NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts ~y~Warning", "~y~A new Update is available!", $"Current Version: ~r~{curVersion}~w~<br>New Version: ~o~{latestPubVersion}~w~<br>Please ~b~update ~w~to the latest build ~r~ASAP!");
 
                     Print("================================================== SWLCallouts ===================================================");
@@ -138,7 +138,7 @@ public class PluginCheck
                         }
                         else
                         {
-                            Normal("New testing update is available. Please update ASAP!");
+                            Log("New testing update is available. Please update ASAP!");
                             NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts ~y~Warning", "~y~A new Update is available!", $"Current Version: ~r~{curVersion}~w~<br>New Version: ~o~{latestTestVersion}~w~<br>Current Type: ~b~{curType}~w~<br>~r~Please update to the latest Testing build from Github!");
 
                             Print("================================================== SWLCallouts ===================================================");
@@ -154,7 +154,7 @@ public class PluginCheck
             }
             else
             {
-                Normal("Failed to receive current version type response");
+                Log("Failed to receive current version type response");
                 NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts ~y~Warning", "~r~Failed to check for an update", "Please make sure you are ~y~connected~w~ to the internet or try to ~y~reload~w~ the plugin.");
 
                 Print("================================================== SWLCallouts ===================================================");
@@ -167,12 +167,25 @@ public class PluginCheck
         }
         catch (HttpRequestException)
         {
-            Normal("No internet connection? - unable to connect to github.");
+            Log("No internet connection? - Unable to check for the latest version on LSPDFR or Github.");
             NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~r~Failed to check for an update", "Please make sure you are ~y~connected~w~ to the internet or try to ~y~reload~w~ the plugin.");
 
             Print("================================================== SWLCallouts ===================================================");
             Print("[WARNING]: Failed to check for an update.");
             Print("[LOG]: Please make sure you are connected to the internet or try to reload the plugin.");
+            Print("================================================== SWLCallouts ===================================================");
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Log("Unable to check for the latest version on LSPDFR or Github.");
+            Error(ex, nameof(IsUpdateAvailable));
+            NotifyP("commonmenu", "mp_alerttriangle", "~w~SWLCallouts Warning", "~r~Failed to check for an update", "Please make sure you are ~y~connected~w~ to the internet or please check your ~y~firewall~w~.");
+
+            Print("================================================== SWLCallouts ===================================================");
+            Print("[WARNING]: Failed to check for an update.");
+            Print("[LOG]: Please make sure you are connected to the internet or please check your firewall.");
             Print("================================================== SWLCallouts ===================================================");
 
             return false;

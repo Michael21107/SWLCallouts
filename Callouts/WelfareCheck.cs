@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.5.0.2
+// Version: 0.5.0.5
 
 #region
 
@@ -464,6 +464,7 @@ public class SWLWelfareCheck : Callout
                                 Speech("~b~You: ~w~No worries, you have yourself a wonderful day too!", 5000);
                                 GameFiber.Sleep(5000);
                                 Normal("Callout 6 finished.");
+                                GameFiber.Sleep(2000);
                                 End();
                             }
                             if (_callOutMessage == 7)
@@ -473,6 +474,7 @@ public class SWLWelfareCheck : Callout
                                 _suspect.KeepTasks = true;
                                 GameFiber.Sleep(5000);
                                 Normal("Callout 7 finished.");
+                                GameFiber.Sleep(2000);
                                 End();
                             }
                             _storyLine++;
@@ -492,22 +494,26 @@ public class SWLWelfareCheck : Callout
                             if (_callOutMessage == 1)
                             {
                                 Normal("Callout 1 finished.");
+                                GameFiber.Sleep(2000);
                                 End();
                             }
                             if (_callOutMessage == 2)
                             {
                                 Normal("Callout 2 finished.");
+                                GameFiber.Sleep(2000);
                                 End();
                             }
                             if (_callOutMessage == 3)
                             {
                                 Normal("Callout 3 finished.");
+                                GameFiber.Sleep(2000);
                                 End();
                             }
                             if (_callOutMessage == 4)
                             {
-                                Speech("~y~Civilian: ~w~Yes, I have been busy and didn't take note of the time. We are fine, thanks for the concern.", 10000);
+                                Speech("~y~Civilian: ~w~Yes, I have been busy and didn't take note of the time. We are fine, thanks for the concern.", 8000);
                                 Normal("Callout 4 finished.");
+                                GameFiber.Sleep(2000);
                                 End();
                             }
                             _storyLine++;
@@ -518,7 +524,7 @@ public class SWLWelfareCheck : Callout
         }
 
         if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
-        if (_suspect.Exists() && (Functions.IsPedArrested(_suspect) || _suspect.IsDead)) End();
+        //if (_suspect.Exists() && (Functions.IsPedArrested(_suspect) || _suspect.IsDead)) End();
 
         base.Process();
     }

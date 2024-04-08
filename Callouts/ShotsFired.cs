@@ -1,6 +1,6 @@
 ﻿// Author: Scottywonderful
 // Created: 2nd Mar 2024
-// Version: 0.5.0.2
+// Version: 0.5.0.5
 
 #region
 
@@ -127,6 +127,7 @@ public class SWLShotsFired : Callout
                 else
                 {
                     Log("Failed to detect suspect 1, ending call...");
+                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Reports of Shots Fired", "~b~Dispatch~w~: This is dispatch, call is cleared due to a dispatch error. Showing you returning to patrol.<br>~y~Check console for more...");
                     End();
                     return false; // Return false if failed to spawn suspect 1
                 }
@@ -163,12 +164,14 @@ public class SWLShotsFired : Callout
                 else
                 {
                     Log("Failed to detect both suspect 1 and suspect 2, ending call...");
+                    NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Reports of Shots Fired", "~b~Dispatch~w~: This is dispatch, call is cleared due to a dispatch error. Showing you returning to patrol.<br>~y~Check console for more...");
                     End();
                     return false; // Return false if failed to spawn both suspects
                 }
                 break;
             default:
                 Log("Unknown issue, ending call...");
+                NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Reports of Shots Fired", "~b~Dispatch~w~: This is dispatch, call is cleared due to a dispatch error. Showing you returning to patrol.<br>~y~Check console for more...");
                 End();
                 return false; // Return false by default if neither case is executed
         }
@@ -221,6 +224,7 @@ public class SWLShotsFired : Callout
         else
         {
             Log("No results found. Ending call...");
+            NotifyP("3dtextures", "mpgroundlogo_cops", "~w~SWLCallouts", "~y~Reports of Shots Fired", "~b~Dispatch~w~: This is dispatch, call is cleared due to a dispatch error. Showing you returning to patrol.<br>~y~Check console for more...");
             End();
         }
 
@@ -340,8 +344,8 @@ public class SWLShotsFired : Callout
             
         }
         if (Game.IsKeyDown(Settings.EndCall) || GPlayer.IsDead) End();
-        if (_suspect2.Exists() && _suspect1.Exists() && ((_suspect1.IsDead || Functions.IsPedArrested(_suspect1)) && (_suspect2.IsDead || Functions.IsPedArrested(_suspect2)))) End();
-        if (!(_suspect2 != null) && _suspect1.Exists() && (_suspect1.IsDead || Functions.IsPedArrested(_suspect1))) End();
+        //if (_suspect2.Exists() && _suspect1.Exists() && ((_suspect1.IsDead || Functions.IsPedArrested(_suspect1)) && (_suspect2.IsDead || Functions.IsPedArrested(_suspect2)))) End();
+        //if (!(_suspect2 != null) && _suspect1.Exists() && (_suspect1.IsDead || Functions.IsPedArrested(_suspect1))) End();
 
         base.Process();
     }

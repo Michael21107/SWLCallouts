@@ -1,7 +1,7 @@
 <!--
 // Author: Scottywonderful
 // Created: 16th Feb 2024
-// Version: 0.5.0.2
+// Version: 0.5.0.5
 -->
 
 <!-- PROJECT SHIELDS -->
@@ -15,7 +15,7 @@
   <a href="https://github.com/Scottywonderful/SWL-Callouts">
     <img src="Images/SWLCO.png" alt="SWLCallouts Logo" width="128" height="128">
   </a>
-<h3 align="center">SWLCallouts (Build 0.5.0.2)</h3>
+<h3 align="center">SWLCallouts (Build 0.5.0.5)</h3>
   <p align="center">SWLCallouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
     <br />
     <br />
@@ -76,10 +76,12 @@ Scottywonderful<br><br>
 ### <span style="color:purple">Callouts</span>
 Here you can find the list of callouts which are either <i>available</i>, <i>coming soon</i> (next update) or <i>in progress</i> (a future update).
 <b><span style="color:lightgreen">Available Police Callouts</span></b>
- * <span style="color:red">**[NEW]**</span> Cyclist on the motorway
+ * <span style="color:red">**[NEW]**</span> Bank Robbery (multiple outcomes)
+ * <span style="color:orange">**[UPDATED]**</span> Cyclist on the motorway
+ * <span style="color:red">**[NEW]**</span> Emergency Call Hangup
  * High speed chase
  * <span style="color:red">**[NEW]**</span> Murder investigation
- * Person with a knife
+ * <span style="color:orange">**[UPDATED]**</span> Person with a knife
  * Shots fired
  * Stolen emergency service vehicle
  * Welfare check
@@ -100,7 +102,6 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
   * ATM robbery
   * Attempted mass incident
   * Attempted robbery
-  * Bank robbery
   * Break and enter
   * Commercial disturbance
   * Drug Deal
@@ -181,7 +182,7 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
 ### <span style="color:red">Requirements</span>
 * LSPD First Response 0.4.9 <i>(or higher)</i> <a href="https://www.lcpdfr.com/files/file/7792-lspd-first-response">Download here</a>
 * RAGE Plugin Hook 1.95 <i>(or higher)</i> <a href="https://ragepluginhook.net/Downloads.aspx">Download here</a>
-* Open All Interiors <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/open-all-interiors">Download here</a> ##COMING SOON##
+* Open All Interiors <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/open-all-interiors">Download here</a>
 * A legal copy of GTA5 <i>(Retail, Epic Games or Steam)</i><br>
 <!--* Enable All Interiors (WIP) <u>(23.1 or higher)</u> <i>(required for certain callouts)</i> <a href="https://www.gta5-mods.com/scripts/enable-all-interiors-wip">Download here</a>--> <!-- This is a replacement of the Open All Interiors mod -->
 
