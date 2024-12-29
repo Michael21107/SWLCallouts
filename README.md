@@ -16,7 +16,7 @@
     <img src="Images/SWLCO.png" alt="SWLCallouts Logo" width="128" height="128">
   </a>
 <h3 align="center">SWLCallouts (Build 0.5.0.5)</h3>
-  <p align="center">SWLCallouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto 5</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep an eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
+  <p align="center">SWLCallouts is a plugin for <a href="https://www.lcpdfr.com/lspdfr/index/"><strong>LSPDFR</strong></a> which is a <a href="https://www.rockstargames.com/gta-v"><underline>Grand Theft Auto V</underline></a> modification and has over <strong>1.6 million registered downloads</strong> and adds a large range of random but realistic callouts with different locations, endings and possibilities. Always keep your eyes open, anything is possible. Think Safe, Act Safe, Be Safe.
     <br />
     <br />
   </p>
@@ -54,7 +54,7 @@ Hello there,<br>
 I am Scotty (Aka. Scottywonderful), I hope this finds you well and that you are having a great day.<br>
 I am pleased to announce that this is my first ever callout pack created for LSDPFR.<br>
 With this, I am excited to say that I have multiple ideas and updates for this pack in the future.<br>
-That's all from me, have fun, remember to think safe, act safe, be safe!<br>
+That's all from me, have fun, remember to think safe, act safe, and be safe!<br>
 
 Have a wonderful day,<br>
 Scottywonderful<br><br>
@@ -63,15 +63,15 @@ Scottywonderful<br><br>
 ## <span style="color:lightblue">Features of SWLCallouts</span>
 
 ### <span style="color:purple">Overview</span>
-* This plugin brings a wide range of callouts with similar real life situations.<br>
+* This plugin brings a wide range of callouts with similar real-life situations.<br>
 * A large majority of calls have a witness or suspect, which you need to speak with (dialogue included).<br>
-* Every callout has different endings and possibilities for more variety realism.<br>
+* Every callout has different endings and possibilities for more variety of realism.<br>
 * Within this pack we have a whopping <b><u>56 varied and realistic police callouts</u></b> for LSPDFR. (Have a look below for a full list of all available callouts.)<br>
 * A lot of callouts have different vehicles and weapons to have more realism.<br>
-* All callouts have several locations in order to spread the love and add realism to the pack.<br>
-  * Be aware that some callouts use specific locations in order to have more realistic locations.<br>
-    <i>In other words, a bank robbery won't happen at a 24/7 and a disturbance between two people won't be at a police station.</i><br>
-  * For ease and to ensure you constantly have a mixture of callouts, all callouts have a location choosing system in order to get the locations near the Player(you).<br><br>
+* All callouts have several locations to spread the love and add realism to the pack.<br>
+  * Be aware that some callouts use specific locations to have more realistic locations.<br>
+    <i>In other words, a bank robbery won't happen at a 24/7, and a disturbance between two people won't happen at a police station.</i><br>
+  * For ease and to ensure you constantly have a mixture of callouts, all callouts have a location-choosing system to get the locations near the Player(you).<br><br>
   
 ### <span style="color:purple">Callouts</span>
 Here you can find the list of callouts which are either <i>available</i>, <i>coming soon</i> (next update) or <i>in progress</i> (a future update).
@@ -79,7 +79,7 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
  * <span style="color:red">**[NEW]**</span> Bank Robbery (multiple outcomes)
  * <span style="color:orange">**[UPDATED]**</span> Cyclist on the motorway
  * <span style="color:red">**[NEW]**</span> Emergency Call Hangup
- * High speed chase
+ * High-speed chase
  * <span style="color:red">**[NEW]**</span> Murder investigation
  * <span style="color:orange">**[UPDATED]**</span> Person with a knife
  * Shots fired
@@ -129,7 +129,7 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
   * Road traffic collision
   * Silent alarm activated
   * Stolen bus incident
-  * Stolen commerical vehicle
+  * Stolen commercial vehicle
   * Stolen vehicle
   * Store robbery
   * Suspect on the run
@@ -145,7 +145,7 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
 
 <!--* Ambulance/Fire Callouts (WIP -- Focused on police callouts)<br>
   * Car into an electricity pole
-  * Commercial building Fire
+  * Commercial Building Fire
   * Emergency landing
   * Garbage fire
   * House fire
@@ -166,14 +166,14 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
   * You may want to use this option to avoid some callouts you don't want to play.<br>
 
 * Option to enable/disable AI backup responding to a callout with the Player(you) in the <code>SWLCallouts.ini</code> file.<br>
-  * This option allows realistic AI units to respond to certain callouts at the same time with the Player(you). This means a local unit won't respond to a gang fight.
-    Note: <i>If the Player(you) is in a pursuit, you'll get help by local units and an air unit instead of a SWAT team.</i><br>
+  * This option allows realistic AI units to respond to certain callouts at the same time as the Player(you). This means a local unit won't respond to a gang fight.
+    Note: <i>If the Player(you) is in pursuit, you'll get help from local units and an air unit instead of a SWAT team.</i><br>
   * RECOMMENDED: <u>If you don't have a powerful PC, set this option in the </u><code>SWLCallouts.ini</code><u> to <code>false</code>.</u><br><br>
   
 ### <span style="color:purple">Want to stay up to date?</span>
 * SWLCallouts has a version control system to let you know when SWLCallouts or LSPDFR has been updated.<br>
-  * NOTE: You can still play with SWLCallouts on your own risk. It's always recommended to update to the latest build.<br>
-  * SWLCallouts may have issues when LSPDFR gets an update that change parts of it's API. <u>-- Please notify us if this happens</u><br><br>
+  * NOTE: You can still play with SWLCallouts at your own risk. It's always recommended to update to the latest build.<br>
+  * SWLCallouts may have issues when LSPDFR gets an update that changes parts of its API. <u>-- Please notify us if this happens</u><br><br>
 
 
 <!-- GETTING STARTED -->
@@ -201,17 +201,17 @@ Here you can find the list of callouts which are either <i>available</i>, <i>com
 
 ## <span style="color:lightblue">Usage</span>
 
-Once you're in game open the RPH console with F4 <i>(by default)</i> and load LSPDFR with <code>"LoadPlugin LSPD First Response.dll"</code>. 
-You can also load LSPDFR on start up <i>(Take a look at the RPH settings for that)</i>.
+Once you're in the game open the RPH console with F4 <i>(by default)</i> and load LSPDFR with <code>"LoadPlugin LSPD First Response.dll"</code>. 
+You can also load LSPDFR on start-up <i>(Take a look at the RPH settings for that)</i>.
 
-After LSPDFR is loaded, go on duty and then SWLCallouts will automatically get loaded and start giving you calls.
+After LSPDFR is loaded, go on duty, and then SWLCallouts will automatically get loaded and start giving you calls.
 You'll now get callouts over time. You can also force callouts with the RPH console by using the command <code>StartCallout [CALLOUT-NAME]</code>.<br><br>
 
 
 <!-- CONTRIBUTING -->
 ## <span style="color:lightblue">Contributing</span>
 
-If you know coding and would like to contribute to this project then please give suggestions or supply callouts for the pack. Community contributions are what make the open source community such a wonderful place to be learning, inspiring, and creating. Any contributions you make are **greatly appreciated**. 
+If you know coding and would like to contribute to this project then please give suggestions or supply callouts for the pack. Community contributions are what makes the open-source community such a wonderful place to be learning, inspiring, and creating. Any contributions you make are **greatly appreciated**. 
 
 <b>Step to contribute</b>
 1. Fork the Project
@@ -224,7 +224,7 @@ If you know coding and would like to contribute to this project then please give
 <!-- Crediting people -->
 ## <span style="color:lightblue">Credits</span>
 
-I would like to thank the following people for their help, ideas and contribution;
+I would like to thank the following people for their help, ideas, and contributions;
 * <b><a href="https://github.com/sEbi3">sEbi3</a></b> (<i><a href="https://github.com/sEbi3/UnitedCallouts">UnitedCallouts</a> layout, ideas and some code from the callouts</i> :grin:)
 * <b><a href="https://www.lcpdfr.com/profile/457341-charlie686/">Charlie686</a></b> (<i><a href="https://www.686utilities.com/">686 Utilities Discord bot</a> and layout ideas</i>) :angel:
 * <b><a href="https://discord.com/users/874175887296323624">forevernameless</a></b> (<i>Ideas, Alpha and Beta testing for me</i> :upside_down_face:)
@@ -235,6 +235,6 @@ I would like to thank the following people for their help, ideas and contributio
 * ![legendaryhobo1](https://dcbadge.vercel.app/api/shield/510589560502091787?style=flat-square&?compact=true&?logoColor=orange) (Ideas + Alpha and Beta testing for me :sunglasses:)
 * ![natey1.](https://dcbadge.vercel.app/api/shield/651319300166254592?style=flat-square&?compact=true&?logoColor=blue) (Alpha and Beta testing for me :neutral_face:)<br> -->
 
-* Last but not least, <b><a href="https://discord.com/users/291193188956241921">Scottywonderful</a></b> (Yes, myself, because I made this mostly from scratch and did my own ideas in it as well :cowboy_hat_face:)<br>
+* Last but not least, <b><a href="https://discord.com/users/291193188956241921">Scottywonderful</a></b> (Yes, myself, because I made this mostly from scratch and did my ideas in it as well :cowboy_hat_face:)<br>
 <!--![Scottywonderful](https://dcbadge.vercel.app/api/shield/291193188956241921?style=flat-square&?compact=true&?logoColor=purple)<br>-->
 Need any support then please join our discord <a href="https://discord.gg/GKbEFJZvz4">https://discord.gg/GKbEFJZvz4</a><br>
